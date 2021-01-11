@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- meta-data -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>Dashboard</title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href=" https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700& display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="css/fontawesome/css/font-awesome.min.css">
+
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="css/animate/animate.min.css">
+
+    <!-- Common CSS -->
+    <link rel="stylesheet" href="css/general.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+
+        <nav class="navbar navbar-expand-lg white-navbar navbar-fixed-height fixed-top">
+
+            <div class="container">
+                <div class="row">
+
+                    <!-- Logo -->
+                    <div class="navbar-header col-lg-3 col-10">
+
+                        <a class="navbar-brand text-left" href="#">
+                            <img src="images/Logos/top-logo-dark.png" alt="logo">
+                        </a>
+
+                    </div>
+
+                    <button class="navbar-toggler collapsed col-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="mobile-nav-close-btn">&times;</span>
+                        <span class="mobile-nav-open-btn">&#9776;</span>
+                    </button>
+
+                    <div class="collapse navbar-collapse col-lg-9" id="navbarSupportedContent">
+
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item"><a class="nav-link" href="search notes.html">Search Notes</a></li>
+                            <li class="nav-item"><a class="nav-link" href="dashbhoard.html">Sell Your Notes</a></li>
+                            <li class="nav-item"><a class="nav-link" href="buyer request.html">Buyer Requests</a></li>
+                            <li class="nav-item"><a class="nav-link" href="FAQ.html">FAQ</a></li>
+                            <li class="nav-item"><a class="nav-link" href="contact us.html">Contact Us</a></li>
+                            <li class="nav-item profile-dropdown">
+                                <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="images/Dashboard/user.jpg" class="rounded-circle">
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="user-profile.html">My Profile</a>
+                                    <a class="dropdown-item" href="my downloads.html">My Downloads</a>
+                                    <a class="dropdown-item" href="my sold notes.html">My Sold Notes</a>
+                                    <a class="dropdown-item" href="my rejected notes.html">My Rejected Notes</a>
+                                    <a class="dropdown-item" href="change-password.html">Change Password</a>
+                                    <a class="dropdown-item logout" href="#">Logout</a>
+                                </div>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
+                        </ul>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </nav>
+
+    </header>
+    <!-- Navigation Bar END -->
+
+    <section class="blank">
+    </section>
+
+    <!-- Section Dashboard -->
+    <section id="dashboard">
+
+        <div class="content-box-top">
+
+            <div class="container">
+
+                <div class="row" id="dashboard-heading">
+                    <h2 class="heading-lg">Dashboard</h2>
+                    <div class="btn-dashboard ml-auto">
+                        <a class="btn btn-color" href="#" title="Add Note" role="button">Add Note</a>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-12" id="dashboard-box-1">
+                        <div class="dashboard-box-first">
+                            <div class="row ml-auto mr-auto">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-12 text-center" id="my-earning">
+                                    <div class="my-4">
+                                        <img src="images/Dashboard/my-earning.png">
+                                        <h3>My Earning</h3>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-12">
+                                    <div class="row">
+                                        <div class="my-4 col-lg-6 col-md-6 col-sm-6 col-6 text-center">
+                                            <h3>100</h3>
+                                            <p>Number of Notes Sold</p>
+                                        </div>
+                                        <div class="my-4 col-lg-6 col-md-6 col-sm-6 col-6 text-center">
+                                            <h3>$10,000</h3>
+                                            <p>Money Earned</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-4 col-sm-4 text-center" id="dashboard-box-2">
+                        <div class="dashboard-box">
+                            <div class="my-4">
+                                <h3>38</h3>
+                                <p>My Downloads</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-4 col-sm-4 text-center" id="dashboard-box-3">
+                        <div class="dashboard-box">
+                            <div class="my-4">
+                                <h3>12</h3>
+                                <p>My Rejected Notes</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-4 col-sm-4 text-center" id="dashboard-box-4">
+                        <div class="dashboard-box">
+                            <div class="my-4">
+                                <h3>102</h3>
+                                <p>Buyer Requests</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- Section Dashboard END -->
+
+    <!-- Section In Progress Note -->
+    <section id="in-progress-notes">
+
+        <div class="content-box-top">
+
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-lg-7 col-md-6 col-sm-5 col-12 table-heading my-auto">
+                        <h4 class="heading-md">In Progress Notes</h4>
+                    </div>
+                    <div class="col-lg-5 col-md-6 col-sm-7 col-12" id="table-search">
+                        <div class="row search">
+                            <div class="search-bar col-lg-9 col-md-9 col-sm-8 col-8 form-group">
+                                <input type="search" class="form-control" id="search" placeholder="Search">
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-4 btn-search">
+                                <a class="btn btn-color" href="#" title="Search" role="button">Search</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row table-general table-responsive">
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Added Date</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Sell Type</th>
+                                <th>Price</th>
+                                <th class="content-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>09-10-2020</td>
+                                <td>Data Science</td>
+                                <td>Science</td>
+                                <td>Paid</td>
+                                <td>$35</td>
+                                <td>
+                                    <div class="table-images">
+                                        <a href="#"><img src="images/Dashboard/edit.png" alt="edit" class="edit"></a>
+                                        <a href="#"><img src="images/Dashboard/delete.png" alt="delete" class="delete"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>09-03-2020</td>
+                                <td>Biology</td>
+                                <td>Science</td>
+                                <td>Free</td>
+                                <td>$0</td>
+                                <td>
+                                    <div class="table-images">
+                                        <a href="#"><img src="images/Dashboard/eye.png" alt="view" class="eye"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>23-06-2020</td>
+                                <td>History</td>
+                                <td>Submitted</td>
+                                <td>Paid</td>
+                                <td>$21</td>
+                                <td>
+                                    <div class="table-images">
+                                        <a href="#"><img src="images/Dashboard/eye.png" alt="view" class="eye"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>15-09-2020</td>
+                                <td>html CSS JS</td>
+                                <td>Computer Engineering</td>
+                                <td>Paid</td>
+                                <td>$5</td>
+                                <td>
+                                    <div class="table-images">
+                                        <a href="#"><img src="images/Dashboard/eye.png" alt="view" class="eye"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>05-01-2020</td>
+                                <td>Physics</td>
+                                <td>Science</td>
+                                <td>Free</td>
+                                <td>$0</td>
+                                <td>
+                                    <div class="table-images">
+                                        <a href="#"><img src="images/Dashboard/edit.png" alt="edit" class="edit"></a>
+                                        <a href="#"><img src="images/Dashboard/delete.png" alt="delete" class="delete"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="row justify-content-center">
+
+                    <nav aria-label="...">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#"><i class="fa fa-angle-left"></i></a>
+                            </li>
+                            <li class="page-item active">
+                                <a class="page-link" href="#">1<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#"><i class="fa fa-angle-right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- Section In Progress Note END -->
+
+    <!-- Section Published Note -->
+    <section id="published-notes">
+
+        <div class="content-box">
+
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-lg-7 col-md-6 col-sm-5 col-12 table-heading my-auto">
+                        <h4 class="heading-md">Published Notes</h4>
+                    </div>
+                    <div class="col-lg-5 col-md-6 col-sm-7 col-12" id="table-search">
+                        <div class="row search">
+                            <div class="search-bar col-lg-9 col-md-9 col-sm-8 col-8 form-group">
+                                <input type="search" class="form-control" id="search" placeholder="Search">
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-4 btn-search">
+                                <a class="btn btn-color" href="#" title="Search" role="button">Search</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row table-general table-responsive">
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Added Date</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Sell Type</th>
+                                <th>Price</th>
+                                <th class="content-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>09-10-2020</td>
+                                <td>Data Science</td>
+                                <td>Science</td>
+                                <td>Paid</td>
+                                <td>$35</td>
+                                <td>
+                                    <div class="table-images">
+                                        <a href="#"><img src="images/Dashboard/eye.png" alt="view" class="eye"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>09-03-2020</td>
+                                <td>Biology</td>
+                                <td>Science</td>
+                                <td>Free</td>
+                                <td>$0</td>
+                                <td>
+                                    <div class="table-images">
+                                        <a href="#"><img src="images/Dashboard/eye.png" alt="view" class="eye"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>23-06-2020</td>
+                                <td>History</td>
+                                <td>Submitted</td>
+                                <td>Paid</td>
+                                <td>$21</td>
+                                <td>
+                                    <div class="table-images">
+                                        <a href="#"><img src="images/Dashboard/eye.png" alt="view" class="eye"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>15-09-2020</td>
+                                <td>html CSS JS</td>
+                                <td>Computer Engineering</td>
+                                <td>Paid</td>
+                                <td>$5</td>
+                                <td>
+                                    <div class="table-images">
+                                        <a href="#"><img src="images/Dashboard/eye.png" alt="view" class="eye"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>05-01-2020</td>
+                                <td>Physics</td>
+                                <td>Science</td>
+                                <td>Free</td>
+                                <td>$5</td>
+                                <td>
+                                    <div class="table-images">
+                                        <a href="#"><img src="images/Dashboard/eye.png" alt="view" class="eye"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="row justify-content-center">
+
+                    <nav aria-label="...">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#"><i class="fa fa-angle-left"></i></a>
+                            </li>
+                            <li class="page-item active">
+                                <a class="page-link" href="#">1<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#"><i class="fa fa-angle-right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- Section Published Note END -->
+
+
+    <!-- Section Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+
+                <!-- Copyright -->
+                <div class="col-md-6 col-sm-8 footer-text text-left">
+                    <p>Copyright &copy; TatvaSoft All Rights Reserved By</p>
+                </div>
+
+                <!-- Social Icon -->
+                <div class="col-md-6 col-sm-4 foot-icon col-sm-4 text-right">
+                    <ul class="social-list">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+    <!-- Section Footer END -->
+
+    <!-- Jquery JS -->
+    <script src="js/jquery/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="js/bootstrap/popper.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

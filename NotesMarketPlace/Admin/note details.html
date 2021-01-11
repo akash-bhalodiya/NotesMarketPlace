@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- meta-data -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>Admin - Note Detail</title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href=" https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700& display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="css/fontawesome/css/font-awesome.min.css">
+
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="css/animate/animate.min.css">
+
+    <!-- Common CSS -->
+    <link rel="stylesheet" href="css/general.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+
+        <nav class="navbar navbar-expand-lg white-navbar navbar-fixed-height fixed-top">
+
+            <div class="container">
+                <div class="row">
+
+                    <!-- Logo -->
+                    <div class="navbar-header col-lg-3 col-10">
+
+                        <a class="navbar-brand text-left" href="#">
+                            <img src="images/Logos/top-logo-dark.png" alt="logo">
+                        </a>
+
+                    </div>
+
+                    <button class="navbar-toggler collapsed col-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="mobile-nav-close-btn">&times;</span>
+                        <span class="mobile-nav-open-btn">&#9776;</span>
+                    </button>
+
+                    <div class="collapse navbar-collapse col-lg-9" id="navbarSupportedContent">
+
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                            <li class="nav-item notes-dropdown">
+                                <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Notes
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="notes under review.html">Notes Under Review</a>
+                                    <a class="dropdown-item" href="publish notes report.html">Published Notes</a>
+                                    <a class="dropdown-item" href="downloaded notes.html">Download Notes</a>
+                                    <a class="dropdown-item" href="rejected notes.html">Rejected Notes</a>
+                                </div>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="members.html">Members</a></li>
+                            <li class="nav-item reports-dropdown">
+                                <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Reports
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="spam reports.html">Spam Reports</a>
+                                </div>
+                            </li>
+                            <li class="nav-item settings-dropdown">
+                                <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Settings
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="manage system configuration.html">Manage System Configuration</a>
+                                    <a class="dropdown-item" href="manage administrator.html">Manage Administrator</a>
+                                    <a class="dropdown-item" href="manage category.html">Manage Category</a>
+                                    <a class="dropdown-item" href="manage type.html">Manage Type</a>
+                                    <a class="dropdown-item" href="manage country.html">Manage Countries</a>
+                                </div>
+                            </li>
+                            <li class="nav-item profile-dropdown">
+                                <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="images/Dashboard/user.jpg" class="rounded-circle">
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Update Profile</a>
+                                    <a class="dropdown-item" href="change-password.html">Change Password</a>
+                                    <a class="dropdown-item logout" href="#">Logout</a>
+                                </div>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
+                        </ul>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </nav>
+
+    </header>
+    <!-- Navigation Bar END -->
+
+    <section class="blank">
+    </section>
+
+    <!-- Section Admin Note Detail -->
+    <section id="admin-note-detail">
+
+        <div class="content-box">
+
+            <div class="container">
+
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h4 class="heading-md">Notes Detail</h4>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <!-- Notes Detail Top Left Side Note Image-->
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-12" id="note-detail-top-left">
+
+                        <div class="row">
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-12" id="note-detail-img">
+                                <img src="images/Notes Details/1.jpg" class="img-fluid">
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-sm-7 col-12" id="note-detail-info">
+                                <h3 class="heading-lg">Compute Science</h3>
+                                <h6>Science</h6>
+                                <p>LoremLorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus quae eum, expedita debitis nisi, tempora, rerum dolorem possimus at sint perspiciatis iste aut, vel reprehenderit repellendus illo numquam illum cupiditate?</p>
+                                <div id="btn-download">
+                                    <a class="btn btn-color" href="#" title="Download Note" role="button" data-toggle="modal" data-target="#thankspopup">Download / $15</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Notes Detail Top Right Side Info-->
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-12 notes-info" id="note-detail-top-right">
+
+                        <p>
+                            <span class="first">Institute:</span>
+                            <span class="last">University of California</span>
+                        </p>
+                        <p>
+                            <span class="first">Country:</span>
+                            <span class="last">United States</span>
+                        </p>
+                        <p>
+                            <span class="first">Course Name:</span>
+                            <span class="last">Computer Engineering</span>
+                        </p>
+                        <p>
+                            <span class="first">Course Code:</span>
+                            <span class="last">248705</span>
+                        </p>
+                        <p>
+                            <span class="first">Professor:</span>
+                            <span class="last">Mr. Henry Richard</span>
+                        </p>
+                        <p>
+                            <span class="first">Number of Pages:</span>
+                            <span class="last">204</span>
+                        </p>
+                        <p>
+                            <span class="first">Approved Date:</span>
+                            <span class="last">November 25 2020</span>
+                        </p>
+                        <p>
+                            <span class="first">Rating:</span>
+                            <span class="last rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <span>100 reviews</span>
+                            </span>
+                        </p>
+                        <p class="inappropriate">5 User marked this note as inappropriate.</p>
+                    </div>
+
+                </div>
+
+                <br>
+                <hr>
+                <br>
+
+                <div class="row">
+
+                    <!-- Note Detail Bottom Left PDF-->
+                    <div class="col-lg-5 col-md-12 col-sm-12 col-12" id="note-detail-bottom-left">
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h4 class="heading-md">Notes Preview</h4>
+                            </div>
+                        </div>
+
+                        <div class="note-detail-preview">
+                            <iframe src="http://www.africau.edu/images/default/sample.pdf"></iframe>
+                        </div>
+
+                    </div>
+
+                    <!-- Note Detail Bottom Right Comment-->
+                    <div class="col-lg-7 col-md-12 col-sm-12 col-12" id="note-detail-bottom-right">
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h4 class="heading-md">Customer Reviews</h4>
+                            </div>
+                        </div>
+
+                        <div id="comment">
+                            <div class="row comment-box">
+
+                                <!-- Comment 01 -->
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="user-comment">
+                                        <div class="row">
+                                            <div class="col-lg-2 col-md-2 col-sm-3 col-3 user-comment-image">
+                                                <img src="images/Notes Details/team-1.jpg" class="rounded-circle img-fluid" alt="user">
+                                            </div>
+                                            <div class="col-lg-10 col-md-10 col-sm-9 col-9 user-comment-info">
+                                                <h6>Henry Richard</h6>
+                                                <a href="#"><img src="images/Dashboard/delete.png"></a>
+                                                <div class="rating">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <span>100 reviews</span>
+                                                </div>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat explicabo nihil nesciunt earum nemo iure. Quas expedita alias </p>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>
+
+                                <!-- Comment 02 -->
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="user-comment">
+                                        <div class="row">
+                                            <div class="col-lg-2 col-md-2 col-sm-3 col-3 user-comment-image">
+                                                <img src="images/Notes Details/team-2.jpg" class="rounded-circle img-fluid" alt="user">
+                                            </div>
+                                            <div class="col-lg-10 col-md-10 col-sm-9 col-9 user-comment-info">
+                                                <h6>Henry Richard</h6>
+                                                <a href="#"><img src="images/Dashboard/delete.png"></a>
+                                                <div class="rating">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <span>100 reviews</span>
+                                                </div>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat explicabo nihil nesciunt earum nemo iure. Quas expedita alias </p>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>
+
+                                <!-- Comment 03 -->
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="user-comment">
+                                        <div class="row">
+                                            <div class="col-lg-2 col-md-2 col-sm-3 col-3 user-comment-image">
+                                                <img src="images/Notes Details/team-3.jpg" class="rounded-circle img-fluid" alt="user">
+                                            </div>
+                                            <div class="col-lg-10 col-md-10 col-sm-9 col-9 user-comment-info">
+                                                <h6>Henry Richard</h6>
+                                                <a href="#"><img src="images/Dashboard/delete.png"></a>
+                                                <div class="rating">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <span>100 reviews</span>
+                                                </div>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat explicabo nihil nesciunt earum nemo iure. Quas expedita alias </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- Section Admin Note Detail END -->
+
+    <!-- Section Thanks Popup -->
+    <div class="modal fade " id="thankspopup" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <img src="images/Thanks Popup/true.png" alt="Done">
+                        <h4 class="heading-md">Thank you for purchasing!</h4>
+                    </div>
+                    <div id="thanks-note">
+                        <h6 class="heading-ex-sm">Dear Smith,</h6>
+                        <p>As this is paid notes - you need to pay to seller Rahul Shah offline. We will send him an email that you want to download this note. He may contact you further payment process completion.</p>
+                        <p>In case you have urgency,<br>Please contact us on +91 8855885588.</p>
+                        <p>Once he recieve the payment and acknowledge us - selected notes you can see over my downloads tab for download.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Section Thanks Popup END -->
+
+    <!-- Section Footer -->
+    <footer class="footer-admin">
+        <div class="container">
+            <div class="row">
+
+                <!-- Version -->
+                <div class="admin-version col-lg-4 col-md-4 col-sm-4 col-12">
+                    <p>Version : 1.1.24</p>
+                </div>
+
+                <!-- Copyright -->
+                <div class="admin-footer-text col-lg-8 col-md-8 col-sm-8 col-12">
+                    <p>Copyright &copy; TatvaSoft All Rights Reserved By</p>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+    <!-- Section Footer END -->
+
+    <!-- Jquery JS -->
+    <script src="js/jquery/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="js/bootstrap/popper.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

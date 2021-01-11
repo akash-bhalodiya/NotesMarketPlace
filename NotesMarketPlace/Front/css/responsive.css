@@ -1,0 +1,1232 @@
+/* ========================================================================================================== */
+/*                                      992px to 1200px                                                       */
+/* ========================================================================================================== */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+    .container {
+        max-width: 95%;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Navigation Bar                          */
+    /*----------------------------------------------------------------------*/
+    #navbarSupportedContent .nav-item {
+        padding: 0 10px;
+    }
+
+    nav .profile-dropdown div.dropdown-menu.show {
+        -webkit-transform: translate3d(525px, 0, 0) !important;
+        transform: translate3d(525px, 0, 0) !important;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Common CSS                              */
+    /*----------------------------------------------------------------------*/
+    .background-img-heading h1 {
+        font-size: 40px;
+        line-height: 46px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Tables                                  */
+    /*----------------------------------------------------------------------*/
+    .table-general table th {
+        font-size: 16px;
+        line-height: 22px
+    }
+
+    .table-general table td {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .table-general table td.table-sr-no {
+        font-size: 16px;
+        line-height: 18px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              HomePage                                */
+    /*----------------------------------------------------------------------*/
+
+    /*---------- Section Home Background Image ----------*/
+    #home-content {
+        height: 580px;
+    }
+
+    #background-img-text p {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    /*------------- Section About -------------*/
+    #about-right p {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+
+    /*------------ Work ------------*/
+    .work p {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+
+    /*------------- Testimonial Section -------------*/
+    .author {
+        padding-left: 30px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Note Detail                             */
+    /*----------------------------------------------------------------------*/
+    #note-detail-info .heading-lg {
+        color: #6255a5;
+        font-size: 26px;
+        line-height: 26px;
+        font-weight: 600;
+    }
+
+    .note-detail-preview {
+        height: 440px;
+    }
+
+    #comment {
+        height: auto;
+    }
+
+}
+
+/* ========================================================================================================== */
+/*                                      768px to 991px                                                       */
+/* ========================================================================================================== */
+@media (min-width: 768px) and (max-width: 991px) {
+
+    .container {
+        max-width: 95%;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Navigation                              */
+    /*----------------------------------------------------------------------*/
+    .navbar {
+        display: block;
+    }
+
+    nav .container {
+        max-width: 100%;
+        margin: 0 !important;
+    }
+
+    .navbar-brand {
+        padding-left: 20px;
+    }
+
+    #navbarSupportedContent {
+        background: #fff;
+    }
+
+    .navbar-toggler {
+        padding-right: 20px !important;
+    }
+
+    nav .dropdown-menu {
+        border: none;
+        -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+
+    nav li.profile-dropdown .dropdown-menu a.logout:hover {
+        color: #6255a5;
+    }
+
+    nav .dropdown-item {
+        padding: 9px 18px;
+        font-size: 14px;
+    }
+
+    nav .dropdown-menu .dropdown-item:hover,
+    nav .dropdown-menu .dropdown-item:focus,
+    nav .dropdown-menu .dropdown-item:active {
+        color: #6255a5;
+        background-color: #fff;
+    }
+
+    nav .profile-dropdown div.dropdown-menu.show {
+        -webkit-transform: translate3d(25px, 0, 0) !important;
+        transform: translate3d(25px, 0, 0) !important;
+    }
+
+    ul.navbar-nav {
+        padding: 0 10px;
+        margin-top: 15px;
+    }
+
+    ul.navbar-nav li {
+        margin-bottom: 15px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Common CSS                              */
+    /*----------------------------------------------------------------------*/
+    .background-img-heading h1 {
+        font-size: 34px;
+        line-height: 42px;
+        white-space: nowrap;
+    }
+
+    .heading-lg {
+        font-size: 30px;
+        line-height: 34px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              HomePage                                */
+    /*----------------------------------------------------------------------*/
+
+    /*---------- Section Home Background Image ----------*/
+    #home-content {
+        height: 550px;
+    }
+
+    #background-img-text p {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    /*------------- Section About -------------*/
+    #about-right p {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    /*------------ Work ------------*/
+    .work p {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    /*------------- Testimonial Section -------------*/
+    .testimonial {
+        padding: 30px;
+    }
+
+    .testimonial img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .author {
+        padding-left: 0px;
+    }
+
+    .author h5 {
+        font-size: 22px;
+        line-height: 24px;
+        margin-bottom: 3px;
+    }
+
+    .author p {
+        font-size: 14px;
+        line-height: 16px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Note Detail                             */
+    /*----------------------------------------------------------------------*/
+
+    #note-detail-top-left {
+        margin-bottom: 40px;
+    }
+
+    #note-detail-bottom-left {
+        margin-bottom: 40px;
+    }
+
+    /*------------- Section Note Info Author And Rating -------------*/
+    .notes-info {
+        padding: 0 200px 0 15px;
+    }
+
+    /*------------- Section Note Detail PDF Preview -------------*/
+
+    .note-detail-preview {
+        margin: 0;
+        height: 475px;
+        width: 100%;
+    }
+
+    /*------------- Note Detail Comments -------------*/
+    .user-comment-image img {
+        width: 75px;
+        height: 75px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              FAQ                                     */
+    /*----------------------------------------------------------------------*/
+    #faq-content h1 {
+        white-space: nowrap;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Dashboard                               */
+    /*----------------------------------------------------------------------*/
+    #dashboard-box-1 {
+        padding-left: 0;
+        padding-right: 0;
+        margin-bottom: 30px;
+    }
+
+    #dashboard-box-2 {
+        padding-left: 0;
+    }
+
+    #dashboard-box-4 {
+        padding-right: 0;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Tables                                  */
+    /*----------------------------------------------------------------------*/
+    .table-general table th {
+        font-size: 15px;
+        line-height: 18px;
+        white-space: nowrap;
+    }
+
+    .table-general table td {
+        font-size: 15px;
+        line-height: 18px;
+    }
+
+    .table-general table td.table-sr-no {
+        font-size: 16px;
+        line-height: 18px;
+    }
+
+}
+
+/* ========================================================================================================== */
+/*                                      576px to 767px                                                        */
+/* ========================================================================================================== */
+@media (min-width: 576px) and (max-width: 767px) {
+
+    .container {
+        max-width: 95%;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Navigation                              */
+    /*----------------------------------------------------------------------*/
+    .navbar {
+        display: block;
+    }
+
+    nav .container {
+        max-width: 100%;
+        margin: 0 !important;
+    }
+
+    .navbar-brand {
+        padding-left: 15px;
+    }
+
+    #navbarSupportedContent {
+        background: #fff;
+    }
+
+    .navbar-toggler {
+        padding-right: 15px !important;
+    }
+
+    nav .dropdown-menu {
+        border: none;
+        -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+
+    nav li.profile-dropdown .dropdown-menu a.logout:hover {
+        color: #6255a5;
+    }
+
+    nav .dropdown-item {
+        padding: 9px 18px;
+        font-size: 14px;
+    }
+
+    nav .dropdown-menu .dropdown-item:hover,
+    nav .dropdown-menu .dropdown-item:focus,
+    nav .dropdown-menu .dropdown-item:active {
+        color: #6255a5;
+        background-color: #fff;
+    }
+
+    nav .profile-dropdown div.dropdown-menu.show {
+        -webkit-transform: translate3d(25px, 0, 0) !important;
+        transform: translate3d(25px, 0, 0) !important;
+    }
+
+    ul.navbar-nav {
+        margin-top: 15px;
+    }
+
+    ul.navbar-nav li {
+        margin-bottom: 15px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Common CSS                              */
+    /*----------------------------------------------------------------------*/
+    .background-img-heading h1 {
+        font-size: 30px;
+        line-height: 40px;
+        white-space: nowrap;
+    }
+
+    .heading-lg {
+        font-size: 30px;
+        line-height: 34px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              HomePage                                */
+    /*----------------------------------------------------------------------*/
+
+    /*---------- Section Home Background Image ----------*/
+    #home-content {
+        height: 550px;
+    }
+
+    #background-img-text p {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    /*------------- Section About -------------*/
+    #about-left h2 {
+        text-align: center;
+        margin-bottom: 30px
+    }
+
+    #about-right p {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    /*------------ Work ------------*/
+    .work p {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    /*------------- Testimonial Section -------------*/
+    .testimonial {
+        padding: 30px;
+    }
+
+    .testimonial img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .author {
+        padding-left: 0px;
+    }
+
+    .author h5 {
+        font-size: 22px;
+        line-height: 24px;
+        margin-bottom: 3px;
+    }
+
+    .author p {
+        font-size: 14px;
+        line-height: 16px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Search Note                             */
+    /*----------------------------------------------------------------------*/
+    .resulted-note-detail h6 {
+        height: 48px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Note Detail                             */
+    /*----------------------------------------------------------------------*/
+
+    #note-detail-top-left {
+        margin-bottom: 40px;
+    }
+
+    #note-detail-bottom-left {
+        margin-bottom: 40px;
+    }
+
+    /*------------- Section Note Info Author And Rating -------------*/
+    .notes-info {
+        padding: 0 15px 0 15px;
+    }
+
+    /*------------- Section Note Detail PDF Preview -------------*/
+
+    .note-detail-preview {
+        margin: 0;
+        height: 475p;
+        width: 100%;
+    }
+
+    /*------------- Note Detail Comments -------------*/
+    #comment {
+        height: auto;
+    }
+
+    .user-comment-image img {
+        width: 75px;
+        height: 75px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              FAQ                                     */
+    /*----------------------------------------------------------------------*/
+    #faq-content h1 {
+        white-space: nowrap;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Dashboard                               */
+    /*----------------------------------------------------------------------*/
+    #dashboard-box-1 {
+        padding-left: 0;
+        padding-right: 0;
+        margin-bottom: 30px;
+    }
+
+    #dashboard-box-2 {
+        padding-left: 0;
+    }
+
+    #dashboard-box-4 {
+        padding-right: 0;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Tables                                  */
+    /*----------------------------------------------------------------------*/
+    div.search-bar {
+        margin-left: auto;
+    }
+
+    .search-bar .form-group input[type="search"] {
+        width: 180px;
+        margin-left: auto;
+    }
+
+    .table-general table th {
+        font-size: 15px;
+        line-height: 18px;
+        white-space: nowrap;
+    }
+
+    .table-general table td {
+        font-size: 15px;
+        line-height: 18px;
+    }
+
+    .table-general table td.table-sr-no {
+        font-size: 16px;
+        line-height: 18px;
+    }
+
+}
+
+/* ========================================================================================================== */
+/*                                      < 576px                                                               */
+/* ========================================================================================================== */
+@media (max-width: 575px) {
+
+    #dashboard,
+    #in-progress-notes,
+    #published-notes,
+    #my-downloads,
+    #my-rejected-notes,
+    #my-sold-notes,
+    #buyer-request {
+        padding: 0 15px;
+    }
+    
+    .blank{
+        height: 70px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Content Box                             */
+    /*----------------------------------------------------------------------*/
+    .content-box {
+        padding: 40px 0;
+    }
+
+    .content-box-top {
+        padding: 40px 0 20px 0;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Navigation                              */
+    /*----------------------------------------------------------------------*/
+    .navbar {
+        display: block;
+        padding: 10px 0;
+    }
+
+    .navbar-fixed-height {
+        height: 70px;
+    }
+
+    nav .container {
+        max-width: 100%;
+        margin: 0 !important;
+    }
+
+    .navbar-brand {
+        padding-left: 15px;
+    }
+
+    #navbarSupportedContent {
+        background: #fff;
+    }
+
+    .navbar-toggler {
+        padding-right: 15px !important;
+    }
+
+    nav .dropdown-menu {
+        border: none;
+        -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+
+    nav li.profile-dropdown .dropdown-menu a.logout:hover {
+        color: #6255a5;
+    }
+
+    nav .dropdown-item {
+        padding: 9px 18px;
+        font-size: 14px;
+    }
+
+    nav .dropdown-menu .dropdown-item:hover,
+    nav .dropdown-menu .dropdown-item:focus,
+    nav .dropdown-menu .dropdown-item:active {
+        color: #6255a5;
+        background-color: #fff;
+    }
+
+    nav .profile-dropdown div.dropdown-menu.show {
+        -webkit-transform: translate3d(25px, 0, 0) !important;
+        transform: translate3d(25px, 0, 0) !important;
+    }
+
+    ul.navbar-nav {
+        margin-top: 15px;
+    }
+
+    ul.navbar-nav li {
+        margin-bottom: 15px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Heading                                 */
+    /*----------------------------------------------------------------------*/
+    .background-img-heading h1 {
+        font-size: 26px;
+        line-height: 30px;
+        white-space: nowrap;
+    }
+
+    .heading-lg {
+        font-size: 24px;
+        line-height: 30px;
+    }
+
+    .heading-md {
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Buttons                                 */
+    /*----------------------------------------------------------------------*/
+    a.btn {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    a.btn-transperent {
+        height: 36px;
+    }
+
+    a.btn-color {
+        height: 36px;
+    }
+
+    #btn-learn-more a {
+        width: 140px;
+    }
+
+    .btn-work a {
+        width: 140px;
+    }
+
+    #btn-download a {
+        width: 190px;
+    }
+
+    .btn-add-note a {
+        width: 100%;
+    }
+
+    .btn-submit a {
+        width: 100%;
+    }
+
+    .btn-email-verify {
+        width: 100%;
+    }
+
+    .btn-dashboard a {
+        width: 110px;
+    }
+
+    .btn-search a {
+        height: 34px;
+        padding-top: 6px;
+    }
+
+    .btn-form {
+        margin-top: 10px;
+        width: 100%;
+        height: 36px;
+        font-size: 15px;
+        line-height: 20px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Footer                                  */
+    /*----------------------------------------------------------------------*/
+    footer {
+        padding: 10px 0 5px 0;
+    }
+
+    .footer-text p {
+        font-size: 13px;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    ul.social-list {
+        padding: 0;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    ul.social-list li a {
+        width: 25px;
+        height: 25px;
+        line-height: 25px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              FAQ                                     */
+    /*----------------------------------------------------------------------*/
+    #faq-content h1 {
+        white-space: nowrap;
+    }
+
+    .card-header h6 {
+        font-size: 15px;
+    }
+
+    .card-header a {
+        padding: 0;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Dashboard                               */
+    /*----------------------------------------------------------------------*/
+    #dashboard-heading {
+        margin-bottom: 10px;
+    }
+
+    .dashboard-box-first h3,
+    .dashboard-box h3 {
+        font-size: 24px;
+    }
+
+    #my-earning {
+        border-bottom: 1px solid #d1d1d1;
+    }
+
+    #dashboard-box-1 {
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+
+    #dashboard-box-2 {
+        padding: 0;
+        margin-bottom: 20px
+    }
+
+    #dashboard-box-3 {
+        padding: 0;
+        margin-bottom: 20px
+    }
+
+    #dashboard-box-4 {
+        padding: 0;
+        margin-bottom: 20px
+    }
+
+    /*--------------DropDown Left---------------*/
+    #my-downloads .dropleft div.dropdown-menu.show {
+        -webkit-transform: translate3d(-170px, -34px, 0px) !important;
+        transform: translate3d(-170px, -30px, 0px) !important;
+    }
+
+    #my-downloads .dropleft .dropdown-item {
+        padding: 9px 12px;
+        font-size: 15px;
+    }
+
+    #my-sold-notes .dropleft .dropdown-item {
+        padding: 12px 10px;
+        font-size: 15px;
+    }
+
+    #my-rejected-notes .dropleft .dropdown-item {
+        padding: 12px 10px;
+        font-size: 15px;
+    }
+
+    #buyer-request .dropleft .dropdown-item {
+        padding: 12px 10px;
+        font-size: 15px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Tables                                  */
+    /*----------------------------------------------------------------------*/
+    .search-bar {
+        padding-left: 0;
+    }
+
+    .search .form-group input,
+    .search .form-group select {
+        height: 34px;
+    }
+
+    .search {
+        padding-left: 10px;
+    }
+
+    #table-search {
+        padding: 0 5px;
+    }
+
+    .table-general table th {
+        font-size: 15px;
+        line-height: 24px;
+    }
+
+    .table-general table td {
+        font-size: 15px;
+        line-height: 24px;
+    }
+
+    .table-general table td.table-sr-no {
+        font-size: 15px;
+        line-height: 24px;
+    }
+
+    .table td,
+    .table thead th {
+        vertical-align: middle;
+        height: 50px;
+        padding: 3px 0 3px 15px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Pagination                              */
+    /*----------------------------------------------------------------------*/
+    .pagination {
+        margin: 0 0 0 0;
+    }
+
+    .page-link i {
+        font-size: 20px;
+        line-height: 20px;
+    }
+
+    a.page-link {
+        font-size: 15px;
+        line-height: 18px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              HomePage                                */
+    /*----------------------------------------------------------------------*/
+
+    /*---------- Section Home Background Image ----------*/
+    #home-content {
+        height: 550px;
+    }
+
+    div#home-content-inner {
+        padding-left: 10px;
+    }
+
+    #background-img-text p {
+        font-size: 15px;
+        line-height: 20px;
+    }
+
+    /*------------- Section About -------------*/
+    #about-left h2 {
+        text-align: center;
+        margin-bottom: 30px
+    }
+
+    #about-right p {
+        font-size: 15px;
+        line-height: 24px;
+    }
+
+    /*------------ Work ------------*/
+    .work p {
+        font-size: 15px;
+        line-height: 24px;
+    }
+
+    /*------------- Testimonial Section -------------*/
+    #testimonials h2 {
+        text-align: center;
+    }
+
+    .testimonial {
+        padding: 20px;
+    }
+
+    .testimonial img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .author {
+        padding-left: 0px;
+    }
+
+    .author-info {
+        margin-bottom: 20px;
+    }
+
+    .author h5 {
+        font-size: 20px;
+        line-height: 24px;
+        margin-bottom: 3px;
+    }
+
+    .author p {
+        font-size: 15px;
+        line-height: 20px;
+    }
+
+    .author-review {
+        font-size: 15px;
+        line-height: 24px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Contact us                              */
+    /*----------------------------------------------------------------------*/
+    #contact-us-forms textarea.form-control {
+        height: 140px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Search Note                             */
+    /*----------------------------------------------------------------------*/
+    .resulted-note-detail h6 {
+        height: 48px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .resulted-note-detail ul li {
+        margin-bottom: 10px;
+        font-size: 15px;
+        line-height: 24px;
+    }
+
+    .resulted-note-detail span.flag {
+        font-size: 15px;
+        line-height: 24px;
+    }
+
+    /* Star Rating */
+    .resulted-note-detail ul li:last-child i {
+        color: #ffc700;
+        font-size: 16px;
+        line-height: 24px;
+        margin-right: 2px;
+        padding: 0;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Note Detail                             */
+    /*----------------------------------------------------------------------*/
+
+    #note-detail-top-left {
+        margin-bottom: 40px;
+    }
+
+    #note-detail-bottom-left {
+        margin-bottom: 40px;
+    }
+
+    #note-detail-img {
+        margin-bottom: 10px;
+    }
+
+    #note-detail-info p {
+        margin: 20px 0;
+        font-size: 15px;
+        color: #333333;
+        line-height: 20px;
+    }
+
+    /*------------- Section Note Info Author And Rating -------------*/
+    .notes-info {
+        padding: 0 15px;
+    }
+
+    .notes-info p {
+        margin-bottom: 5px;
+    }
+
+    .notes-info p span.first {
+        font-size: 15px;
+        line-height: 24px;
+    }
+
+    .notes-info p span.last {
+        font-size: 15px;
+        line-height: 28px;
+    }
+
+    /*------------- Section Note Detail PDF Preview -------------*/
+
+    .note-detail-preview {
+        margin: 0;
+        height: 400px;
+        width: 100%;
+    }
+
+    /*------------- Note Detail Comments -------------*/
+    #comment {
+        height: auto;
+    }
+
+    .user-comment-image {
+        padding-left: 0;
+    }
+
+    .user-comment h6 {
+        font-size: 15px;
+        line-height: 20px;
+    }
+
+    .user-comment p {
+        font-size: 15px;
+        line-height: 20px;
+    }
+
+    /* Star Rating In Comment */
+    .user-comment .rating span {
+        font-size: 15px;
+        line-height: 18px;
+    }
+
+    .user-comment .rating i {
+        font-size: 14px;
+    }
+
+    /*----------------------------------------------------------------*/
+    /*---------------------- Thanks Pop Up ---------------------------*/
+    /*----------------------------------------------------------------*/
+    .modal {
+        margin-top: 10px;
+    }
+
+    .modal-header {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .modal-header .close {
+        font-size: 30px;
+        padding: 10px 20px 10px 10px;
+    }
+
+    .modal-body {
+        padding: 0 15px 15px 15px;
+    }
+
+    .modal-body img {
+        width: 50px;
+        height: 50px;
+    }
+
+    #thanks-note {
+        margin-top: 20px;
+    }
+
+    .modal-body p {
+        font-size: 15px;
+        line-height: 24px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Form Control                            */
+    /*----------------------------------------------------------------------*/
+    .form-group input,
+    .form-group select {
+        height: 38px;
+    }
+
+    .form-control {
+        font-size: 15px;
+    }
+
+    .form-group label,
+    .form-check label {
+        font-size: 15px;
+    }
+
+    /*------ File Upload Background Image --------*/
+    input[type="file"].image-upload {
+        padding: 100px 0 0 0;
+        height: 100px;
+    }
+
+    input[type="file"].image-upload-note {
+        padding: 100px 0 0 0;
+        height: 100px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Email Verification                      */
+    /*----------------------------------------------------------------------*/
+    #verify-email {
+        margin: 50px auto 0 auto;
+        ;
+        padding: 20px;
+        width: 280px;
+    }
+
+    #verify-email h3 {
+        font-size: 20px;
+        line-height: 28px;
+        margin: 35px 0 25px 0;
+    }
+
+    #verify-email p.name {
+        font-size: 15px;
+        line-height: 20px;
+        margin-bottom: 8px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*    Login, Signup, Forgot Password, Change Password                   */
+    /*----------------------------------------------------------------------*/
+    .form-container {
+        width: 100%;
+    }
+
+    .logo {
+        margin-bottom: 20px;
+    }
+
+    .white-box {
+        padding: 20px;
+    }
+
+    .form-group input,
+    .form-group select {
+        height: 36px;
+    }
+
+    .form-group label,
+    .form-check label {
+        font-size: 15px;
+        line-height: 18px;
+    }
+
+    .white-box .form-check .form-check-input {
+        height: 16px;
+        width: 16px;
+    }
+
+    .white-box p {
+        font-size: 14px;
+    }
+
+    /*------------------- Password Show-Hide ---------------------*/
+    .field-icon {
+        width: 20px;
+        height: 15px;
+        float: right;
+        position: relative;
+        top: -26px;
+        right: 10px;
+    }
+
+}
+
+/* ========================================================================================================== */
+/*                                      < 424px                                                               */
+/* ========================================================================================================== */
+@media (max-width: 424px) {
+
+    /*========================================================================*/
+    /*                              HomePage                                  */
+    /*========================================================================*/
+    .background-img-heading h1 {
+        font-size: 23px;
+        line-height: 26px;
+        white-space: nowrap;
+    }
+
+}
+
+/* ========================================================================================================== */
+/*                                      < 319px                                                               */
+/* ========================================================================================================== */
+@media (max-width: 319px) {
+
+    /*========================================================================*/
+    /*                              HomePage                                  */
+    /*========================================================================*/
+    .background-img-heading h1 {
+        font-size: 20px;
+        line-height: 26px;
+        white-space: nowrap;
+    }
+
+}

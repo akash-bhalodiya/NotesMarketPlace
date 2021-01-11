@@ -1,0 +1,861 @@
+/*===========================================================================================================*/
+/*                              Dashboard                                                                    */
+/*===========================================================================================================*/
+.blank {
+    height: 90px;
+    width: 100%;
+}
+
+#dashboard-heading {
+    margin-bottom: 20px;
+}
+
+.dashboard-box {
+    border: 1px solid #d1d1d1;
+    border-radius: 3px;
+    padding: 0 10px;
+    height: 100%;
+}
+
+.dashboard-box h3 {
+    color: #6255a5;
+    font-size: 30px;
+    line-height: 30px;
+    font-weight: 700;
+}
+
+.dashboard-box p {
+    color: #333333;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    margin-bottom: 0;
+}
+
+#admin-dashboard-box-last {
+    padding-right: 0;
+}
+
+#admin-dashboard-box-first {
+    padding-left: 0;
+}
+
+/*-------Table--------*/
+.search-bar .form-group.search-month {
+    margin-left: 15px;
+}
+
+.search-month {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+/*----------- Drop Down Left --------------*/
+.dropdown-menu {
+    border: none;
+    -webkit-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
+}
+
+.dropleft .dropdown-item:hover,
+.dropleft .dropdown-item:focus,
+.dropleft .dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    outline: 0px;
+    background-color: #6255a5;
+}
+
+.dropleft div.dropdown-menu {
+    padding: 0;
+}
+
+#admin-published-notes .dropleft div.dropdown-menu.show {
+    -webkit-transform: translate3d(-145px, -44px, 0px) !important;
+    transform: translate3d(-145px, -44px, 0px) !important;
+}
+
+#admin-published-notes .dropleft .dropdown-item {
+    padding: 10px 12px;
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 400;
+}
+
+/*===========================================================================================================*/
+/*                              My Profile                                                                    */
+/*===========================================================================================================*/
+#admin-my-profile #phone input#phone-number.form-control {
+    margin-top: 7px;
+}
+
+/*===========================================================================================================*/
+/*                             Manage Administrator                                                          */
+/*===========================================================================================================*/
+input#phone-number.form-control {
+    margin-top: 7px;
+}
+
+#phone label {
+    white-space: nowrap;
+}
+
+/*===========================================================================================================*/
+/*                             Add Category                                                               */
+/*===========================================================================================================*/
+#add-category textarea {
+    height: 200px;
+}
+
+/*===========================================================================================================*/
+/*                             Add Type                                                                      */
+/*===========================================================================================================*/
+#add-type textarea {
+    height: 200px;
+}
+
+/*===========================================================================================================*/
+/*                             Note Detail Admin                                                             */
+/*===========================================================================================================*/
+#admin-note-detail h4 {
+    margin-bottom: 20px;
+}
+
+/*------------- Section Note Detail Image And Description -------------*/
+#note-detail-info p {
+    margin: 20px 0;
+    font-size: 16px;
+    color: #333333;
+    line-height: 20px;
+    font-weight: 400;
+    ;
+}
+
+/*------------- Section Note Info Author And Rating -------------*/
+.notes-info {
+    padding-left: 50px;
+}
+
+.notes-info p span.first {
+    font-size: 18px;
+    line-height: 20px;
+    color: #333333;
+    font-weight: 400;
+}
+
+.notes-info p span.last {
+    font-size: 18px;
+    line-height: 20px;
+    color: #6255a5;
+    font-weight: 600;
+    float: right;
+}
+
+.notes-info p span.last i {
+    color: #ffc700;
+}
+
+.notes-info p span.last i.fa-star-o {
+    color: #d1d1d1;
+}
+
+.notes-info p.inappropriate {
+    font-size: 14px;
+    line-height: 20px;
+    color: #df3434;
+    font-weight: 400;
+}
+
+/*------------- Section Note Detail PDF Preview -------------*/
+
+.note-detail-preview {
+    border: 1px solid #333333;
+    border-radius: 3px;
+    width: 100%;
+    height: 390px;
+}
+
+.note-detail-preview iframe {
+    width: 100%;
+    height: 100%;
+}
+
+/*------------- Note Detail Comments -------------*/
+#comment {
+    border: 1px solid #333333;
+    border-radius: 3px;
+    padding: 25px;
+    height: auto;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.user-comment {
+    margin-bottom: 10px;
+}
+
+.user-comment-image img {
+    width: 50px;
+    height: 50px;
+    padding-right: 0;
+    margin-left: 5px;
+}
+
+.user-comment div.col-md-10.user-comment-info {
+    padding-left: 0;
+}
+
+.user-comment-info img {
+    float: right;
+    height: 22px;
+    width: 18px;
+}
+
+.user-comment h6 {
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 3px;
+}
+
+.user-comment p {
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 400;
+    margin-bottom: 3px;
+    color: #333333
+}
+
+/* Star Rating In Comment */
+.user-comment .rating span {
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 400;
+}
+
+.user-comment .rating i {
+    color: #ffc700;
+    margin-right: 2px;
+    font-size: 15px;
+    padding: 0;
+}
+
+.user-comment .rating i.fa-star-o {
+    color: #d1d1d1;
+}
+
+/*----------------------------------------------------------------*/
+/*---------------------- Thanks Pop Up ---------------------------*/
+/*----------------------------------------------------------------*/
+.modal-content {
+    border: none;
+}
+
+.modal {
+    margin-top: 60px;
+}
+
+.modal-header {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.modal-header .close {
+    font-size: 36px;
+    padding: 0 10px 10px 10px;
+}
+
+.modal-header .close:hover,
+.modal-header .close:focus,
+.modal-header .close:active {
+    outline: 0px;
+}
+
+.modal-body {
+    padding: 0 25px 25px 25px;
+}
+
+.modal-body img {
+    width: 65px;
+    height: 65px;
+}
+
+#thanks-note {
+    margin-top: 25px;
+}
+
+.modal-body p {
+    font-size: 16px;
+    line-height: 22px;
+    color: #333333;
+    font-weight: 400;
+}
+
+#admin-note-detail #comment h6 {
+    display: inline;
+}
+
+#admin-note-detail .delete {
+    float: right;
+    height: 18px;
+    width: 13px
+}
+
+/*===========================================================================================================*/
+/*                             Members                                                                       */
+/*===========================================================================================================*/
+/*----------- Drop Down Left --------------*/
+#members .dropleft div.dropdown-menu.show {
+    -webkit-transform: translate3d(-150px, -35px, 0px) !important;
+    transform: translate3d(-150px, -35px, 0px) !important;
+}
+
+#members .dropleft .dropdown-item {
+    padding: 10px 12px;
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 400;
+}
+
+/*===========================================================================================================*/
+/*                             Members Details                                                               */
+/*===========================================================================================================*/
+#member-detail .member-data {
+    margin-bottom: 30px;
+}
+
+#member-detail .member-info-left {
+    border-right: 1px solid #d1d1d1;
+}
+
+#member-detail .member-info-left p,
+#member-detail .member-info-right p {
+    font-size: 16px;
+    color: #333333;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+#member-detail p.member-personal-info {
+    font-size: 16px;
+    color: #6255a5;
+    font-weight: 600;
+    line-height: 20px;
+}
+
+#member-detail .search-bar {
+    margin-top: 30px;
+}
+
+/*----------- Drop Down Left --------------*/
+#member-note-table .dropleft div.dropdown-menu.show {
+    -webkit-transform: translate3d(-150px, -15px, 0px) !important;
+    transform: translate3d(-150px, -15px, 0px) !important;
+}
+
+#member-note-table .dropleft .dropdown-item {
+    padding: 12px 12px;
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 400;
+    text-align: center;
+}
+
+/*===========================================================================================================*/
+/*                             Spam Reports                                                                  */
+/*===========================================================================================================*/
+/*----------- Drop Down Left --------------*/
+#spam-reports .dropleft div.dropdown-menu.show {
+    -webkit-transform: translate3d(-150px, -40px, 0px) !important;
+    transform: translate3d(-150px, -40px, 0px) !important;
+}
+
+#spam-reports .dropleft .dropdown-item {
+    padding: 12px 12px;
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 400;
+    text-align: center;
+}
+
+/*===========================================================================================================*/
+/*                             Notes Under Review                                                            */
+/*===========================================================================================================*/
+#notes-under-review .seller-text p {
+    margin: 4px;
+}
+
+#notes-under-review .btn-approve {
+    color: #fff;
+    background: #28a745;
+    height: 36px;
+    border-radius: 3px;
+    width: 100px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+#notes-under-review .btn-reject {
+    color: #fff;
+    background: #ff3636;
+    height: 36px;
+    border-radius: 3px;
+    width: 100px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+#notes-under-review .btn-inreview {
+    color: #fff;
+    background: #cccccc;
+    height: 36px;
+    border-radius: 3px;
+    width: 100px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+/*----------- Drop Down Left --------------*/
+#notes-under-review .dropleft div.dropdown-menu.show {
+    -webkit-transform: translate3d(-150px, -40px, 0px) !important;
+    transform: translate3d(-150px, -40px, 0px) !important;
+}
+
+#notes-under-review .dropleft .dropdown-item {
+    padding: 12px 12px;
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 400;
+    text-align: center;
+}
+
+/*----------------------------------------------------------------*/
+/*------------------------ Add Remark ----------------------------*/
+/*----------------------------------------------------------------*/
+.modal button.close {
+    color: #333333;
+}
+
+.modal button.close:hover {
+    color: #333333;
+}
+
+#modal-remark {
+    margin-top: 50px;
+}
+
+#modal-remark textarea {
+    height: 200px;
+}
+
+#reject-modal-btn {
+    float: right;
+}
+
+.btn-modal-reject,
+.btn-modal-cancle {
+    display: inline;
+}
+
+.btn-modal-cancle a {
+    font-size: 16px;
+    background: #cccccc;
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn-modal-reject a {
+    font-size: 16px;
+    background: #ff3636;
+    color: #fff;
+    font-weight: 600;
+}
+
+/*===========================================================================================================*/
+/*                             Published Notes Report                                                              */
+/*===========================================================================================================*/
+#published-notes .seller-text p {
+    margin: 4px;
+}
+
+/*----------- Drop Down Left --------------*/
+#published-notes .dropleft div.dropdown-menu.show {
+    -webkit-transform: translate3d(-150px, -40px, 0px) !important;
+    transform: translate3d(-150px, -40px, 0px) !important;
+}
+
+#published-notes .dropleft .dropdown-item {
+    padding: 12px 12px;
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 400;
+    text-align: center;
+}
+
+/*===========================================================================================================*/
+/*                             Downloaded Notes                                                              */
+/*===========================================================================================================*/
+.filter-table-text {
+    padding-left: 0;
+}
+
+.filter-table-row {
+    padding: 0 20px 0 0;
+}
+
+.filter-table-text p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+
+.filter-table select {
+    height: 38px;
+}
+
+.user-info-eye-link {
+    text-align: center;
+}
+
+/*----------- Drop Down Left --------------*/
+#downloaded-notes .dropleft div.dropdown-menu.show {
+    -webkit-transform: translate3d(-150px, -40px, 0px) !important;
+    transform: translate3d(-150px, -40px, 0px) !important;
+}
+
+#downloaded-notes .dropleft .dropdown-item {
+    padding: 12px 12px;
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 400;
+    text-align: center;
+}
+
+/*===========================================================================================================*/
+/*                             Rejected Notes                                                              */
+/*===========================================================================================================*/
+#rejected-notes .seller-text p {
+    margin: 4px;
+}
+
+/*----------- Drop Down Left --------------*/
+#rejected-notes .dropleft div.dropdown-menu.show {
+    -webkit-transform: translate3d(-150px, -40px, 0px) !important;
+    transform: translate3d(-150px, -40px, 0px) !important;
+}
+
+#rejected-notes .dropleft .dropdown-item {
+    padding: 12px 12px;
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 400;
+    text-align: center;
+}
+
+/*===========================================================================================================*/
+/*===========================================================================================================*/
+/*                              Tables                                                                       */
+/*===========================================================================================================*/
+/*===========================================================================================================*/
+
+/*----------At Top Of Table----------*/
+.search {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding-left: 0;
+    margin-right: -5px
+}
+
+#table-search {
+    padding: 0 0;
+}
+
+.btn-search,
+.table-heading {
+    padding: 0;
+}
+
+.search .form-group input,
+.search .form-group select {
+    height: 38px;
+}
+
+.btn-add-items {
+    padding: 0;
+}
+
+/*----------Table----------*/
+.table-responsive {
+    width: auto;
+}
+
+.table-general table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #d1d1d1;
+    border-radius: 3px;
+}
+
+.table-general th:last-child {
+    height: 100%;
+    min-width: 90px;
+}
+
+.table-general tr {
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.table td,
+.table thead th {
+    vertical-align: middle;
+    height: 70px;
+    padding: 0 0 0 15px;
+}
+
+.table-general table th {
+    border-bottom: 1px solid #d1d1d1;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    color: #333333;
+    text-transform: uppercase;
+}
+
+.table-general table td {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18px;
+    color: #333333;
+}
+
+.table-general table td.table-sr-no {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 18px;
+    color: #333333;
+}
+
+.table-general table tbody tr:hover {
+    -webkit-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+/*-----------------Column Width-----------------------*/
+.table-general .table-notes-title {
+    min-width: 150px;
+}
+
+.table-general .remark {
+    min-width: 200px;
+}
+
+.table-general .action-button {
+    min-width: 342px;
+}
+
+/*----------Content Align Center----------*/
+.content-center {
+    text-align: center;
+}
+
+/*----------Colored Content----------*/
+.table-general table td.data-highlight {
+    color: #6255a5;
+}
+
+/*----------Table Notes Title Colored----------*/
+.table-notes-title a {
+    color: #6255a5
+}
+
+.table-notes-title a:hover {
+    color: #6255a5;
+    text-decoration: none;
+}
+
+/*----------Table Column Image----------*/
+.table-general table div.table-images {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table-general table img.eye {
+    height: 15px;
+    width: 22px;
+    margin: 0 5px;
+}
+
+.table-general table img.edit {
+    height: 18px;
+    width: 18px;
+    margin: 0 5px;
+}
+
+.table-general table img.delete {
+    height: 18px;
+    width: 18px;
+    margin: 0 5px;
+}
+
+.table-general table img.dots {
+    height: 18px;
+    width: 4px;
+    margin: 0 5px;
+}
+
+.table-general .btn-group .btn {
+    padding: 0;
+}
+
+/*===========================================================================================================*/
+/*                              Login, Signup, Forgot-Password, Change-Password                              */
+/*===========================================================================================================*/
+/* Login */
+#login,
+#change-password {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    min-height: 100%;
+    width: 100%;
+    background: url(../images/pre-login/banner-with-overlay.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 25px 0;
+}
+
+.form-container {
+    width: 450px;
+}
+
+.logo {
+    margin-bottom: 30px;
+}
+
+.form-heading {
+    margin-bottom: 30px;
+}
+
+.white-box {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 5px;
+}
+
+.form-group input,
+.form-group select {
+    height: 40px;
+    border: 1px solid #d1d1d1;
+    border-radius: 3px;
+}
+
+.form-group label,
+.form-check label {
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+
+.form-group.forgot-password label {
+    margin-bottom: 0;
+}
+
+.white-box .forgot-password label {
+    width: 100%;
+}
+
+.white-box .forgot-password label span {
+    float: left;
+}
+
+.white-box .forgot-password label a {
+    float: right;
+    color: #6255a5;
+}
+
+.white-box a:hover {
+    color: #6255a5;
+    text-decoration: none;
+}
+
+.white-box .form-check .form-check-input {
+    border: 1px solid #d1d1d1;
+    height: 18px;
+    width: 18px;
+    border-radius: 3px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-check-input:focus {
+    border: 1px solid #6255a5;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    outline: 0px;
+}
+
+.white-box .form-check-label {
+    margin-left: 10px;
+    padding: 4px 0 0 0;
+}
+
+.white-box p {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    color: #333333;
+}
+
+.white-box p a {
+    color: #6255a5;
+}
+
+/*------------------- Password Show-Hide ---------------------*/
+.field-icon {
+    width: 25px;
+    height: 18px;
+    float: right;
+    position: relative;
+    top: -30px;
+    right: 15px;
+}
+
+.form-control.is-invalid,
+.was-validated .form-control:invalid {
+    border-color: #ff3636;
+    background: none;
+}
+
+.invalid-feedback {
+    color: #ff3636;
+    font-size: 13px;
+}
+
+.valid-feedback {
+    display: block;
+    font-size: 14px;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.valid-feedback i {
+    font-size: 18px;
+}

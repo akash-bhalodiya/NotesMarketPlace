@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- meta-data -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>Admin - Notes Under Review</title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href=" https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700& display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="css/fontawesome/css/font-awesome.min.css">
+
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="css/animate/animate.min.css">
+
+    <!-- Common CSS -->
+    <link rel="stylesheet" href="css/general.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+
+        <nav class="navbar navbar-expand-lg white-navbar navbar-fixed-height fixed-top">
+
+            <div class="container">
+                <div class="row">
+
+                    <!-- Logo -->
+                    <div class="navbar-header col-lg-3 col-10">
+
+                        <a class="navbar-brand text-left" href="#">
+                            <img src="images/Logos/top-logo-dark.png" alt="logo">
+                        </a>
+
+                    </div>
+
+                    <button class="navbar-toggler collapsed col-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="mobile-nav-close-btn">&times;</span>
+                        <span class="mobile-nav-open-btn">&#9776;</span>
+                    </button>
+
+                    <div class="collapse navbar-collapse col-lg-9" id="navbarSupportedContent">
+
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                            <li class="nav-item notes-dropdown">
+                                <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Notes
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="notes under review.html">Notes Under Review</a>
+                                    <a class="dropdown-item" href="publish notes report.html">Published Notes</a>
+                                    <a class="dropdown-item" href="downloaded notes.html">Download Notes</a>
+                                    <a class="dropdown-item" href="rejected notes.html">Rejected Notes</a>
+                                </div>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="members.html">Members</a></li>
+                            <li class="nav-item reports-dropdown">
+                                <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Reports
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="spam reports.html">Spam Reports</a>
+                                </div>
+                            </li>
+                            <li class="nav-item settings-dropdown">
+                                <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Settings
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="manage system configuration.html">Manage System Configuration</a>
+                                    <a class="dropdown-item" href="manage administrator.html">Manage Administrator</a>
+                                    <a class="dropdown-item" href="manage category.html">Manage Category</a>
+                                    <a class="dropdown-item" href="manage type.html">Manage Type</a>
+                                    <a class="dropdown-item" href="manage country.html">Manage Countries</a>
+                                </div>
+                            </li>
+                            <li class="nav-item profile-dropdown">
+                                <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="images/Dashboard/user.jpg" class="rounded-circle">
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Update Profile</a>
+                                    <a class="dropdown-item" href="change-password.html">Change Password</a>
+                                    <a class="dropdown-item logout" href="#">Logout</a>
+                                </div>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
+                        </ul>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </nav>
+
+    </header>
+    <!-- Navigation Bar END -->
+
+    <section class="blank">
+    </section>
+
+    <!-- Section Notes Under Review -->
+    <section id="notes-under-review">
+
+        <div class="content-box">
+
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 table-heading my-auto">
+                        <h4 class="heading-md">Notes Under Review</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-7 col-md-6 col-sm-12 col-12 filter-table-text">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 col-sm-4 col-6">
+                                <p>seller</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-7 col-md-6 col-sm-12 col-12 text-left filter-table-row">
+                        <div class="row">
+
+                            <div class="form-group col-lg-3 col-md-6 col-sm-4 col-6 filter-table">
+                                <select id="seller" class="form-control">
+                                    <option selected>Select seller</option>
+                                    <option>seller 1</option>
+                                    <option>seller 2</option>
+                                    <option>seller 3</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-6 col-sm-12 col-12" id="table-search">
+                        <div class="row search">
+                            <div class="search-bar col-lg-9 col-md-8 col-sm-9 col-8 form-group">
+                                <input type="search" class="form-control" id="search" placeholder="Search">
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-3 col-4 btn-search">
+                                <a class="btn btn-color" href="#" title="Search" role="button">Search</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row table-general table-responsive">
+
+                    <table class="table">
+                        <thead>
+                            <tr class="column-title">
+                                <th>Sr No.</th>
+                                <th>Note Title</th>
+                                <th>Category</th>
+                                <th>Seller</th>
+                                <th>Date Added</th>
+                                <th>Status</th>
+                                <th class="content-center action-button">Action</th>
+                                <th class="content-center"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="table-sr-no">1</td>
+                                <td class="table-notes-title">Data Science</td>
+                                <td>computer</td>
+                                <td class="user-info-eye-link">
+                                    Ashok Kumar
+                                    <a href="#"><img src="images/Dashboard/eye.png" class="eye"></a>
+                                </td>
+                                <td>09-10-2020, 10:10</td>
+                                <td>In Review</td>
+                                <td>
+                                    <button type="button" class="btn btn-approve">Approve</button>
+                                    <button type="button" class="btn btn-reject" data-toggle="modal" data-target="#addremark">Reject</button>
+                                    <button type="button" class="btn btn-inreview">InReview</button>
+                                </td>
+                                <td class="content-center">
+                                    <!-- Default dropleft button -->
+                                    <div class="btn-group dropleft">
+                                        <button type="button" id="dropdownMenu2" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img src="images/Dashboard/3dot.png" alt="menu" class="dots">
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                            <button class="dropdown-item" type="button">Download Note</button>
+                                            <button class="dropdown-item" type="button">View More Details</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="table-sr-no">2</td>
+                                <td class="table-notes-title">Operating System</td>
+                                <td>Computer</td>
+                                <td class="user-info-eye-link">
+                                    Rahul Sharma
+                                    <a href="#"><img src="images/Dashboard/eye.png" class="eye"></a>
+                                </td>
+                                <td>09-10-2020, 10:10</td>
+                                <td>In Review</td>
+                                <td>
+                                    <button type="button" class="btn btn-approve">Approve</button>
+                                    <button type="button" class="btn btn-reject" data-toggle="modal" data-target="#addremark">Reject</button> <button type="button" class="btn btn-inreview">InReview</button>
+                                </td>
+                                <td class="content-center">
+                                    <!-- Default dropleft button -->
+                                    <div class="btn-group dropleft">
+                                        <button type="button" id="dropdownMenu2" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img src="images/Dashboard/3dot.png" alt="menu" class="dots">
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                            <button class="dropdown-item" type="button">Download Note</button>
+                                            <button class="dropdown-item" type="button">View More Details</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="table-sr-no">3</td>
+                                <td class="table-notes-title">Database Management System</td>
+                                <td>Computer</td>
+                                <td class="user-info-eye-link">
+                                    Ashok Kumar
+                                    <a href="#"><img src="images/Dashboard/eye.png" class="eye"></a>
+                                </td>
+                                <td>09-10-2020, 10:10</td>
+                                <td>In Review</td>
+                                <td>
+                                    <button type="button" class="btn btn-approve">Approve</button>
+                                    <button type="button" class="btn btn-reject" data-toggle="modal" data-target="#addremark">Reject</button> <button type="button" class="btn btn-inreview">InReview</button>
+                                </td>
+                                <td class="content-center">
+                                    <!-- Default dropleft button -->
+                                    <div class="btn-group dropleft">
+                                        <button type="button" id="dropdownMenu2" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img src="images/Dashboard/3dot.png" alt="menu" class="dots">
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                            <button class="dropdown-item" type="button">Download Note</button>
+                                            <button class="dropdown-item" type="button">View More Details</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="table-sr-no">4</td>
+                                <td class="table-notes-title">Data Science</td>
+                                <td>Computer</td>
+                                <td class="user-info-eye-link">
+                                    Ashok Kumar
+                                    <a href="#"><img src="images/Dashboard/eye.png" class="eye"></a>
+                                </td>
+                                <td>09-10-2020, 10:10</td>
+                                <td>In Review</td>
+                                <td>
+                                    <button type="button" class="btn btn-approve">Approve</button>
+                                    <button type="button" class="btn btn-reject" data-toggle="modal" data-target="#addremark">Reject</button> <button type="button" class="btn btn-inreview">InReview</button>
+                                </td>
+                                <td class="content-center">
+                                    <!-- Default dropleft button -->
+                                    <div class="btn-group dropleft">
+                                        <button type="button" id="dropdownMenu2" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img src="images/Dashboard/3dot.png" alt="menu" class="dots">
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                            <button class="dropdown-item" type="button">Download Note</button>
+                                            <button class="dropdown-item" type="button">View More Details</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="table-sr-no">5</td>
+                                <td class="table-notes-title">Data Science</td>
+                                <td>Computer</td>
+                                <td class="user-info-eye-link">
+                                    Ashok Kumar
+                                    <a href="#"><img src="images/Dashboard/eye.png" class="eye"></a>
+                                </td>
+                                <td>09-10-2020, 10:10</td>
+                                <td>In Review</td>
+                                <td>
+                                    <button type="button" class="btn btn-approve">Approve</button>
+                                    <button type="button" class="btn btn-reject" data-toggle="modal" data-target="#addremark">Reject</button> <button type="button" class="btn btn-inreview">InReview</button>
+                                </td>
+                                <td class="content-center">
+                                    <!-- Default dropleft button -->
+                                    <div class="btn-group dropleft">
+                                        <button type="button" id="dropdownMenu2" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img src="images/Dashboard/3dot.png" alt="menu" class="dots">
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                            <button class="dropdown-item" type="button">Download Note</button>
+                                            <button class="dropdown-item" type="button">View More Details</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="row justify-content-center">
+
+                    <nav aria-label="...">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#"><i class="fa fa-angle-left"></i></a>
+                            </li>
+                            <li class="page-item active">
+                                <a class="page-link" href="#">1<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#"><i class="fa fa-angle-right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- Section Notes Under Review END -->
+
+    <!-- Section Add Remark -->
+    <div class="modal fade " id="addremark" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <h3 class="heading-md">Machine Learnong</h3>
+                    </div>
+                    <div>
+                        <form>
+                            <div class="form-group" id="modal-remark">
+                                <label for="remark">Remarks *</label>
+                                <textarea class="form-control" id="remark" placeholder="remark..."></textarea>
+                            </div>
+
+                            <div id="reject-modal-btn">
+                                <div class="btn-modal-reject">
+                                    <a class="btn" href="#" title="Reject" role="button">Reject</a>
+                                </div>
+                                <div class="btn-modal-cancle">
+                                    <a class="btn" href="#" title="Cancle" role="button" data-dismiss="modal">Cancle</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Section Add Remark END -->
+
+    <!-- Section Footer -->
+    <footer class="footer-admin">
+        <div class="container">
+            <div class="row">
+
+                <!-- Version -->
+                <div class="admin-version col-lg-4 col-md-4 col-sm-4 col-12">
+                    <p>Version : 1.1.24</p>
+                </div>
+
+                <!-- Copyright -->
+                <div class="admin-footer-text col-lg-8 col-md-8 col-sm-8 col-12">
+                    <p>Copyright &copy; TatvaSoft All Rights Reserved By</p>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+    <!-- Section Footer END -->
+
+    <!-- Jquery JS -->
+    <script src="js/jquery/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="js/bootstrap/popper.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

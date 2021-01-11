@@ -1,0 +1,1154 @@
+/*===========================================================================================================*/
+/*                              Background Image Heading Position                                            */
+/*===========================================================================================================*/
+.background-img-heading-position {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateY(-50%) translateX(-50%);
+    transform: translateY(-50%) translateX(-50%);
+    margin: auto;
+}
+
+.blank {
+    height: 90px;
+    width: 100%;
+}
+
+/*===========================================================================================================*/
+/*                              HomePage                                                                     */
+/*===========================================================================================================*/
+
+/*---------- Section Home Background Image ----------*/
+#home-content {
+    width: 100%;
+    height: 620px;
+    position: relative;
+    background: url('../images/Homepage/banner-with-overlay.jpg') no-repeat;
+    background-size: 100% 100%;
+}
+
+#home-content-inner {
+    position: absolute;
+    top: 55%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+#background-img-text p {
+    color: #fff;
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 400;
+}
+
+/*------------- Section About -------------*/
+#about-right p {
+    font-size: 18px;
+    line-height: 24px;
+    color: #333333;
+    font-weight: 400;
+}
+
+#about-right p:first-child {
+    margin-bottom: 40px;
+}
+
+/*------------- Section How It Works -------------*/
+#how-it-work {
+    background: #f2f1f5;
+}
+
+.work {
+    margin-top: 30px;
+}
+
+.work-image {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    height: 140px;
+    width: 140px;
+    border-radius: 50%;
+    background: #fff;
+    -webkit-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+}
+
+.work-image img {
+    margin: auto;
+    width: 50px;
+    height: 50px;
+}
+
+.work p {
+    margin-top: 20px;
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 400;
+    color: #333333;
+}
+
+/*------------- Testimonial Section -------------*/
+.testimonial {
+    padding: 40px;
+    margin: 15px 0;
+    -webkit-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.08);
+}
+
+.author-info {
+    margin-bottom: 25px;
+}
+
+.author p {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+    color: #333333;
+    margin-bottom: 0;
+}
+
+.testimonial img {
+    width: 100px;
+    height: 100px;
+}
+
+.author-review {
+    font-style: italic;
+    line-height: 24px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #333333;
+}
+
+/*===========================================================================================================*/
+/*                              Search Notes                                                                 */
+/*===========================================================================================================*/
+
+/*---------- Section Search Notes Background Image ----------*/
+#search-notes-content {
+    width: 100%;
+    height: 250px;
+    position: relative;
+    background: url('../images/Search/banner-with-overlay.jpg') no-repeat;
+    background-size: 100% 100%;
+}
+
+/*---------- Section Search And Filter Notes ----------*/
+#search-notes-filter h4 {
+    margin-bottom: 20px;
+}
+
+.search-filter {
+    background: #f2f1f5;
+    padding: 30px 15px 15px 15px;
+    margin: 0
+}
+
+.search-filter select.form-control {
+    padding-left: 5px;
+}
+
+/*------------------- Resulted Notes ---------------------*/
+.results .result-box {
+    margin-bottom: 30px;
+}
+
+.resulted-note {
+    border: 1px solid #d1d1d1;
+    height: 100%;
+}
+
+#resulted-notes h4 {
+    margin-bottom: 30px
+}
+
+.resulted-note-image img {
+    width: 100%;
+}
+
+.resulted-note-detail {
+    padding: 20px;
+}
+
+.resulted-note-detail a {
+    text-decoration: none;
+}
+
+.resulted-note-detail h6 {
+    height: 72px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.resulted-note-detail ul {
+    list-style: none;
+    margin: 15px 0;
+}
+
+.resulted-note-detail ul li {
+    margin-bottom: 10px;
+    color: #333333;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.resulted-note-detail ul li:last-child span {
+    margin-left: 10px;
+}
+
+.resulted-note-detail span.flag {
+    color: #df3434;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+}
+
+.resulted-note-detail ul li img {
+    margin-right: 15px;
+    width: 25px;
+    height: 20px;
+}
+
+/* Star Rating */
+.resulted-note-detail ul li:last-child i {
+    color: #ffc700;
+    font-size: 20px;
+    margin-right: 2px;
+    padding: 0;
+}
+
+.resulted-note-detail ul li:last-child i.fa-star-o {
+    color: #d1d1d1;
+}
+
+/*===========================================================================================================*/
+/*                              Notes Detail                                                                 */
+/*===========================================================================================================*/
+
+/*------------- Section Note Detail -------------*/
+#note-detail h4 {
+    margin-bottom: 20px;
+}
+
+/*------------- Section Note Detail Image And Description -------------*/
+#note-detail-info p {
+    margin: 20px 0;
+    font-size: 16px;
+    color: #333333;
+    line-height: 20px;
+    font-weight: 400;
+    ;
+}
+
+/*------------- Section Note Info Author And Rating -------------*/
+.notes-info {
+    padding-left: 50px;
+}
+
+.notes-info p span.first {
+    font-size: 18px;
+    line-height: 20px;
+    color: #333333;
+    font-weight: 400;
+}
+
+.notes-info p span.last {
+    font-size: 18px;
+    line-height: 20px;
+    color: #6255a5;
+    font-weight: 600;
+    float: right;
+}
+
+.notes-info p span.last i {
+    color: #ffc700;
+}
+
+.notes-info p span.last i.fa-star-o {
+    color: #d1d1d1;
+}
+
+.notes-info p.inappropriate {
+    font-size: 14px;
+    line-height: 20px;
+    color: #df3434;
+    font-weight: 400;
+}
+
+/*------------- Section Note Detail PDF Preview -------------*/
+.note-detail-preview {
+    border: 1px solid #333333;
+    border-radius: 3px;
+    width: 100%;
+    height: 386px;
+}
+
+.note-detail-preview iframe {
+    width: 100%;
+    height: 100%;
+}
+
+/*------------- Note Detail Comments -------------*/
+#comment {
+    border: 1px solid #333333;
+    border-radius: 3px;
+    padding: 25px;
+    height: auto;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.user-comment {
+    margin-bottom: 10px;
+}
+
+.user-comment-image img {
+    width: 50px;
+    height: 50px;
+    padding-right: 0;
+    margin-left: 5px;
+}
+
+.user-comment div.col-md-10.user-comment-info {
+    padding-left: 0;
+}
+
+.user-comment h6 {
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 3px;
+}
+
+.user-comment p {
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 400;
+    margin-bottom: 3px;
+    color: #333333
+}
+
+/* Star Rating In Comment */
+.user-comment .rating span {
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 400;
+}
+
+.user-comment .rating i {
+    color: #ffc700;
+    margin-right: 2px;
+    font-size: 15px;
+    padding: 0;
+}
+
+.user-comment .rating i.fa-star-o {
+    color: #d1d1d1;
+}
+
+/*----------------------------------------------------------------*/
+/*---------------------- Thanks Pop Up ---------------------------*/
+/*----------------------------------------------------------------*/
+.modal-content {
+    border: none;
+}
+
+.modal {
+    margin-top: 60px;
+}
+
+.modal-header {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.modal-header .close {
+    font-size: 36px;
+    padding: 0 10px 10px 10px;
+}
+
+.modal-header .close:hover,
+.modal-header .close:focus,
+.modal-header .close:active {
+    outline: 0px;
+}
+
+.modal-body {
+    padding: 0 25px 25px 25px;
+}
+
+.modal-body img {
+    width: 65px;
+    height: 65px;
+}
+
+#thanks-note {
+    margin-top: 25px;
+}
+
+.modal-body p {
+    font-size: 16px;
+    line-height: 22px;
+    color: #333333;
+    font-weight: 400;
+}
+
+/*===========================================================================================================*/
+/*                              Contact Us                                                                   */
+/*===========================================================================================================*/
+/*---------- Section Contact Us Background Image ----------*/
+#contact-us-content {
+    width: 100%;
+    height: 250px;
+    position: relative;
+    background: url('../images/FAQ/banner-with-overlay.jpg') no-repeat;
+    background-size: 100% 100%;
+}
+
+.contact-us-heading {
+    margin-bottom: 20px;
+}
+
+#contact-us-forms textarea.form-control {
+    height: 215px;
+}
+
+/*===========================================================================================================*/
+/*                              Add Notes                                                                    */
+/*===========================================================================================================*/
+/*---------- Section Add Notes Background Image ----------*/
+#add-notes-content {
+    width: 100%;
+    height: 250px;
+    position: relative;
+    background: url('../images/Search/banner-with-overlay.jpg') no-repeat;
+    background-size: 100% 100%;
+}
+
+/*---------- Add Notes Form ----------*/
+#add-notes-forms h2 {
+    margin-bottom: 30px;
+}
+
+.selling-info .col-lg-12 {
+    padding: 0;
+}
+
+#add-notes-forms textarea {
+    height: 110px;
+}
+
+#add-notes-forms input[type="file"]#display-picture {
+    padding: 110px 0 0 0;
+}
+
+#add-notes-forms input[type="file"]#upload-notes {
+    padding: 110px 0 0 0;
+}
+
+.form-group.type-file {
+    margin-bottom: -5px;
+    margin-top: 0;
+}
+
+/*--------- Radio Button Custom CSS ----------*/
+#btn-radio-paid-free input[type="radio"] {
+    display: none;
+}
+
+#btn-radio-paid-free input[type="radio"] + label:before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background-clip: content-box;
+    border: 1px solid #d1d1d1;
+    background-color: none;
+    border-radius: 50%;
+}
+
+#btn-radio-paid-free input[type="radio"]:checked + label:before {
+    padding: 4px;
+    background-color: #6255a5;
+    border: 1px solid #6255a5;
+}
+
+#btn-radio-paid-free label {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+/*===========================================================================================================*/
+/*                              User Profile                                                                 */
+/*===========================================================================================================*/
+/*---------- Section User Profile Background Image ----------*/
+#user-profile-content {
+    width: 100%;
+    height: 250px;
+    position: relative;
+    background: url('../images/Search/banner-with-overlay.jpg') no-repeat;
+    background-size: 100% 100%;
+}
+
+/*---------- Section User Profile Form ----------*/
+#user-profile-form h2 {
+    margin-bottom: 30px;
+}
+
+#phone .col-md-4 {
+    padding-right: 0;
+}
+
+#phone label {
+    white-space: nowrap;
+}
+
+#phone input#phone-number.form-control {
+    margin-top: 8px;
+}
+
+#user-profile-form .form-group.type-file {
+    margin-bottom: -5px;
+    margin-top: -5px;
+}
+
+/*===========================================================================================================*/
+/*                              FAQ                                                                          */
+/*===========================================================================================================*/
+
+/*---------- Section FAQ Background Image ----------*/
+#faq-content {
+    width: 100%;
+    height: 250px;
+    position: relative;
+    background: url('../images/FAQ/banner-with-overlay.jpg') no-repeat;
+    background-size: 100% 100%;
+}
+
+.heading-faqs h3 {
+    margin-bottom: 30px;
+    margin-left: 15px;
+}
+
+.card {
+    margin-bottom: 20px;
+    border: none;
+}
+
+.card-header {
+    padding: 5px 0;
+    border-bottom: none;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: auto;
+}
+
+.card-header h6 {
+    float: left;
+    color: #333333;
+    display: inline;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 400;
+    padding: 8px 20px 10px 20px;
+}
+
+.card-header a {
+    padding: 0 20px;
+}
+
+.card-header a.btn {
+    display: inline;
+    margin-left: auto;
+}
+
+.card-header a img {
+    padding: 10px;
+    width: 38px;
+    height: 38px;
+}
+
+.card-body {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.card-body p {
+    color: #333333;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 400;
+}
+
+.accordion a.btn:hover {
+    background: none;
+    border: 1px solid transparent;
+    outline: 0px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+/*===========================================================================================================*/
+/*                              Dashboard                                                                    */
+/*===========================================================================================================*/
+#dashboard-heading {
+    margin-bottom: 15px;
+}
+
+.dashboard-box-first {
+    border: 1px solid #d1d1d1;
+    border-radius: 3px;
+    height: 100%;
+}
+
+.dashboard-box {
+    border: 1px solid #d1d1d1;
+    border-radius: 3px;
+    padding: 0 10px;
+    height: 100%;
+}
+
+#my-earning {
+    border-right: 1px solid #d1d1d1;
+}
+
+#dashboard-box-1 {
+    padding-left: 0;
+}
+
+#dashboard-box-4 {
+    padding-right: 0;
+}
+
+#dashboard-box-1 img {
+    width: 40px;
+    height: 35px;
+}
+
+#my-earning h3 {
+    font-size: 24px;
+    color: #6255a5;
+    line-height: 36px;
+    font-weight: 600;
+}
+
+.dashboard-box-first h3,
+.dashboard-box h3 {
+    color: #6255a5;
+    font-size: 30px;
+    line-height: 30px;
+    font-weight: 700;
+}
+
+.dashboard-box-first p,
+.dashboard-box p {
+    color: #333333;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    margin-bottom: 0;
+}
+
+/*===========================================================================================================*/
+/*                              My Downloades                                                                */
+/*===========================================================================================================*/
+a:focus {
+    outline: 0px;
+}
+
+.btn:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+/*----------- Drop Down Left --------------*/
+#my-downloads .dropleft div.dropdown-menu.show {
+    -webkit-transform: translate3d(-175px, -34px, 0px) !important;
+    transform: translate3d(-180px, -30px, 0px) !important;
+}
+
+.dropleft .dropdown-item {
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 400;
+}
+
+#my-downloads .dropleft .dropdown-item {
+    padding: 10px 12px;
+}
+
+.dropleft .dropdown-menu {
+    border: none;
+    -webkit-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
+}
+
+.dropleft .dropdown-item:hover,
+.dropleft .dropdown-item:focus,
+.dropleft .dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    outline: 0px;
+    background-color: #6255a5;
+}
+
+.dropleft div.dropdown-menu {
+    padding: 0;
+}
+
+/*----------------------------------------------------------------*/
+/*------------------------ Add Review ----------------------------*/
+/*----------------------------------------------------------------*/
+.modal button.close {
+    color: #333333;
+}
+
+.modal button.close:hover {
+    color: #333333;
+}
+
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0;
+}
+
+.rate:not(:checked) > input {
+    position: absolute;
+    top: -9999px;
+}
+
+.rate:not(:checked) > label {
+    float: right;
+    width: 34px;
+    margin-right: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 40px;
+    color: #ccc;
+}
+
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+
+.rate > input:checked ~ label {
+    color: #ffc700;
+}
+
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;
+}
+
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+
+#moal-review-feedback {
+    margin-top: 50px;
+}
+
+#moal-review-feedback textarea {
+    height: 100px;
+}
+
+/*===========================================================================================================*/
+/*                              My Sold Notes                                                                */
+/*===========================================================================================================*/
+/*----------- Drop Down Left --------------*/
+#my-sold-notes .dropleft div.dropdown-menu.show {
+    -webkit-transform: translate3d(-150px, -11px, 0px) !important;
+    transform: translate3d(-150px, -11px, 0px) !important;
+}
+
+#my-sold-notes .dropleft .dropdown-item {
+    padding: 15px 13px;
+    text-align: center;
+}
+
+/*===========================================================================================================*/
+/*                              My Rejected Notes                                                            */
+/*===========================================================================================================*/
+/*----------- Drop Down Left --------------*/
+#my-rejected-notes .dropleft div.dropdown-menu.show {
+    -webkit-transform: translate3d(-150px, -11px, 0px) !important;
+    transform: translate3d(-150px, -11px, 0px) !important;
+}
+
+#my-rejected-notes .dropleft .dropdown-item {
+    padding: 15px 13px;
+    text-align: center;
+}
+
+/*===========================================================================================================*/
+/*                              Buyer Reques                                                                 */
+/*===========================================================================================================*/
+/*----------- Drop Down Left --------------*/
+#buyer-request .dropleft div.dropdown-menu.show {
+    -webkit-transform: translate3d(-150px, -11px, 0px) !important;
+    transform: translate3d(-150px, -11px, 0px) !important;
+}
+
+#buyer-request .dropleft .dropdown-item {
+    padding: 15px 13px;
+    text-align: center;
+}
+
+/*===========================================================================================================*/
+/*                              Tables                                                                       */
+/*===========================================================================================================*/
+
+/*----------At Top Of Table----------*/
+.search {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding-left: 0;
+    margin-right: -5px
+}
+
+#table-search {
+    padding: 0 5px;
+}
+
+.btn-search,
+.table-heading {
+    padding: 0;
+}
+
+.search .form-group input,
+.search .form-group select {
+    height: 38px;
+}
+
+/*----------Table----------*/
+.table-responsive {
+    width: auto;
+}
+
+.table-general table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #d1d1d1;
+    border-radius: 3px;
+}
+
+.table-general tr {
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.table td,
+.table thead th {
+    vertical-align: middle;
+    height: 70px;
+    padding: 0 0 0 15px;
+}
+
+.table-general table th {
+    border-bottom: 1px solid #d1d1d1;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    color: #333333;
+    text-transform: uppercase;
+}
+
+.table-general table td {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18px;
+    color: #333333;
+}
+
+.table-general table td.table-sr-no {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 18px;
+    color: #333333;
+}
+
+.table-general table tbody tr:hover {
+    -webkit-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+/*-----------------Column Width-----------------------*/
+.table-general .table-notes-title {
+    min-width: 150px;
+    max-width: 300px;
+}
+
+.table-general td:last-child {
+    height: 100%;
+    min-width: 80px;
+}
+
+.table-general .remark {
+    min-width: 200px;
+}
+
+.table-general .phone-no {
+    min-width: 140px;
+}
+
+/*----------Content Align Center----------*/
+.content-center {
+    text-align: center;
+}
+
+/*----------Colored Content----------*/
+.table-general table td.data-highlight {
+    color: #6255a5;
+}
+
+/*----------Table Notes Title Colored----------*/
+.table-notes-title a {
+    color: #6255a5
+}
+
+.table-notes-title a:hover {
+    color: #6255a5;
+    text-decoration: none;
+}
+
+/*----------My Rejected Notes Clone----------*/
+.table-notes-clone a {
+    color: #6255a5
+}
+
+.table-notes-clone a:hover {
+    color: #6255a5;
+    text-decoration: none;
+}
+
+/*----------Table Column Image----------*/
+.table-general table div.table-images {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table-general table img.eye {
+    height: 15px;
+    width: 22px;
+    margin: 0 5px;
+}
+
+.table-general table img.edit {
+    height: 18px;
+    width: 18px;
+    margin: 0 5px;
+}
+
+.table-general table img.delete {
+    height: 18px;
+    width: 18px;
+    margin: 0 5px;
+}
+
+.table-general table img.dots {
+    height: 18px;
+    width: 4px;
+    margin: 0 5px;
+}
+
+.table-general .btn-group .btn {
+    padding: 0;
+}
+
+/*===========================================================================================================*/
+/*                              Login, Signup, Forgot-Password, Change-Password                              */
+/*===========================================================================================================*/
+/* Login */
+#login,
+#forgot-password,
+#change-password,
+#sign-up {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    min-height: 100%;
+    width: 100%;
+    background: url(../images/pre-login/banner-with-overlay.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 25px 0;
+}
+
+.form-container {
+    width: 450px;
+}
+
+.logo {
+    margin-bottom: 30px;
+}
+
+.form-heading {
+    margin-bottom: 30px;
+}
+
+.white-box {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 5px;
+}
+
+.form-group input,
+.form-group select {
+    height: 40px;
+    border: 1px solid #d1d1d1;
+    border-radius: 3px;
+}
+
+.form-group label,
+.form-check label {
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+
+.form-group.forgot-password label {
+    margin-bottom: 0;
+}
+
+.white-box .forgot-password label {
+    width: 100%;
+}
+
+.white-box .forgot-password label span {
+    float: left;
+}
+
+.white-box .forgot-password label a {
+    float: right;
+    color: #6255a5;
+}
+
+.white-box a:hover {
+    color: #6255a5;
+    text-decoration: none;
+}
+
+.white-box .form-check .form-check-input {
+    border: 1px solid #d1d1d1;
+    height: 18px;
+    width: 18px;
+    border-radius: 3px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-check-input:focus,
+.form-group textarea:focus {
+    border: 1px solid #6255a5;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    outline: 0px;
+}
+
+.white-box .form-check-label {
+    margin-left: 10px;
+    padding: 4px 0 0 0;
+}
+
+.white-box p {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    color: #333333;
+}
+
+.white-box p a {
+    color: #6255a5;
+}
+
+/*------------------- Password Show-Hide ---------------------*/
+.field-icon {
+    width: 25px;
+    height: 18px;
+    float: right;
+    position: relative;
+    top: -30px;
+    right: 15px;
+}
+
+.form-control.is-invalid,
+.was-validated .form-control:invalid {
+    border-color: #ff3636;
+    background: none;
+}
+
+.invalid-feedback {
+    color: #ff3636;
+    font-size: 13px;
+}
+
+.valid-feedback {
+    display: block;
+    font-size: 14px;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.valid-feedback i {
+    font-size: 18px;
+}
+
+/*===========================================================================================================*/
+/*                              Email Verification                                                           */
+/*===========================================================================================================*/
+
+#verify-email {
+    margin: 130px auto 0 auto;
+    padding: 30px;
+    width: 450px;
+}
+
+#verify-email h3 {
+    font-size: 26px;
+    line-height: 30px;
+    color: #6255a5;
+    font-weight: 600;
+    margin: 45px 0 25px 0;
+}
+
+#verify-email p.name {
+    color: #333333;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 8px;
+}
