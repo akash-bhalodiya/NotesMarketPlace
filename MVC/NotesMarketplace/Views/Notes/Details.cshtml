@@ -1,0 +1,311 @@
+﻿@model NotesMarketplace.ViewModels.NotesDetailViewModel
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="blank">
+</section>
+
+<!-- Section Note Detail -->
+<section id="note-detail">
+
+    <div class="content-box">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h4 class="heading-md">Notes Detail</h4>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <!-- Notes Detail Top Left Side Note Image-->
+                <div class="col-lg-6 col-md-12 col-sm-12 col-12" id="note-detail-top-left">
+
+                    <div class="row">
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-12" id="note-detail-img">
+                            <img src="@Url.Content(Model.sellernote.DisplayPicture)" class="img-fluid">
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-12" id="note-detail-info">
+                            <h3 class="heading-lg">@Model.sellernote.Title</h3>
+                            <h6>@Model.sellernote.NoteCategory.Name</h6>
+                            <p>@Model.sellernote.Description</p>
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                if (Model.sellernote.IsPaid)
+                                {
+                                   <div id="btn-download">
+                                        <a class="btn btn-color" role="button" data-toggle="modal" data-target="#confirmation">Download / $@Model.sellernote.SellingPrice</a>
+                                   </div>
+                                }
+                                else
+                                {
+
+                                    <div id="btn-download">
+                                        <a class="btn btn-color" href="@Url.Action("DownloadFreeNotes", new { noteid = Model.sellernote.ID, noteattachementid = Model.sellernotesattachement.ID })" role="button" download>Download / $@Model.sellernote.SellingPrice</a>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div id="btn-download">
+                                    <a class="btn btn-color" href="@Url.Action("Login","Account")">Download / $@Model.sellernote.SellingPrice</a>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Section Confirmation Box -->
+                <div class="modal fade " id="confirmation" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-confirm-body">
+                                <div>
+                                    <form>
+
+                                        <p class="confirm-text">
+                                            Are you sure you want to download this Paid note. Please confirm.
+                                        </p>
+
+                                        <div class="btn-confirm">
+                                            <a class="btn btn-yes" href="@Url.Action("DownloadPaidNotes", new { noteid = Model.sellernote.ID, noteattachementid = Model.sellernotesattachement.ID })" id="confirmationbutton" role="button">YES</a>
+                                            <button class="btn btn-no" data-dismiss="modal" aria-label="Close">NO</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Section Confirmation-Box END -->
+                <!-- Notes Detail Top Right Side Info-->
+                <div class="col-lg-6 col-md-12 col-sm-12 col-12 notes-info" id="note-detail-top-right">
+
+                    <p>
+                        <span class="first">Institute:</span>
+                        <span class="last">@Model.sellernote.UniversityName</span>
+                    </p>
+                    <p>
+                        <span class="first">Country:</span>
+                        <span class="last">@Model.sellernote.Country1.Name</span>
+                    </p>
+                    <p>
+                        <span class="first">Course Name:</span>
+                        <span class="last">@Model.sellernote.Course</span>
+                    </p>
+                    <p>
+                        <span class="first">Course Code:</span>
+                        <span class="last">@Model.sellernote.CourseCode</span>
+                    </p>
+                    <p>
+                        <span class="first">Professor:</span>
+                        <span class="last">@Model.sellernote.Professor</span>
+                    </p>
+                    <p>
+                        <span class="first">Number of Pages:</span>
+                        <span class="last">@Model.sellernote.NumberofPages</span>
+                    </p>
+                    <p>
+                        <span class="first">Approved Date:</span>
+                        @if (Model.sellernote.PublishedDate != null)
+                        {
+                            <span class="last">@Model.sellernote.PublishedDate.Value.ToString("MMM dd yyyy")</span>
+                        }
+                        else
+                        {
+                            <span class="last"></span>
+                        }
+                    </p>
+                    <p>
+                        <span class="first">Rating:</span>
+                        <span class="last rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-o"></i>
+                            <i class="fa fa-star-o"></i>
+                            <span>100 reviews</span>
+                        </span>
+                    </p>
+                    <p class="inappropriate">5 User marked this note as inappropriate.</p>
+                </div>
+
+            </div>
+
+            <br>
+            <hr>
+            <br>
+
+            <div class="row">
+
+                <!-- Note Detail Bottom Left PDF-->
+                <div class="col-lg-5 col-md-12 col-sm-12 col-12" id="note-detail-bottom-left">
+
+                    <div class="row">
+                        <div class=" col-lg-12 col-md-12 col-sm-12 col-12">
+                            <h4 class="heading-md">Notes Preview</h4>
+                        </div>
+                    </div>
+
+                    <div class="note-detail-preview">
+                        <iframe src="@Url.Content(Model.sellernote.NotesPreview)"></iframe>
+                    </div>
+
+                </div>
+
+                <!-- Note Detail Bottom Right Comment-->
+                <div class="col-lg-7 col-md-12 col-sm-12 col-12" id="note-detail-bottom-right">
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                            <h4 class="heading-md">Customer Reviews</h4>
+                        </div>
+                    </div>
+
+                    <div id="comment">
+                        <div class="row comment-box">
+
+                            <!-- Comment 01 -->
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="user-comment">
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-2 col-sm-3 col-3 user-comment-image">
+                                            <img src="~/images/Notes Details/team-1.jpg" class="rounded-circle img-fluid" alt="user">
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-sm-9 col-9 user-comment-info">
+                                            <h6>Henry Richard</h6>
+                                            <div class="rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <span>100 reviews</span>
+                                            </div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat explicabo nihil nesciunt earum nemo iure. Quas expedita alias </p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+
+                            <!-- Comment 02 -->
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="user-comment">
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-2 col-sm-3 col-3 user-comment-image">
+                                            <img src="~/images/Notes Details/team-2.jpg" class="rounded-circle img-fluid" alt="user">
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-sm-9 col-9 user-comment-info">
+                                            <h6>Kevin Wilson</h6>
+                                            <div class="rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <span>100 reviews</span>
+                                            </div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat explicabo nihil nesciunt earum nemo iure. Quas expedita alias </p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+
+                            <!-- Comment 03 -->
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="user-comment">
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-2 col-sm-3 col-3 user-comment-image">
+                                            <img src="~/images/Notes Details/team-3.jpg" class="rounded-circle img-fluid" alt="user">
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-sm-9 col-9 user-comment-info">
+                                            <h6>Alice</h6>
+                                            <div class="rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <span>100 reviews</span>
+                                            </div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat explicabo nihil nesciunt earum nemo iure. Quas expedita alias </p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+
+                            <!-- Comment 04 -->
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="user-comment">
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-2 col-sm-3 col-3 user-comment-image">
+                                            <img src="~/images/Notes Details/team-3.jpg" class="rounded-circle img-fluid" alt="user">
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-sm-9 col-9 user-comment-info">
+                                            <h6>Alice</h6>
+                                            <div class="rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <span>100 reviews</span>
+                                            </div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat explicabo nihil nesciunt earum nemo iure. Quas expedita alias </p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Section Note Detail END -->
+<!-- Section Thanks Popup -->
+<div class="modal fade " id="thankspopup" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <img src="~/images/Thanks Popup/true.png" alt="Done">
+                    <h4 class="heading-md">Thank you for purchasing!</h4>
+                </div>
+                <div id="thanks-note">
+                    <h6 class="heading-ex-sm">Dear Smith,</h6>
+                    <p>As this is paid notes - you need to pay to seller Rahul Shah offline. We will send him an email that you want to download this note. He may contact you further payment process completion.</p>
+                    <p>In case you have urgency,<br>Please contact us on +91 8855885588.</p>
+                    <p>Once he recieve the payment and acknowledge us - selected notes you can see over my downloads tab for download.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Section Thanks Popup END -->

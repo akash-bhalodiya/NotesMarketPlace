@@ -1,0 +1,68 @@
+﻿@model NotesMarketplace.ViewModels.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
+}
+
+<!-- Section Login -->
+<section id="login">
+
+    <div class="form-container my-auto">
+
+        <div class="container">
+
+            <div class="logo text-center">
+                <img src="~/images/pre-login/top-logo.png" alt="logo" class="img-fluid">
+            </div>
+
+            <!-- White Box -->
+            <div class="white-box">
+
+                <!-- Heading -->
+                <div class="form-heading text-center">
+                    <h2 class="heading-lg">Login</h2>
+                    <p>Enter your email address and password to login</p>
+                </div>
+
+                <!-- Login Form -->
+                @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "login-form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email)
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "email", type = "email", placeholder = "Enter your email address", required = "required" })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-invalid" })
+                    </div>
+
+                    <div class="form-group forgot-password">
+
+                        <div class="forgot-label-text">
+                            @Html.LabelFor(model => model.Password)
+                            @Html.ActionLink("Forgot Password?", "ForgotPassword", "Account")
+                        </div>
+
+                        @Html.TextBoxFor(model => model.Password, new { @class = "form-control", id = "password", type = "password", placeholder = "Enter your password", required = "required" })
+                        <img src="~/images/pre-login/eye.png" toggle="#password" class="field-icon toggle-password">
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-invalid" })
+                    </div>
+
+                    <div class="form-check">
+                        @Html.CheckBoxFor(model => model.RememberMe, new { @class = "form-check-input", id="rememberme" })
+                        @Html.LabelFor(model => model.RememberMe, new { @class = "form-check-label" })
+                    </div>
+
+                    <button type="submit" class="btn btn-form">Login</button>
+
+                 }
+
+                 <p>Don't have an account? @Html.ActionLink("Sign up", "Signup", "Account")</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Section Login -->

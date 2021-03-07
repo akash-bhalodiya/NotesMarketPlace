@@ -1,0 +1,237 @@
+﻿@model NotesMarketplace.ViewModels.EditNotesViewModel
+@{
+    ViewBag.Title = "EditNotes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="blank">
+</section>
+
+<!-- Sectionn Add Notes Background Image -->
+<section id="add-notes-bg-image">
+
+    <div id="add-notes-content">
+
+        <div class="container">
+
+            <div class="row text-center background-img-heading-position">
+
+                <div class="background-img-heading">
+                    <h1>Add Notes</h1>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Section Add Notes Background Image END -->
+<!-- Section Add Note Form -->
+<section id="add-notes-forms">
+
+    <div class="content-box">
+
+        <div class="container">
+
+            @using (Html.BeginForm("EditNotes", "Notes", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+
+                @Html.AntiForgeryToken()
+
+                @Html.HiddenFor(x => x.ID)
+                @Html.HiddenFor(x => x.NoteID)
+                @Html.HiddenFor(model => model.Preview)
+                @Html.HiddenFor(model => model.Picture)
+                @Html.HiddenFor(model => model.Note)
+
+                <!-- Form Part 1 -->
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h2 class="heading-lg">Basic Notes Details</h2>
+                    </div>
+
+                </div>
+
+                <div class="row ">
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.Title)
+                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control", id = "title", placeholder = "Enter your notes title", required = "required" })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-invalid" })
+                    </div>
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.Category)
+                        @Html.DropDownListFor(model => model.Category, new SelectList(Model.NoteCategoryList, "ID", "Name", Model.Category), "Select your notes Category", new { @class = "form-control", id = "category", required = "required" })
+                        @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-invalid" })
+                    </div>
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12 type-file">
+                        @Html.LabelFor(model => model.DisplayPicture)
+                        @Html.TextBoxFor(model => model.DisplayPicture, new { @class = "form-control-file image-upload", id = "display-picture", type = "file", accept = ".jpg , .jpeg , .png" })
+                        @Html.ValidationMessageFor(model => model.DisplayPicture, "", new { @class = "text-invalid" })
+                        @if (!string.IsNullOrEmpty(Model.Picture))
+                        {
+                            <p class="uploaded-data">To see your uploaded display picture<a href="@Url.Content(Model.Picture)" target="_blank"> Click Here</a></p>
+                        }
+                    </div>
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12 type-file">
+                        @Html.LabelFor(model => model.UploadNotes)
+                        @Html.TextBoxFor(model => model.UploadNotes, new { @class = "form-control-file image-upload-note", id = "upload-notes", type = "file", accept = ".pdf" })
+                        @Html.ValidationMessageFor(model => model.UploadNotes, "", new { @class = "text-invalid" })
+                        <p class="uploaded-data">To see your uploaded notes<a href="@Url.Content(Model.Note)" target="_blank"> Click Here</a></p>
+                    </div>
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.NoteType)
+                        @Html.DropDownListFor(model => model.NoteType, new SelectList(Model.NoteTypeList, "ID", "Name", Model.NoteType), "Select your notes type", new { @class = "form-control", id = "type" })
+                        @Html.ValidationMessageFor(model => model.NoteType, "", new { @class = "text-invalid" })
+                    </div>
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.NumberofPages)
+                        @Html.TextBoxFor(model => model.NumberofPages, new { @class = "form-control", id = "pages", placeholder = "Enter number of note pages" })
+                        @Html.ValidationMessageFor(model => model.NumberofPages, "", new { @class = "text-invalid" })
+                    </div>
+
+                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.Description)
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", id = "note-description", placeholder = "Enter your notes description", required = "required" })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-invalid" })
+                    </div>
+
+                </div>
+
+                <br>
+
+                <!-- Form Part 2 -->
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h2 class="heading-lg">Institution Information</h2>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.Country)
+                        @Html.DropDownListFor(model => model.Country, new SelectList(Model.CountryList, "ID", "Name", Model.Country), "Select country", new { @class = "form-control", id = "country" })
+                        @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-invalid" })
+                    </div>
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.UniversityName)
+                        @Html.TextBoxFor(model => model.UniversityName, new { @class = "form-control", id = "institution-name", placeholder = "Enter your institution name" })
+                        @Html.ValidationMessageFor(model => model.UniversityName, "", new { @class = "text-invalid" })
+                    </div>
+
+                </div>
+
+                <br>
+
+                <!-- Form Part 3 -->
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h2 class="heading-lg">Course Detail</h2>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.Course)
+                        @Html.TextBoxFor(model => model.Course, new { @class = "form-control", id = "course-name", placeholder = "Enter your course name" })
+                        @Html.ValidationMessageFor(model => model.Course, "", new { @class = "text-invalid" })
+
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.CourseCode)
+                        @Html.TextBoxFor(model => model.CourseCode, new { @class = "form-control", id = "course-code", placeholder = "Enter your course code" })
+                        @Html.ValidationMessageFor(model => model.CourseCode, "", new { @class = "text-invalid" })
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.Professor)
+                        @Html.TextBoxFor(model => model.Professor, new { @class = "form-control", id = "proffesor", placeholder = "Enter your proffesor name" })
+                        @Html.ValidationMessageFor(model => model.Professor, "", new { @class = "text-invalid" })
+                    </div>
+
+                </div>
+
+                <br>
+
+                <!-- Form Part 4 -->
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h2 class="heading-lg">Selling Information</h2>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12 selling-info">
+
+                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12" id="btn-radio-paid-free">
+                            <p id="radio-heading">Sell For *</p>
+                            <div class="form-check form-check-inline">
+                                @Html.RadioButtonFor(model => model.IsPaid, "false", new { @class = "form-check-input select-sell-mode", id = "free" })
+                                <label class="form-check-label" for="free">Free</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                @Html.RadioButtonFor(model => model.IsPaid, "true", new { @class = "form-check-input select-sell-mode", id = "paid" })
+                                <label class="form-check-label" for="paid">Paid</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
+                            @Html.LabelFor(model => model.SellingPrice)
+                            @Html.TextBoxFor(model => model.SellingPrice, new { @class = "form-control", id = "price", placeholder = "Enter your notes price" })
+                            @Html.ValidationMessageFor(model => model.SellingPrice, "", new { @class = "text-invalid" })
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 selling-info">
+                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
+                            @Html.LabelFor(model => model.NotesPreview)
+                            @Html.TextBoxFor(model => model.NotesPreview, new { @class = "form-control-file image-upload", id = "note-preview", type = "file", accept = ".pdf" })
+                            @Html.ValidationMessageFor(model => model.NotesPreview, "", new { @class = "text-invalid" })
+                            @if (!string.IsNullOrEmpty(Model.Preview))
+                            {
+                                <p class="uploaded-data">To see your uploaded notes preview<a href="@Url.Content(Model.Preview)" target="_blank"> Click Here</a></p>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+                        <div class="btn-add-note">
+                            <button type="submit" class="btn btn-color">Save</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+                        <div class="btn-add-note">
+                            <a class="btn btn-color" href="#" role="button">Publish</a>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Section Add Note Form -->

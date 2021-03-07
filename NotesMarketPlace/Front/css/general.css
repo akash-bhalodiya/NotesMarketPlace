@@ -461,7 +461,7 @@ a.btn-color {
     width: 172px;
 }
 
-#btn-learn-more:hover a {
+#btn-learn-more a:hover {
     background: #fff;
     color: #6255a5;
 }

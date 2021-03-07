@@ -1,0 +1,108 @@
+﻿@model NotesMarketplace.ViewModels.ContactusViewModel
+@{
+    ViewBag.Title = "Contactus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="blank">
+</section>
+
+<!-- Section Background Image -->
+<section id="contact-us-bg-image">
+
+    <div id="contact-us-content">
+
+        <div class="container">
+
+            <div class="row text-center background-img-heading-position">
+
+                <div class="background-img-heading">
+                    <h1>Contact Us</h1>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Section Background Image END -->
+<!-- Section Contact Us Form -->
+<section id="contact-us-forms">
+
+    <div class="content-box">
+
+        <div class="container">
+
+            @using (Html.BeginForm("Contactus", "Home", FormMethod.Post))
+            {
+
+                @Html.AntiForgeryToken()
+
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 contact-us-heading">
+                        <h2 class="heading-h3-color heading-lg">Get in Touch</h2>
+                        <p>Let us know how to get back to you</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+
+                        <div class="row">
+
+                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
+                                @Html.LabelFor(model => model.FullName)
+                                @Html.TextBoxFor(model => model.FullName, new { @class = "form-control", id = "full-name", placeholder = "Enter your full name", required = "required" })
+                                @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-invalid" })
+                            </div>
+
+                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
+                                @Html.LabelFor(model => model.Email)
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "email", placeholder = "Enter your email address", required = "required" })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-invalid" })
+                            </div>
+
+                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
+                                @Html.LabelFor(model => model.Subject)
+                                @Html.TextBoxFor(model => model.Subject, new { @class = "form-control", id = "subject", placeholder = "Enter your subject", required = "required" })
+                                @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-invalid" })
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div class="row">
+                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
+                                @Html.LabelFor(model => model.Comment)
+                                @Html.TextAreaFor(model => model.Comment, new { @class = "form-control", id = "description", placeholder = "Comments...", required = "required" })
+                                @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-invalid" })
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <br>
+
+                <div class="row">
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+                        <div class="btn-submit">
+                            <button type="submit" class="btn btn-color">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Section Contact Us Form END -->

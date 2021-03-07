@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - NotesMarketplace</title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="~/images/favicon/favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href=" https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700& display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="~/Content/front/bootstrap/bootstrap.min.css">
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="~/Content/front/fontawesome/css/font-awesome.min.css">
+
+    <!-- Common CSS -->
+    <link rel="stylesheet" href="~/Content/front/general.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/Content/front/style.css">
+
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/Content/front/responsive.css">
+
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+
+        <nav class="navbar navbar-expand-lg white-navbar navbar-fixed-height fixed-top">
+
+            <div class="container">
+                <div class="row">
+
+                    <!-- Logo -->
+                    <div class="navbar-header col-lg-3 col-10">
+
+                        <a class="navbar-brand text-left" href="@Url.Action("Index","Home")">
+                            <img src="~/images/Logos/top-logo-dark.png" alt="logo">
+                        </a>
+
+                    </div>
+
+                    <button class="navbar-toggler collapsed col-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="mobile-nav-close-btn">&times;</span>
+                        <span class="mobile-nav-open-btn">&#9776;</span>
+                    </button>
+
+                    <div class="collapse navbar-collapse col-lg-9" id="navbarSupportedContent">
+
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item"><a class="nav-link @ViewBag.SearchNotes" href="@Url.Action("SearchNotes","Home")">Search Notes</a></li>
+                            <li class="nav-item"><a class="nav-link @ViewBag.SellYourNotes" href="@Url.Action("Index","SellYourNotes")">Sell Your Notes</a></li>
+                            <li class="nav-item"><a class="nav-link @ViewBag.BuyerRequest" href="@Url.Action("Index","BuyerRequest")">Buyer Requests</a></li>
+                            <li class="nav-item"><a class="nav-link @ViewBag.FAQ" href="@Url.Action("FAQs","Home")">FAQ</a></li>
+                            <li class="nav-item"><a class="nav-link @ViewBag.Contactus" href="@Url.Action("Contactus","Home")">Contact Us</a></li>
+
+                            @if( User.Identity.IsAuthenticated )
+                            { 
+                                <li class="nav-item profile-dropdown">
+                                    <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <img src="~/images/Homepage/client-2.jpg" class="rounded-circle">
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="user-profile.html">My Profile</a>
+                                        <a class="dropdown-item" href="my downloads.html">My Downloads</a>
+                                        <a class="dropdown-item" href="my sold notes.html">My Sold Notes</a>
+                                        <a class="dropdown-item" href="my rejected notes.html">My Rejected Notes</a>
+                                        <a class="dropdown-item" href="change-password.html">Change Password</a>
+                                        <a class="dropdown-item logout" href="@Url.Action("Logout","Account")">Logout</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="@Url.Action("Logout","Account")">Logout</a></li>
+                            }
+                            else{
+                                <li class="nav-item"><a class="nav-link" href="@Url.Action("Login","Account")">Login</a></li>
+                            }
+
+                        </ul>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </nav>
+
+    </header>
+    <!-- Navigation Bar END -->
+
+    @RenderBody()
+
+    <!-- Section Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+
+                <!-- Copyright -->
+                <div class="col-md-6 col-sm-8 footer-text text-left">
+                    <p>Copyright &copy; TatvaSoft All Rights Reserved By</p>
+                </div>
+
+                <!-- Social Icon -->
+                <div class="col-md-6 col-sm-4 foot-icon col-sm-4 text-right">
+                    <ul class="social-list">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+    <!-- Section Footer END -->
+
+    <!-- Jquery JS -->
+    <script src="~/Scripts/front/jquery/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="~/Scripts/front/bootstrap/popper.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="~/Scripts/front/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/Scripts/front/script.js"></script>
+
+</body>
+</html>
