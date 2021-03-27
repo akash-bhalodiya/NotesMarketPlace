@@ -11,11 +11,13 @@ namespace NotesMarketplace.ViewModels
     {
         [Required(ErrorMessage = "This field is required")]
         [MaxLength(50, ErrorMessage = "Name is too long")]
+        [RegularExpression("[^0-9]", ErrorMessage = "Numbers not allowed")]
         [DisplayName("First Name *")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
         [MaxLength(50, ErrorMessage = "Name is too long")]
+        [RegularExpression("[^0-9]", ErrorMessage = "Numbers not allowed")]
         [DisplayName("Last Name *")]
         public string LastName { get; set; }
 
@@ -25,7 +27,7 @@ namespace NotesMarketplace.ViewModels
         public string Email { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,24}$", ErrorMessage = "Password must be between 8 and 24 characters and contain one uppercase letter, one lowercase letter, one digit and one special character.")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{6,24}$", ErrorMessage = "Password must be between 6 and 24 characters and contain one uppercase letter, one lowercase letter, one digit and one special character.")]
         [DisplayName("Password")]
         public string Password { get; set; }
 

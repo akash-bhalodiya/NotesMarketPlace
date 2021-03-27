@@ -1,0 +1,271 @@
+﻿@model IEnumerable<NotesMarketplace.ViewModels.SearchNotesViewModel>
+
+@{
+    ViewBag.Title = "Search Notes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="blank">
+</section>
+
+<!-- Section Background Image -->
+<section id="search-notes-bg-image">
+
+    <div id="search-notes-content">
+
+        <div class="container">
+
+            <div class="row text-center background-img-heading-position">
+
+                <div class="background-img-heading">
+                    <h1>Search Notes</h1>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Section Background Image END -->
+<!-- Section Search And Filter Notes -->
+<section id="search-notes-filter">
+
+    <div class="content-box-top">
+
+        <div class="container">
+
+            <div class="row ">
+
+                <div class="col-lg-12 col-md-12">
+                    <h4 class="heading-md">Search And Filter Notes</h4>
+                </div>
+
+            </div>
+
+            @using (@Html.BeginForm("Search", "SearchNotes", FormMethod.Get))
+            {
+
+                <div class="row search-filter">
+
+                    <div class="form-group col-lg-12 col-md-12 col-sm-12">
+                        <input type="search" name="search" class="form-control" id="search" value="@ViewBag.Search" placeholder="Search Notes Here">
+                    </div>
+
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6">
+                        @Html.DropDownList("type", new SelectList(@ViewBag.TypeList, "ID", "Name"), "Select Type", new { @class = "form-control", id = "type" })
+                    </div>
+
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6">
+                        @Html.DropDownList("category", new SelectList(@ViewBag.CategoryList, "ID", "Name"), "Select Category", new { @class = "form-control", id = "category" })
+                    </div>
+
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6">
+                        @Html.DropDownList("university", new SelectList(@ViewBag.UniversityList), "Select University", new { @class = "form-control", id = "university" })
+                    </div>
+
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6">
+                        @Html.DropDownList("course", new SelectList(@ViewBag.CourseList), "Select Course", new { @class = "form-control", id = "course" })
+                    </div>
+
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6">
+                        @Html.DropDownList("country", new SelectList(@ViewBag.CountryList, "ID", "Name"), "Select Country", new { @class = "form-control", id = "country" })
+                    </div>
+
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6">
+                        @Html.DropDownList("ratings", new SelectList(@ViewBag.RatingList, "Value", "Text"), "Select Rating", new { @class = "form-control", id = "rating" })
+                    </div>
+
+                </div>
+
+            }
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Section Search And Filter Notes END -->
+<!-- Searched Notes -->
+<section id="resulted-notes">
+
+    <div class="content-box">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-12 col-md-12">
+                    <h4 class="heading-md">Total @ViewBag.ResultCount Results</h4>
+                </div>
+
+            </div>
+
+            <!-- Notes -->
+            <div class="row results">
+
+                @foreach (var item in Model)
+                {
+
+                    <!-- Notes -->
+                    <div class="col-lg-4 col-md-6 col-sm-12 result-box">
+                        <div class="resulted-note">
+                            <div class="resulted-note-image">
+                                <a href="@Url.Action("Notes", "SearchNotes",new { id = item.Note.ID })">
+                                    @if (@item.Note.DisplayPicture != null)
+                                    {
+                                        <img src="@Url.Content(item.Note.DisplayPicture)" alt="note" class="img-fluid">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/DefaultImage/note.jpg" alt="note" class="img-fluid">
+                                    }
+                                </a>
+                            </div>
+                            <div class="resulted-note-detail">
+                                <a href="@Url.Action("Notes", "SearchNotes",new { id = item.Note.ID })">
+                                    <h6 class="heading-sm">@item.Note.Title</h6>
+                                </a>
+                                <ul>
+                                    @if (!String.IsNullOrEmpty(item.Note.UniversityName) && item.Note.Country != null)
+                                    {
+                                        <li><img src="~/images/Search/university.png">@item.Note.UniversityName, @item.Note.Country1.Name</li>
+                                    }
+                                    else if (!String.IsNullOrEmpty(item.Note.UniversityName) && item.Note.Country == null)
+                                    {
+                                        <li><img src="~/images/Search/university.png">@item.Note.UniversityName</li>
+                                    }
+                                    else if (String.IsNullOrEmpty(item.Note.UniversityName) && item.Note.Country != null)
+                                    {
+                                        <li><img src="~/images/Search/university.png">@item.Note.Country1.Name</li>
+                                    }
+                                    else
+                                    {
+                                        <li><img src="~/images/Search/university.png"></li>
+                                    }
+
+                                    @if (@item.Note.NumberofPages == null)
+                                    {
+                                        <li><img src="~/images/Search/pages.png"></li>
+                                    }
+                                    else
+                                    {
+                                        <li><img src="~/images/Search/pages.png">@item.Note.NumberofPages pages</li>
+                                    }
+                                    <li><img src="~/images/Search/calendar.png">@item.Note.PublishedDate.Value.ToString("MMM dd yyyy")</li>
+
+
+
+                                    <li><img src="~/images/Search/flag.png"><span class="flag">@item.TotalSpam User Marked This Note As Inappropriate</span></li>
+                                    <li>
+                                        @for (int i = 0; i < 5; i++)
+                                        {
+                                            if (i < item.AverageRating)
+                                            {
+                                                <i class="fa fa-star"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-star-o"></i>
+                                            }
+                                        }
+                                        <span>@item.TotalRating reviews</span>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+            <!-- Pagination -->
+            @if (Model.Count() != 0)
+            {
+                <div class="row justify-content-center">
+
+                    <nav aria-label="...">
+                        <ul class="pagination flex-wrap">
+
+                            <li class="page-item">
+                                @if (ViewBag.PageNumber == 1)
+                                {
+                                    <a class="page-link" href="@Url.Action("Search",  new { search = ViewBag.Search , type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = @ViewBag.PageNumber })"><i class="fa fa-angle-left"></i></a>
+                                }
+                                else
+                                {
+                                    <a class="page-link" href="@Url.Action("Search", new { search = ViewBag.Search , type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = @ViewBag.PageNumber - 1 })"><i class="fa fa-angle-left"></i></a>
+                                }
+                            </li>
+
+                            @{
+                                double? TotalPages = ViewBag.TotalPages;
+
+                                if (ViewBag.PageNumber != 1 && ViewBag.PageNumber - 2 > 1)
+                                {
+                                    int page = Convert.ToInt32(@ViewBag.PageNumber) - 3;
+                                    <li class="page-item">@Html.ActionLink("1", "Search", new { search = ViewBag.Search, type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = 1 }, new { @class = "page-link" })</li>
+                                    if (page != 1)
+                                    {
+                                        <li class="page-item more-pages-dots">@Html.ActionLink("...", "Search", new { search = ViewBag.Search, type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = page }, new { @class = "page-link more-pages-dots" })</li>
+                                    }
+                                }
+
+                                for (int i = 2; i > 0; i--)
+                                {
+                                    if (ViewBag.PageNumber - i > 0)
+                                    {
+                                        int page = Convert.ToInt32(@ViewBag.PageNumber) - i;
+                                        <li class="page-item">@Html.ActionLink(page.ToString(), "Search", new { search = ViewBag.Search, type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = page }, new { @class = "page-link" })</li>
+                                    }
+                                }
+
+                                <li class="page-item active">
+                                    <a class="page-link">@ViewBag.PageNumber<span class="sr-only">(current)</span></a>
+                                </li>
+
+                                for (int i = 1; i < 3; i++)
+                                {
+                                    if (ViewBag.PageNumber + i <= TotalPages)
+                                    {
+                                        int page = Convert.ToInt32(@ViewBag.PageNumber) + i;
+                                        <li class="page-item">@Html.ActionLink(page.ToString(), "Search", new { search = ViewBag.Search, type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = page}, new { @class = "page-link" })</li>
+                                    }
+                                }
+
+                                if (ViewBag.PageNumber != TotalPages && ViewBag.PageNumber + 2 < TotalPages)
+                                {
+                                    int page = Convert.ToInt32(@ViewBag.PageNumber) + 3;
+                                    if (page != TotalPages)
+                                    {
+                                        <li class="page-item">@Html.ActionLink("...", "Search", new { search = ViewBag.Search, type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = page }, new { @class = "page-link more-pages-dots" })</li>
+                                    }
+                                    <li class="page-item">@Html.ActionLink(TotalPages.ToString(), "Search", new { search = ViewBag.Search, type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = TotalPages }, new { @class = "page-link" })</li>
+                                }
+                            }
+
+                            <li class="page-item">
+                                @if (ViewBag.PageNumber == TotalPages)
+                                {
+                                    <a class="page-link" href="@Url.Action("Search", new { search = ViewBag.Search , type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = @ViewBag.PageNumber })"><i class="fa fa-angle-right"></i></a>
+                                }
+                                else
+                                {
+                                    <a class="page-link" href="@Url.Action("Search", new { search = ViewBag.Search , type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = @ViewBag.PageNumber + 1 })"><i class="fa fa-angle-right"></i></a>
+                                }
+                            </li>
+
+                        </ul>
+                    </nav>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Searched Notes END -->

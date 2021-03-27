@@ -80,5 +80,4 @@ C:\Users\IP310\source\repos\NotesMarketplace\bin\Microsoft.CodeDom.Providers.Dot
 C:\Users\IP310\source\repos\NotesMarketplace\obj\Debug\NotesMarketplace.csproj.CopyComplete
 C:\Users\IP310\source\repos\NotesMarketplace\obj\Debug\NotesMarketplace.dll
 C:\Users\IP310\source\repos\NotesMarketplace\obj\Debug\NotesMarketplace.pdb
-C:\Users\IP310\source\repos\NotesMarketplace\bin\FoolproofValidation.dll
 C:\Users\IP310\source\repos\NotesMarketplace\obj\Debug\NotesMarketplace.csprojAssemblyReference.cache

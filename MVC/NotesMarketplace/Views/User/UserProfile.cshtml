@@ -1,0 +1,206 @@
+﻿@model NotesMarketplace.ViewModels.UserProfileViewModel
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="blank">
+</section>
+
+<!-- Sectionn Background Image -->
+<section id="user-profile-bg-image">
+
+    <div id="user-profile-content">
+
+        <div class="container">
+
+            <div class="row text-center background-img-heading-position">
+
+                <div class="background-img-heading">
+                    <h1>User Profile</h1>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Section Background Image END -->
+<!-- Section Add Note Form -->
+<section id="user-profile-form">
+
+    <div class="content-box">
+
+        <div class="container">
+
+            @using (Html.BeginForm("UserProfile", "User", new { id = Model.UserID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                
+                @Html.AntiForgeryToken()
+
+                @Html.HiddenFor(model => model.UserID)
+
+                <!-- Form Part 1 -->
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h2 class="heading-lg">Basic Profile Details</h2>
+                    </div>
+
+                </div>
+
+                <div class="row ">
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.FirstName)
+                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", id = "first-name", value = Model.FirstName, placeholder = "Enter your first name", required = "required" })
+                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-invalid" })
+                    </div>
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.LastName)
+                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", id = "last-name", value = Model.LastName, placeholder = "Enter your last name", required = "required" })
+                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-invalid" })
+                    </div>
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.Email)
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "email", value = Model.Email, placeholder = "Enter your email address", type = "email", required = "required", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-invalid" })
+                    </div>
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.DOB)
+                        @Html.TextBoxFor(model => model.DOB, "{0:dd/MM/yyyy}", new { @class = "form-control", id = "date-of-birth", placeholder = "Enter your date of birth" })
+                        @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-invalid" })
+                    </div>
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.Gender)
+                        @Html.DropDownListFor(model => model.Gender, new SelectList(Model.GenderList, "ID", "Value", Model.Gender), "Select your gender", new { @class = "form-control", id = "gender" })
+                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-invalid" })
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div class="row" id="phone">
+                            <div class="form-group col-lg-4 col-md-4 col-sm-4 col-4">
+                                <label for="country-code">Phone Number *</label>
+                                @Html.DropDownListFor(model => model.PhoneNumberCountryCode, new SelectList(Model.CountryList, "CountryCode", "CountryCode", Model.PhoneNumberCountryCode), new { @class = "form-control", id = "phone-number-country-code", required = "required" })
+                                @Html.ValidationMessageFor(model => model.PhoneNumberCountryCode, "", new { @class = "text-invalid" })
+                            </div>
+                            <div class="form-group col-lg-8 col-md-8 col-sm-8 col-8">
+                                <label for="phone-number"> </label>
+                                @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", id = "phone-number", placeholder = "Enter your phone number", required = "required" })
+                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-invalid" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12 type-file">
+                        @Html.LabelFor(model => model.ProfilePicture)
+                        @Html.TextBoxFor(model => model.ProfilePicture, new { @class = "form-control-file image-upload", id = "profile-picture", type = "file" })
+                        @Html.ValidationMessageFor(model => model.ProfilePicture, "", new { @class = "text-invalid" })
+                        @if (!string.IsNullOrEmpty(Model.ProfilePictureUrl))
+                        {
+                            <p class="uploaded-data">To see your previously uploaded profile picture<a href="@Url.Content(Model.ProfilePictureUrl)" target="_blank"> Click Here</a></p>
+                        }
+                    </div>
+
+                </div>
+
+                <br>
+
+                <!-- Form Part 2 -->
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h2 class="heading-lg">Address Details</h2>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.AddressLine1)
+                        @Html.TextBoxFor(model => model.AddressLine1, new { @class = "form-control", id = "address-line-1", placeholder = "Enter your address", required = "required" })
+                        @Html.ValidationMessageFor(model => model.AddressLine1, "", new { @class = "text-invalid" })
+                    </div>
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.AddressLine2)
+                        @Html.TextBoxFor(model => model.AddressLine2, new { @class = "form-control", id = "address-line-2", placeholder = "Enter your address" })
+                        @Html.ValidationMessageFor(model => model.AddressLine2, "", new { @class = "text-invalid" })
+                    </div>
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.City)
+                        @Html.TextBoxFor(model => model.City, new { @class = "form-control", id = "city", placeholder = "Enter your city", required = "required" })
+                        @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-invalid" })
+                    </div>
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.State)
+                        @Html.TextBoxFor(model => model.State, new { @class = "form-control", id = "state", placeholder = "Enter your state", required = "required" })
+                        @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-invalid" })
+                    </div>
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.ZipCode)
+                        @Html.TextBoxFor(model => model.ZipCode, new { @class = "form-control", id = "zipcode", placeholder = "Enter your zipcode", required = "required" })
+                        @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-invalid" })
+                    </div>
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.Country)
+                        @Html.DropDownListFor(model => model.Country, new SelectList(Model.CountryList, "Name", "Name", Model.Country), "Select your Country", new { @class = "form-control", id = "country", required = "required" })
+                        @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-invalid" })
+                    </div>
+
+                </div>
+
+                <br>
+
+                <!-- Form Part 3 -->
+                <div class="row">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h2 class="heading-lg">University and College Information</h2>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.University)
+                        @Html.TextBoxFor(model => model.University, new { @class = "form-control", id = "university", placeholder = "Enter your university" })
+                        @Html.ValidationMessageFor(model => model.University, "", new { @class = "text-invalid" })
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
+                        @Html.LabelFor(model => model.College)
+                        @Html.TextBoxFor(model => model.College, new { @class = "form-control", id = "college", placeholder = "Enter your college" })
+                        @Html.ValidationMessageFor(model => model.College, "", new { @class = "text-invalid" })
+                    </div>
+
+                </div>
+
+                <br>
+
+                <div class="row">
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+                        <div class="btn-submit">
+                            <button class="btn btn-color" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Section Add Note Form -->

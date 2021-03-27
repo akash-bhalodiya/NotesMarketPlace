@@ -1,5 +1,4 @@
-﻿using Foolproof;
-using NotesMarketplace.Models;
+﻿using NotesMarketplace.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,7 +26,7 @@ namespace NotesMarketplace.ViewModels
         public HttpPostedFileBase DisplayPicture { get; set; }
 
         [DisplayName("Upload Notes *")]
-        public HttpPostedFileBase UploadNotes { get; set; }
+        public HttpPostedFileBase[] UploadNotes { get; set; }
 
         [DisplayName("Type")]
         public Nullable<int> NoteType { get; set; }

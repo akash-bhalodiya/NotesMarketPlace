@@ -1,0 +1,313 @@
+﻿@model NotesMarketplace.ViewModels.NotesDetailViewModel
+
+@{
+    ViewBag.Title = "Notes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="blank">
+</section>
+
+<!-- Section Note Detail -->
+<section id="note-detail">
+
+    <div class="content-box">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h4 class="heading-md">Notes Detail</h4>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <!-- Notes Detail Top Left Side Note Image-->
+                <div class="col-lg-6 col-md-12 col-sm-12 col-12" id="note-detail-top-left">
+
+                    <div class="row">
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-12" id="note-detail-img">
+                            @if (Model.SellerNote.DisplayPicture != null)
+                            {
+                                <img src="@Url.Content(Model.SellerNote.DisplayPicture)" class="img-fluid">
+                            }
+                            else
+                            {
+                                <img src="~/DefaultImage/note.jpg" alt="note" class="img-fluid">
+                            }
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-12" id="note-detail-info">
+                            <h3 class="heading-lg">@Model.SellerNote.Title</h3>
+                            <h6>@Model.SellerNote.NoteCategory.Name</h6>
+                            <p>@Model.SellerNote.Description</p>
+
+                            <!-- if user is authenticated -->
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <!-- if note is paid and note's seller and logged in user is not same -->
+                                if (Model.SellerNote.IsPaid && Model.SellerNote.SellerID != Model.UserID)
+                                {
+                                    <!-- if note is not already requested -->
+                                    if (Model.NoteRequested == false)
+                                    {
+                                        <div id="btn-download">
+                                            <a class="btn btn-color" role="button" data-toggle="modal" data-target="#confirmation">Download / $@Model.SellerNote.SellingPrice</a>
+                                        </div>
+                                    }
+                                    <!-- if logged in user is allowed to download -->
+                                    if (Model.AllowDownload == true)
+                                    {
+                                        <div id="btn-download">
+                                            <a class="btn btn-color" href="@Url.Action("DownloadNotes", new { noteid = Model.SellerNote.ID })" role="button" download>Download / $@Model.SellerNote.SellingPrice</a>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <!-- if note is free or note's seller and logged in user is same -->
+                                    <div id="btn-download">
+                                        <a class="btn btn-color" href="@Url.Action("DownloadNotes", new { noteid = Model.SellerNote.ID })" role="button" download>Download / $@Model.SellerNote.SellingPrice</a>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <!-- if user is not authenticated -->
+                                <div id="btn-download">
+                                    <a class="btn btn-color" href="@Url.Action("Login", "Account")">Download / $@Model.SellerNote.SellingPrice</a>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Section Confirmation Box -->
+                <div class="modal fade " id="confirmation" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-confirm-body">
+                                <div>
+                                    <p class="confirm-text">
+                                        Are you sure you want to download this Paid note. Please confirm.
+                                    </p>
+
+                                    <div class="btn-confirm">
+                                        <a class="btn btn-yes" href="@Url.Action("RequestPaidNotes", new { noteid = Model.SellerNote.ID })" id="confirmationbutton" onclick="$('#confirmation').modal('hide'); $('#thankspopup').modal('show');" role="button">YES</a>
+                                        <a class="btn btn-no" data-dismiss="modal" aria-label="Close" role="button">NO</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Section Confirmation-Box END -->
+                <!-- Notes Detail Top Right Side Info-->
+                <div class="col-lg-6 col-md-12 col-sm-12 col-12 notes-info" id="note-detail-top-right">
+
+                    <p>
+                        <span class="first">Institute:</span>
+                        <span class="last">@Model.SellerNote.UniversityName</span>
+                    </p>
+                    <p>
+                        <span class="first">Country:</span>
+                        @if (@Model.SellerNote.Country != null)
+                        {
+                            <span class="last">@Model.SellerNote.Country1.Name</span>
+                        }
+                        else
+                        {
+                            <span class="last"></span>
+                        }
+                    </p>
+                    <p>
+                        <span class="first">Course Name:</span>
+                        <span class="last">@Model.SellerNote.Course</span>
+                    </p>
+                    <p>
+                        <span class="first">Course Code:</span>
+                        <span class="last">@Model.SellerNote.CourseCode</span>
+                    </p>
+                    <p>
+                        <span class="first">Professor:</span>
+                        <span class="last">@Model.SellerNote.Professor</span>
+                    </p>
+                    <p>
+                        <span class="first">Number of Pages:</span>
+                        @if (Model.SellerNote.NumberofPages != null)
+                        {
+                            <span class="last">@Model.SellerNote.NumberofPages</span>
+                        }
+                        else
+                        {
+                            <span class="last"></span>
+                        }
+                    </p>
+                    <p>
+                        <span class="first">Approved Date:</span>
+                        @if (Model.SellerNote.PublishedDate != null)
+                        {
+                            <span class="last">@Model.SellerNote.PublishedDate.Value.ToString("MMM dd yyyy")</span>
+                        }
+                        else
+                        {
+                            <span class="last"></span>
+                        }
+                    </p>
+                    <p>
+                        <span class="first">Rating:</span>
+                        <span class="last rating">
+
+                            @for (var i = 0; i < 5; i++)
+                            {
+                                if (i < Model.AverageRating)
+                                {
+                                    <i class="fa fa-star"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-star-o"></i>
+                                }
+                            }
+
+                            <span>@Model.TotalReview reviews</span>
+                        </span>
+                    </p>
+                    <p class="inappropriate">@Model.TotalSpamReport User marked this note as inappropriate.</p>
+                </div>
+
+            </div>
+
+            <br>
+            <hr>
+            <br>
+
+            <div class="row">
+
+                <!-- Note Detail Bottom Left PDF-->
+                <div class="col-lg-5 col-md-12 col-sm-12 col-12" id="note-detail-bottom-left">
+
+                    <div class="row">
+                        <div class=" col-lg-12 col-md-12 col-sm-12 col-12">
+                            <h4 class="heading-md">Notes Preview</h4>
+                        </div>
+                    </div>
+
+                    <div class="note-detail-preview">
+                        @if (Model.SellerNote.NotesPreview != null)
+                        {
+                            <iframe src="@Url.Content(Model.SellerNote.NotesPreview)"></iframe>
+                        }
+                    </div>
+
+                </div>
+
+                <!-- Note Detail Bottom Right Comment-->
+                <div class="col-lg-7 col-md-12 col-sm-12 col-12" id="note-detail-bottom-right">
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                            <h4 class="heading-md">Customer Reviews</h4>
+                        </div>
+                    </div>
+
+                    <div id="comment">
+                        <div class="row comment-box">
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+
+                                @foreach (var item in Model.NotesReview)
+                                {
+
+                                    <!-- Comment -->
+                                    <div class="user-comment">
+                                        <div class="row">
+                                            <div class="col-lg-2 col-md-2 col-sm-3 col-3 user-comment-image">
+                                                @if (item.TblUserProfile.ProfilePicture != null)
+                                                {
+                                                    <img src="@Url.Content(item.TblUserProfile.ProfilePicture)" class="rounded-circle img-fluid" alt="user">
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/DefaultImage/profile.png" class="rounded-circle img-fluid" alt="user">
+                                                }
+                                            </div>
+                                            <div class="col-lg-10 col-md-10 col-sm-9 col-9 user-comment-info">
+                                                <h6>@item.TblUser.FirstName @item.TblUser.LastName</h6>
+
+                                                <div class="rating">
+
+                                                    @for (var i = 0; i < 5; i++)
+                                                    {
+                                                        if (i < item.TblSellerNotesReview.Ratings)
+                                                        {
+                                                            <i class="fa fa-star"></i>
+                                                        }
+                                                        else
+                                                        {
+                                                            <i class="fa fa-star-o"></i>
+                                                        }
+                                                    }
+
+                                                </div>
+
+                                                <p>@item.TblSellerNotesReview.Comments</p>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </div>
+
+                                }
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Section Note Detail END -->
+@{
+    using (var _dbcontext = new NotesMarketplace.Models.NotesMarketplaceEntities())
+    {
+        var systemconfiguration = _dbcontext.SystemConfigurations.Where(x => x.Name == "supportcontact").FirstOrDefault();
+        string phone = systemconfiguration.Value;
+
+        <!-- Section Thanks Popup -->
+        <div class="modal fade " id="thankspopup" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="text-center">
+                            <img src="~/images/Thanks Popup/true.png" alt="Done">
+                            <h4 class="heading-md">Thank you for purchasing!</h4>
+                        </div>
+                        <div id="thanks-note">
+                            <h6 class="heading-ex-sm">Dear Smith,</h6>
+                            <p>As this is paid notes - you need to pay to seller Rahul Shah offline. We will send him an email that you want to download this note. He may contact you further payment process completion.</p>
+                            <p>In case you have urgency,<br>Please contact us on +91 @phone .</p>
+                            <p>Once he recieve the payment and acknowledge us - selected notes you can see over my downloads tab for download.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Section Thanks Popup END -->
+    }
+}

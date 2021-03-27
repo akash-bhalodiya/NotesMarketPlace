@@ -1,5 +1,4 @@
-﻿using Foolproof;
-using NotesMarketplace.Models;
+﻿using NotesMarketplace.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,7 +23,7 @@ namespace NotesMarketplace.ViewModels
 
         [Required(ErrorMessage = "This field is required")]
         [DisplayName("Upload Notes *")]
-        public HttpPostedFileBase UploadNotes { get; set; }
+        public HttpPostedFileBase[] UploadNotes { get; set; }
 
         [DisplayName("Type")]
         public Nullable<int> NoteType { get; set; }
@@ -57,7 +56,6 @@ namespace NotesMarketplace.ViewModels
         [DisplayName("Sell Price *")]
         public Nullable<decimal> SellingPrice { get; set; }
 
-        [RequiredIf("IsPaid", true, ErrorMessage = "This field is required")]
         [DisplayName("Notes Preview")]
         public HttpPostedFileBase NotesPreview { get; set; }
 

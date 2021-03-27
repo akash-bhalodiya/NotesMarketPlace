@@ -14,7 +14,7 @@
         <p class="heading-ex-sm">Dear Smith,</p>
         <p class="text">Thanks for Signing up!<br>Simply click below for email verification</p>
         <div class="btn-email-verify">
-            @Html.ActionLink("Verify Email Address", "RegisterConfirm", "Account", new { regID = @ViewBag.regID }, new { @class = "btn btn-color" })
+            @Html.ActionLink("Verify Email Address", "RegisterConfirm", "Account", new { key = @ViewBag.Key, value = @ViewBag.Value }, new { @class = "btn btn-color" })
         </div>
 
     </div>
@@ -27,7 +27,7 @@
         $.ajax({
             type: "post",
             url: "Account/RegisterConfirm",
-            data: { 'regID': '@ViewBag.regID' },
+            data: { 'regID': '@ViewBag.regID', 'value': @ViewBag.Value  },
         })
     }
 </script>

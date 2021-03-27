@@ -1,5 +1,6 @@
 ﻿using NotesMarketplace.Models;
 using NotesMarketplace.ViewModels;
+using NotesMarketplace.SendMail;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,7 +19,6 @@ namespace NotesMarketplace.Controllers
     {
         readonly private NotesMarketplaceEntities _dbcontext = new NotesMarketplaceEntities();
 
-        //GET : Account/Signup
         [HttpGet]
         [Route("Signup")]
         public ActionResult Signup()
@@ -26,7 +26,6 @@ namespace NotesMarketplace.Controllers
             return View();
         }
 
-        //POST : Account/Signup
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Signup")]
@@ -40,7 +39,7 @@ namespace NotesMarketplace.Controllers
                 if (emailalreadyexists)
                 {
                     ModelState.AddModelError("Email", "Email already registered");
-                    return View();
+                    return View(signupviewmodel);
                 }
                 else 
                 {
@@ -56,15 +55,20 @@ namespace NotesMarketplace.Controllers
                         IsActive = true
                     };
 
+                    // add user in database
                     _dbcontext.Users.Add(user);
                     _dbcontext.SaveChanges();
 
+                    // send date as string format for validate user
+                    string date = user.CreatedDate.Value.ToString("ddMMyyyyHHmmss");
+
                     //send email for verification to user
-                    BuildEmailVerifyTemplate(user.ID);
+                    BuildEmailVerifyTemplate(user,date);
 
                     //show success message
                     ViewBag.Success = true;
 
+                    // clear modelstate
                     ModelState.Clear();
 
                     return View();
@@ -76,89 +80,82 @@ namespace NotesMarketplace.Controllers
             }
         }
 
-        [Route("VerifyEmail/{regID}")]
-        public ActionResult VerifyEmail(int regID)
+        //get string from email template EmailVerification.cshtml
+        public void BuildEmailVerifyTemplate(User user, string date)
         {
-            ViewBag.regID = regID;
+            // get text from email verification template
+            string body = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/EmailTemplate/") + "EmailVerification" + ".cshtml");
+                        
+            // create url by user id and user registered date in string format
+            var url = "https://localhost:44381/" + "Account/VerifyEmail?key=" + user.ID + "&value=" + date;
+            
+            // replace url and first name
+            body = body.Replace("ViewBag.ConfirmationLink", url);
+            body = body.Replace("ViewBag.FirstName", user.FirstName);
+            body = body.ToString();
+
+            // get support email
+            var fromemail = _dbcontext.SystemConfigurations.Where(x => x.Name == "supportemail").FirstOrDefault();
+            
+            // set from, to, subject, body
+            string from, to, subject;
+            from = fromemail.Value.Trim();
+            to = user.Email.Trim();
+            subject = "Note Marketplace - Email Verification";
+            StringBuilder sb = new StringBuilder();
+            sb.Append(body);
+            body = sb.ToString();
+
+            // create mailmessage object
+            MailMessage mail = new MailMessage();
+            mail.From = new MailAddress(from, "NotesMarketplace");
+            mail.To.Add(new MailAddress(to));
+            mail.Subject = subject;
+            mail.Body = body;
+            mail.IsBodyHtml = true;
+
+            // send mail (NotesMarketplace/SendMail/)
+            SendingEmail.SendEmail(mail);
+        }        
+
+        [Route("VerifyEmail")]
+        public ActionResult VerifyEmail(int key, string value)
+        {
+            // viewbag for key and value
+            ViewBag.Key = key;
+            ViewBag.Value = value;
             return View();
         }
 
         //to set isemailverified true in database after verification of email
-        [Route("RegisterConfirm/{regID}")]
-        public ActionResult RegisterConfirm(int regID)
+        [Route("RegisterConfirm")]
+        public ActionResult RegisterConfirm(int key, string value)
         {
-            User user = _dbcontext.Users.FirstOrDefault(x => x.ID == regID);
-            user.IsEmailVerified = true;
-            _dbcontext.SaveChanges();
+            // get user by key
+            User user = _dbcontext.Users.Where(x => x.ID == key).FirstOrDefault();
+            // if user is not found
+            if(user == null)
+            {
+                return HttpNotFound();
+            }
+            // compare the date string that we get from url with user's registed date string
+            if (String.Equals(user.CreatedDate.Value.ToString("ddMMyyyyHHmmss"), value))
+            {
+                // if both string matches then verify email
+                user.IsEmailVerified = true;
+                user.ModifiedBy = user.ID;
+                user.ModifiedDate = DateTime.Now;
+                _dbcontext.SaveChanges();
+            }
+            
             return RedirectToAction("Login","Account");
         }
-
-        //get string from email template EmailVerification.cshtml
-        public void BuildEmailVerifyTemplate(int RegID)
-        {
-            string body = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/EmailTemplate/")+ "EmailVerification" + ".cshtml");
-            var regInfo = _dbcontext.Users.FirstOrDefault(x => x.ID == RegID);
-            var url = "https://localhost:44381/" + "Account/VerifyEmail?regID=" + RegID;
-            body = body.Replace("@ViewBag.ConfirmationLink", url);
-            body = body.Replace("@ViewBag.FirstName", regInfo.FirstName);
-            body = body.ToString();
-            BuildEmailVerifyTemplate(body, regInfo.Email);
-        }
-
-        //set subject, body, to, and from to MailMessege object
-        public static void BuildEmailVerifyTemplate(string bodyText, string sendTo)
-        {
-            string from, to, bcc, cc, subject, body;
-            from = "supportemail";
-            to = sendTo.Trim();
-            bcc = "";
-            cc = "";
-            subject = "Note Marketplace - Email Verification";
-            StringBuilder sb = new StringBuilder();
-            sb.Append(bodyText);
-            body = sb.ToString();
-            MailMessage mail = new MailMessage();
-            mail.From = new MailAddress(from, "NotesMarketplace");
-            mail.To.Add(new MailAddress(to));
-            if (!string.IsNullOrEmpty(bcc))
-            {
-                mail.Bcc.Add(new MailAddress(bcc));
-            }
-            if (!string.IsNullOrEmpty(cc))
-            {
-                mail.CC.Add(new MailAddress(cc));
-            }
-            mail.Subject = subject;
-            mail.Body = body;
-            mail.IsBodyHtml = true;
-            SendEmail(mail);
-        }
-
-        //send mail using SmtpClient obj
-        public static void SendEmail(MailMessage mail)
-        {
-            SmtpClient client = new SmtpClient();
-            client.Host = "smtp.gmail.com";
-            client.Port = 587;
-            client.EnableSsl = true;
-            client.UseDefaultCredentials = false;
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.Credentials = new System.Net.NetworkCredential("supportemail", "mypassword");
-            try
-            {
-                client.Send(mail);
-            }
-            catch(Exception e)
-            {
-                Debug.WriteLine("------------- "+ e.ToString());
-            }
-        }
-
-        // GET : Account/Login
+        
         [HttpGet]
         [Route("Login")]
         public ActionResult Login()
         {
+            // if user is already login then make user logout
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Logout");
@@ -169,12 +166,12 @@ namespace NotesMarketplace.Controllers
             }
         }
 
-        // POST : Account/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Login")]
         public ActionResult Login(LoginViewModel loginviewmodel)
         {
+            // check if model state is valid or not
             if (ModelState.IsValid)
             {
                 //check if user for given email address is available or not
@@ -195,40 +192,57 @@ namespace NotesMarketplace.Controllers
                                 {
                                     //set authentication cookie
                                     FormsAuthentication.SetAuthCookie(user.Email, loginviewmodel.RememberMe);
-                                    return RedirectToAction("Index", "Home");
+
+                                    // check if user profile exists or not
+                                    var isuserprofileset = _dbcontext.UserProfiles.Where(x => x.UserID == user.ID).FirstOrDefault();
+
+                                    // if user profile is not exists then redirect to userprofile page else search page
+                                    if (isuserprofileset == null)
+                                    {
+                                        return RedirectToAction("UserProfile", "User");
+                                    }
+                                    else
+                                    {
+                                        return RedirectToAction("Search", "SearchNotes");
+                                    }
                                 }
                                 //for user admin or superadmin
                                 else
                                 {
                                     //set authentication cookie
                                     FormsAuthentication.SetAuthCookie(user.Email, loginviewmodel.RememberMe);
-                                    return RedirectToAction("AdminDashboard");
+                                    return RedirectToAction("Dashboard", "Admin");
                                 }
                             }
                             else
                             {
+                                // incorrect password error
                                 ModelState.AddModelError("Password", "Incorrect password");
                                 return View(loginviewmodel);
                             }
                         }
                         else
                         {
+                            // email verify error
                             ModelState.AddModelError("Email", "Verify your email address");
                             return View(loginviewmodel);
                         }
                     }
                     else
                     {
+                        // account is not active error
                         ModelState.AddModelError("Email", "Your Account with this Email is not currently active");
                         return View(loginviewmodel);
                     }
                 }
                 else
                 {
+                    // incorrect email address error
                     ModelState.AddModelError("Email", "Incorrect email address");
                     return View(loginviewmodel);
                 }
             }
+            // if model state is not valid
             else
             {
                 return View(loginviewmodel);
@@ -239,12 +253,67 @@ namespace NotesMarketplace.Controllers
         [Route("Logout")]
         public ActionResult Logout()
         {
+            // formauthentication signout
             FormsAuthentication.SignOut();
-            Session.Abandon();
             return RedirectToAction("Login");
         }
 
-        // GET : Account/ForgotPassword
+        [Authorize]
+        [HttpGet]
+        [Route("ChangePassword")]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("ChangePassword")]
+        public ActionResult ChangePassword(ChangePasswordViewModel changepasswordviewmodel)
+        {
+            // check if model state is valid or not
+            if (ModelState.IsValid)
+            {
+                // get logged in user
+                var loggedinuser = _dbcontext.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+                // check if user is logged in or not
+                if (loggedinuser != null)
+                {
+                    // match old password
+                    if (loggedinuser.Password == changepasswordviewmodel.OldPassword)
+                    {
+                        // update password
+                        loggedinuser.Password = changepasswordviewmodel.NewPassword;
+                        loggedinuser.ModifiedDate = DateTime.Now;
+                        loggedinuser.ModifiedBy = loggedinuser.ID;
+                        _dbcontext.Users.Attach(loggedinuser);
+                        _dbcontext.Entry(loggedinuser).Property(x => x.Password).IsModified = true;
+                        _dbcontext.Entry(loggedinuser).Property(x => x.ModifiedDate).IsModified = true;
+                        _dbcontext.Entry(loggedinuser).Property(x => x.ModifiedBy).IsModified = true;
+                        _dbcontext.SaveChanges();
+
+                        return RedirectToAction("login");
+                    }
+                    else
+                    {
+                        // password mismatch error
+                        ModelState.AddModelError("OldPassword", "Your old password is not match with your current pasword");
+                        return View(changepasswordviewmodel);
+                    }
+                }
+                // if user is not logged in 
+                else
+                {
+                    return RedirectToAction("Login");
+                }
+            }
+            else
+            {
+                return View(changepasswordviewmodel);
+            }
+        }
+
         [HttpGet]
         [Route("ForgotPassword")]
         public ActionResult ForgotPassword()
@@ -252,7 +321,6 @@ namespace NotesMarketplace.Controllers
             return View();
         }
 
-        // POST : Account/ForgotPassword
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("ForgotPassword")]
@@ -261,19 +329,24 @@ namespace NotesMarketplace.Controllers
             if (ModelState.IsValid)
             {
                 //check if given email address is available or not
-                var user = _dbcontext.Users.FirstOrDefault(x => x.Email == forgotpasswordviewmodel.Email);
-                
-                if(user != null && user.IsActive == true)
+                var user = _dbcontext.Users.FirstOrDefault(x => x.Email == forgotpasswordviewmodel.Email && x.IsActive == true);
+                // if user object of given available address is available
+                if(user != null)
                 {
+                    // create temporary password
                     var temporarypassword = CreatePassword(8);
-                    BuildTemporaryPasswordTemplate(user.ID, temporarypassword);
+                    // send temporary password to user by mail
+                    BuildTemporaryPasswordTemplate(user, temporarypassword);
+                    
+                    // update password
                     user.Password = temporarypassword;
                     _dbcontext.Users.Attach(user);
                     _dbcontext.Entry(user).Property(x => x.Password).IsModified = true;
                     _dbcontext.SaveChanges();
-                    _dbcontext.Dispose();
+
                     return RedirectToAction("Login");
                 }
+                // if user object of given available address is not available
                 else
                 {
                     ModelState.AddModelError("Email", "Email address is not registered or it may be deactivated");
@@ -323,43 +396,36 @@ namespace NotesMarketplace.Controllers
         }
 
         //get string from email template TemporaryPassword.cshtml
-        public void BuildTemporaryPasswordTemplate(int RegID, string temporarypassword)
+        public void BuildTemporaryPasswordTemplate(User user, string temporarypassword)
         {
             string body = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/EmailTemplate/") + "TemporaryPassword" + ".cshtml");
-            var regInfo = _dbcontext.Users.FirstOrDefault(x => x.ID == RegID);
-            body = body.Replace("@ViewBag.TemporaryPassword", temporarypassword);
-            body = body.Replace("@ViewBag.FirstName", regInfo.FirstName);
+                        
+            body = body.Replace("ViewBag.TemporaryPassword", temporarypassword);
+            body = body.Replace("ViewBag.FirstName", user.FirstName);
             body = body.ToString();
-            BuildTemporaryPasswordTemplate(body, regInfo.Email);
-        }
 
-        //set subject, body, to, and from to MailMessege object
-        public static void BuildTemporaryPasswordTemplate(string bodyText, string sendTo)
-        {
-            string from, to, bcc, cc, subject, body;
-            from = "supportemail";
-            to = sendTo.Trim();
-            bcc = "";
-            cc = "";
+            // get support email
+            var fromemail = _dbcontext.SystemConfigurations.Where(x => x.Name == "supportemail").FirstOrDefault();
+
+            // set from, to, subject, body
+            string from, to, subject;
+            from = fromemail.Value.Trim();
+            to = user.Email.Trim();
             subject = "New Temporary Password has been created for you";
             StringBuilder sb = new StringBuilder();
-            sb.Append(bodyText);
+            sb.Append(body);
             body = sb.ToString();
+
+            // create mailmessage object
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress(from, "NotesMarketplace");
             mail.To.Add(new MailAddress(to));
-            if (!string.IsNullOrEmpty(bcc))
-            {
-                mail.Bcc.Add(new MailAddress(bcc));
-            }
-            if (!string.IsNullOrEmpty(cc))
-            {
-                mail.CC.Add(new MailAddress(cc));
-            }
             mail.Subject = subject;
             mail.Body = body;
             mail.IsBodyHtml = true;
-            SendEmail(mail);
+
+            // send mail (NotesMarketplace/SendMail/)
+            SendingEmail.SendEmail(mail);
         }
 
     }

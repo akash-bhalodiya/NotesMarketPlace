@@ -1,0 +1,462 @@
+﻿@model NotesMarketplace.ViewModels.DashboardViewModel
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="blank">
+</section>
+
+<!-- Section Dashboard -->
+<section id="dashboard">
+
+    <div class="content-box-top">
+
+        <div class="container">
+
+            <div class="row" id="dashboard-heading">
+                <h2 class="heading-lg">Dashboard</h2>
+                <div class="btn-dashboard ml-auto">
+                    <a class="btn btn-color" href="@Url.Action("AddNotes","SellYourNotes")" title="Add Note" role="button">Add Note</a>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-6 col-md-12 col-sm-12 col-12" id="dashboard-box-1">
+                    <div class="dashboard-box-first">
+                        <div class="row ml-auto mr-auto">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-12 text-center" id="my-earning">
+                                <div class="my-4">
+                                    <img src="~/images/Dashboard/my-earning.png">
+                                    <h3>My Earning</h3>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-12">
+                                <div class="row">
+                                    <div class="my-4 col-lg-6 col-md-6 col-sm-6 col-6 text-center">
+                                        <a class ="value" href="@Url.Action("MySoldNotes", "User")">@Model.NumberOfSoldNotes</a><br>
+                                        <a class="heading" href="@Url.Action("MySoldNotes", "User")">Number of Notes Sold</a>
+                                    </div>
+                                    <div class="my-4 col-lg-6 col-md-6 col-sm-6 col-6 text-center">
+                                        @if (@Model.MoneyEarned == null)
+                                        {
+                                            <a class="value" href="@Url.Action("MySoldNotes", "User")">$ 0</a><br>
+                                        }
+                                        else
+                                        {
+                                            <a class="value" href="@Url.Action("MySoldNotes", "User")">$@Model.MoneyEarned</a><br>
+                                        }
+                                        <a class="heading" href="@Url.Action("MySoldNotes", "User")">Money Earned</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-sm-4 text-center" id="dashboard-box-2">
+                    <div class="dashboard-box">
+                        <div class="my-4">
+                            <a class ="value" href="@Url.Action("MyDownloads", "User")">@Model.MyDownloads</a><br>
+                            <a class ="heading" href="@Url.Action("MyDownloads", "User")">My Downloads</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-sm-4 text-center" id="dashboard-box-3">
+                    <div class="dashboard-box">
+                        <div class="my-4">
+                            <a class ="value" href="@Url.Action("MyRejectedNotes", "User")">@Model.MyRejectedNotes</a><br>
+                            <a class ="heading" href="@Url.Action("MyRejectedNotes", "User")">My Rejected Notes</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-sm-4 text-center" id="dashboard-box-4">
+                    <div class="dashboard-box">
+                        <div class="my-4">
+                            <a class ="value" href="@Url.Action("BuyerRequest", "BuyerRequest")">@Model.BuyerRequest</a><br>
+                            <a class ="heading" href="@Url.Action("BuyerRequest", "BuyerRequest")">Buyer Requests</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Section Dashboard END -->
+<!-- Section In Progress Note -->
+<section id="in-progress-notes">
+
+    <div class="content-box-top">
+
+        <div class="container">
+
+            @using (Html.BeginForm("Dashboard", "SellYourNotes", FormMethod.Get))
+            {
+
+                <div class="row">
+
+                    <div class="col-lg-7 col-md-6 col-sm-5 col-12 table-heading my-auto">
+                        <h4 class="heading-md">In Progress Notes</h4>
+                    </div>
+
+                    <div class="col-lg-5 col-md-6 col-sm-7 col-12" id="table-search">
+                        <div class="row search">
+                            <div class="search-bar col-lg-9 col-md-9 col-sm-8 col-8 form-group">
+                                <input type="search" name="search1" class="form-control" id="search" value="@ViewBag.Search1" placeholder="Search">
+                                <input type="search" name="search2" value="@ViewBag.Search2" hidden>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-4 btn-search">
+                                <button type="submit" class="btn btn-color">Search</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+            <div class="row table-general table-responsive">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>@Html.ActionLink("Added date", "Dashboard", new { sort1 = ViewBag.Sort1 == null ? "CreatedDate_Asc" : (ViewBag.Sort1 == "CreatedDate_Desc" ? "CreatedDate_Asc" : "CreatedDate_Desc"), sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2, search1 = @ViewBag.Search1, search2 = @ViewBag.Search2 })</th>
+                            <th>@Html.ActionLink("Title", "Dashboard", new { sort1 = ViewBag.Sort1 == null ? "Title_Asc" : (ViewBag.Sort1 == "Title_Asc" ? "Title_Desc" : "Title_Asc"), sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2, search1 = @ViewBag.Search1, search2 = @ViewBag.Search2 })</th>
+                            <th>@Html.ActionLink("Category", "Dashboard", new { sort1 = ViewBag.Sort1 == null ? "Category_Asc" : (ViewBag.Sort1 == "Category_Asc" ? "Category_Desc" : "Category_Asc"), sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2, search1 = @ViewBag.Search1, search2 = @ViewBag.Search2 })</th>
+                            <th>@Html.ActionLink("Status", "Dashboard", new { sort1 = ViewBag.Sort1 == null ? "Status_Asc" : (ViewBag.Sort1 == "Status_Asc" ? "Status_Desc" : "Status_Asc"), sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2, search1 = @ViewBag.Search1, search2 = @ViewBag.Search2 })</th>
+                            <th class="content-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model.InProgressNotes.Count() == 0)
+                        {
+                            <tr class="no-record">
+                                <td colspan="5" class="text-center">No Record Found</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var inprogressnote in Model.InProgressNotes)
+                            {
+                                <tr>
+                                    <td>@inprogressnote.CreatedDate.Value.ToString("dd-MM-yyyy")</td>
+                                    <td>@inprogressnote.Title</td>
+                                    <td>@inprogressnote.NoteCategory.Name</td>
+                                    <td>@inprogressnote.ReferenceData.Value</td>
+                                    <td>
+                                        <div class="table-images">
+                                            @if (inprogressnote.Status == 6)
+                                            {
+                                                <a href="@Url.Action("EditNotes","SellYourNotes", new { id = inprogressnote.ID })"><img src="~/images/Dashboard/edit.png" alt="edit" class="edit"></a>
+                                                <a><img src="~/images/Dashboard/delete.png" alt="delete" class="delete" data-toggle="modal" data-target="#delete-@inprogressnote.ID"></a>
+
+                                                <!-- Section Confirmation Box -->
+                                                <div class="modal fade " id="delete-@inprogressnote.ID" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-confirm-body">
+                                                                <div>
+                                                                    <form>
+
+                                                                        <p class="confirm-text">
+                                                                            Are you sure, you want to delete this note?
+                                                                        </p>
+
+                                                                        <div class="btn-confirm">
+                                                                            <a class="btn btn-yes" href="@Url.Action("DeleteDraft", "SellYourNotes", new { id = inprogressnote.ID })">YES</a>
+                                                                            <a class="btn btn-no" role="button" data-dismiss="modal" aria-label="Close">NO</a>
+                                                                        </div>
+
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Section Confirmation-Box END -->
+                                            }
+                                            else
+                                            {
+                                                <a href="@Url.Action("Notes", "SearchNotes", new { id = @inprogressnote.ID })"><img src="~/images/Dashboard/eye.png" alt="view" class="eye"></a>
+                                            }
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+
+                    </tbody>
+                </table>
+
+            </div>
+
+            @if (Model.InProgressNotes.Count() != 0)
+            { 
+                <div class="row justify-content-center">
+
+                    <nav aria-label="...">
+                        <ul class="pagination flex-wrap">
+
+                            <li class="page-item">
+                                @if (ViewBag.Page1 == 1)
+                                {
+                                    <a class="page-link" href="@Url.Action("Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2  })"><i class="fa fa-angle-left"></i></a>
+                                }
+                                else
+                                {
+                                    <a class="page-link" href="@Url.Action("Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1 - 1, page2 = @ViewBag.Page2 })"><i class="fa fa-angle-left"></i></a>
+                                }
+                            </li>
+
+                            @{
+                                double? TotalPagesInProgress = ViewBag.TotalPagesInProgress;
+
+                                if (ViewBag.Page1 != 1 && ViewBag.Page1 - 2 > 1)
+                                {
+                                    int page = Convert.ToInt32(@ViewBag.Page1) - 3;
+                                    <li class="page-item">@Html.ActionLink("1", "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = 1, page2 = @ViewBag.Page2 }, new { @class = "page-link" })</li>
+                                    if (page != 1)
+                                    {
+                                        <li class="page-item more-pages-dots">@Html.ActionLink("...", "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = page, page2 = @ViewBag.Page2 }, new { @class = "page-link more-pages-dots" })</li>
+                                    }
+                                }
+
+                                for (int i = 2; i > 0; i--)
+                                {
+                                    if (ViewBag.Page1 - i > 0)
+                                    {
+                                        int page = Convert.ToInt32(@ViewBag.Page1) - i;
+                                        <li class="page-item">@Html.ActionLink(page.ToString(), "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = page, page2 = @ViewBag.Page2 }, new { @class = "page-link" })</li>
+                                    }
+                                }
+
+                                <li class="page-item active">
+                                    <a class="page-link">@ViewBag.Page1<span class="sr-only">(current)</span></a>
+                                </li>
+
+                                for (int i = 1; i < 3; i++)
+                                {
+                                    if (ViewBag.Page1 + i <= TotalPagesInProgress)
+                                    {
+                                        int page = Convert.ToInt32(@ViewBag.Page1) + i;
+                                        <li class="page-item">@Html.ActionLink(page.ToString(), "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = page, page2 = @ViewBag.Page2 }, new { @class = "page-link" })</li>
+                                    }
+                                }
+
+                                if (ViewBag.Page1 != TotalPagesInProgress && ViewBag.Page1 + 2 < TotalPagesInProgress)
+                                {
+                                    int page = Convert.ToInt32(@ViewBag.Page1) + 3;
+                                    if (page != TotalPagesInProgress)
+                                    {
+                                        <li class="page-item">@Html.ActionLink("...", "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = page, page2 = @ViewBag.Page2 }, new { @class = "page-link more-pages-dots" })</li>
+                                    }
+                                    <li class="page-item">@Html.ActionLink(TotalPagesInProgress.ToString(), "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = TotalPagesInProgress, page2 = @ViewBag.Page2 }, new { @class = "page-link" })</li>
+                                }
+
+                            }
+
+                            <li class="page-item">
+                                @if (ViewBag.Page1 == TotalPagesInProgress)
+                                {
+                                    <a class="page-link" href="@Url.Action("Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2  })"><i class="fa fa-angle-right"></i></a>
+                                }
+                                else
+                                {
+                                    <a class="page-link" href="@Url.Action("Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1 + 1, page2 = @ViewBag.Page2  })"><i class="fa fa-angle-right"></i></a>
+                                }
+                            </li>
+
+                        </ul>
+                    </nav>
+
+                </div>
+            }
+
+            </div>
+
+    </div>
+
+</section>
+<!-- Section In Progress Note END -->
+<!-- Section Published Note -->
+<section id="published-notes">
+
+    <div class="content-box">
+
+        <div class="container">
+
+            @using (Html.BeginForm("Dashboard", "SellYourNotes", FormMethod.Get))
+            {
+                <div class="row">
+
+                    <div class="col-lg-7 col-md-6 col-sm-5 col-12 table-heading my-auto">
+                        <h4 class="heading-md">Published Notes</h4>
+                    </div>
+
+                    <div class="col-lg-5 col-md-6 col-sm-7 col-12" id="table-search">
+                        <div class="row search">
+                            <div class="search-bar col-lg-9 col-md-9 col-sm-8 col-8 form-group">
+                                <input type="search" name="search1" value="@ViewBag.Search1" hidden>
+                                <input type="search" name="search2" class="form-control" id="search" value="@ViewBag.Search2" placeholder="Search">
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-4 btn-search">
+                                <button type="submit" class="btn btn-color">Search</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            }
+
+            <div class="row table-general table-responsive">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>@Html.ActionLink("Added date", "Dashboard", new { sort2 = ViewBag.Sort2 == null ? "PublishedDate_Asc" : (ViewBag.Sort2 == "PublishedDate_Asc" ? "PublishedDate_Desc" : "PublishedDate_Asc"), sort1 = @ViewBag.Sort1, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2, search1 = @ViewBag.Search1, search2 = @ViewBag.Search2 })</th>
+                            <th>@Html.ActionLink("Title", "Dashboard", new { sort2 = ViewBag.Sort2 == null ? "Title_Asc" : (ViewBag.Sort2 == "Title_Asc" ? "Title_Desc" : "Title_Asc"), sort1 = @ViewBag.Sort1, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2, search1 = @ViewBag.Search1, search2 = @ViewBag.Search2 })</th>
+                            <th>@Html.ActionLink("Category", "Dashboard", new { sort2 = ViewBag.Sort2 == null ? "Category_Asc" : (ViewBag.Sort2 == "Category_Asc" ? "Category_Desc" : "Category_Asc"), sort1 = @ViewBag.Sort1, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2, search1 = @ViewBag.Search1, search2 = @ViewBag.Search2 })</th>
+                            <th>@Html.ActionLink("Sell Type", "Dashboard", new { sort2 = ViewBag.Sort2 == null ? "IsPaid_Asc" : (ViewBag.Sort2 == "IsPaid_Asc" ? "IsPaid_Desc" : "IsPaid_Asc"), sort1 = @ViewBag.Sort1, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2, search1 = @ViewBag.Search1, search2 = @ViewBag.Search2 })</th>
+                            <th>@Html.ActionLink("Price", "Dashboard", new { sort2 = ViewBag.Sort2 == null ? "SellingPrice_Asc" : (ViewBag.Sort2 == "SellingPrice_Asc" ? "SellingPrice_Desc" : "SellingPrice_Asc"), sort1 = @ViewBag.Sort1, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2, search1 = @ViewBag.Search1, search2 = @ViewBag.Search2 })</th>
+                            <th class="content-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model.PublishedNotes.Count() == 0)
+                        {
+                            <tr class="no-record">
+                                <td colspan="6" class="text-center">No Record Found</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var publishednote in Model.PublishedNotes)
+                            {
+                                <tr>
+                                    <td>@publishednote.PublishedDate.Value.ToString("dd-MM-yyyy")</td>
+                                    <td>@publishednote.Title</td>
+                                    <td>@publishednote.NoteCategory.Name</td>
+                                    @if (publishednote.IsPaid)
+                                    {
+                                        <td>Paid</td>
+                                        <td>$@publishednote.SellingPrice</td>
+                                    }
+                                    else
+                                    {
+                                        <td>Free</td>
+                                        <td>$0</td>
+                                    }
+                                    <td>
+                                        <div class="table-images">
+                                            <a href="@Url.Action("Notes", "SearchNotes", new { id = @publishednote.ID })"><img src="~/images/Dashboard/eye.png" alt="view" class="eye"></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+
+            @if (Model.PublishedNotes.Count() != 0)
+            {
+                <div class="row justify-content-center">
+
+                    <nav aria-label="...">
+                        <ul class="pagination flex-wrap">
+
+                            <li class="page-item">
+                                @if (ViewBag.Page2 == 1)
+                                {
+                                    <a class="page-link" href="@Url.Action("Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2  })"><i class="fa fa-angle-left"></i></a>
+                                }
+                                else
+                                {
+                                    <a class="page-link" href="@Url.Action("Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2 - 1 })"><i class="fa fa-angle-left"></i></a>
+                                }
+                            </li>
+
+                            @{
+                                double? TotalPagesInPublished = ViewBag.TotalPagesInPublished;
+
+                                if (ViewBag.Page2 != 1 && ViewBag.Page2 - 2 > 1)
+                                {
+                                    int page = Convert.ToInt32(@ViewBag.Page2) - 3;
+                                    <li class="page-item">@Html.ActionLink("1", "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = 1 }, new { @class = "page-link" })</li>
+                                    if (page != 1)
+                                    {
+                                        <li class="page-item more-pages-dots">@Html.ActionLink("...", "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = page }, new { @class = "page-link more-pages-dots" })</li>
+                                    }
+                                }
+
+                                for (int i = 2; i > 0; i--)
+                                {
+                                    if (ViewBag.Page2 - i > 0)
+                                    {
+                                        int page = Convert.ToInt32(@ViewBag.Page2) - i;
+                                        <li class="page-item">@Html.ActionLink(page.ToString(), "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page2, page2 = page }, new { @class = "page-link" })</li>
+                                    }
+                                }
+
+                                <li class="page-item active">
+                                    <a class="page-link">@ViewBag.Page2<span class="sr-only">(current)</span></a>
+                                </li>
+
+                                for (int i = 1; i < 3; i++)
+                                {
+                                    if (ViewBag.Page2 + i <= TotalPagesInPublished)
+                                    {
+                                        int page = Convert.ToInt32(@ViewBag.Page2) + i;
+                                        <li class="page-item">@Html.ActionLink(page.ToString(), "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = page }, new { @class = "page-link" })</li>
+                                    }
+                                }
+
+                                if (ViewBag.Page2 != TotalPagesInPublished && ViewBag.Page2 + 2 < TotalPagesInPublished)
+                                {
+                                    int page = Convert.ToInt32(@ViewBag.Page2) + 3;
+                                    if (page != TotalPagesInPublished)
+                                    {
+                                        <li class="page-item">@Html.ActionLink("...", "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = page }, new { @class = "page-link more-pages-dots" })</li>
+                                    }
+                                    <li class="page-item">@Html.ActionLink(TotalPagesInPublished.ToString(), "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = TotalPagesInPublished }, new { @class = "page-link" })</li>
+                                }
+
+                            }
+
+                            <li class="page-item">
+                                @if (ViewBag.Page2 == TotalPagesInPublished)
+                                {
+                                    <a class="page-link" href="@Url.Action("Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort2, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2 })"><i class="fa fa-angle-right"></i></a>
+                                }
+                                else
+                                {
+                                    <a class="page-link" href="@Url.Action("Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort2, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2 + 1 })"><i class="fa fa-angle-right"></i></a>
+                                }
+                            </li>
+
+                        </ul>
+                    </nav>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Section Published Note END -->
+

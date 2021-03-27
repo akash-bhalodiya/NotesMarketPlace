@@ -422,6 +422,10 @@ a.page-link {
     border-radius: 50%;
 }
 
+.pagination a.page-link.more-pages-dots {
+    font-size: 18px !important;
+}
+
 /*===========================================================================================================*/
 /*                              Buttons                                                                      */
 /*===========================================================================================================*/
@@ -517,6 +521,15 @@ button.btn.btn-color {
     width: 130px;
 }
 
+.btn-report {
+    width: 195px !important;
+}
+
+.dropleft .btn:hover,
+.dropleft .btn:focus,
+.dropleft .btn:active{
+    border: 0px;
+}
 /*-----------------------------------------------------------------------------------------*/
 /*                Login, Signup, Forgot-Password, Change-Password                          */
 /*-----------------------------------------------------------------------------------------*/
@@ -627,7 +640,7 @@ input[type="text"]#date-of-birth {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background: #fff url('../images/User-Profile/calendar.png') no-repeat;
+    background: #fff url('../../images/User-Profile/calendar.png') no-repeat;
     background-size: 20px 20px;
     background-position: 98%;
 }

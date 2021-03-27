@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 
@@ -105,7 +105,7 @@
                     <p>Get Material for your<br>Course etc.</p>
 
                     <div class="btn-work">
-                        <a class="btn btn-color" href="@Url.Action("SearchNotes")" title="Download" role="button">Download</a>
+                        <a class="btn btn-color" href="@Url.Action("Search", "SearchNotes")" title="Download" role="button">Download</a>
                     </div>
 
                 </div>
@@ -123,7 +123,7 @@
                     <div class="btn-work">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <a class="btn btn-color" href="@Url.Action("MyNotes","Dashboard")" title="Sell Book" role="button">Sell Book</a>
+                            <a class="btn btn-color" href="@Url.Action("Dashboard","SellYourNotes")" title="Sell Book" role="button">Sell Book</a>
                         }
                         else
                         {

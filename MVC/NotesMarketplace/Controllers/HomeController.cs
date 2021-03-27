@@ -1,4 +1,5 @@
-﻿using NotesMarketplace.Models;
+﻿using NotesMarketplace.SendMail;
+using NotesMarketplace.Models;
 using NotesMarketplace.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -12,108 +13,107 @@ using System.Web.Mvc;
 
 namespace NotesMarketplace.Controllers
 {
-    [RoutePrefix("Home")]
     public class HomeController : Controller
     {
         readonly private NotesMarketplaceEntities _dbcontext = new NotesMarketplaceEntities();
 
-        // GET: Home
         [Route("")]
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Home/FAQ
         [Route("FAQs")]
         public ActionResult FAQs()
         {
+            // viewbag for active class in navigation
             ViewBag.FAQ = "active";
 
             return View();
         }
 
-        // GET: Home/Contactus
-        [Route("Contactus")]
         [HttpGet]
+        [Route("Contactus")]
         public ActionResult Contactus()
         {
+            // viewbag for active class in navigation
             ViewBag.Contactus = "active";
-
-            return View();
+            // check if user is authenticated then we need to show full name and email
+            if (User.Identity.IsAuthenticated) {
+                // if user is authenticated then get user
+                var user = _dbcontext.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+                // create contact us viewmodel
+                ContactusViewModel viewmodel = new ContactusViewModel();
+                
+                viewmodel.FullName = user.FirstName + " " + user.LastName;
+                viewmodel.Email = user.Email;
+                // return viewmodel
+                return View(viewmodel);
+            }
+            else
+            {
+                return View();
+            }
         }
 
-        // POST: Home/Contactus
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Contactus")]
         public ActionResult Contactus(ContactusViewModel contactusviewmodel)
         {
-            BuildContactusTemplate(contactusviewmodel);
-            ModelState.Clear();
-            return View();
+            if (ModelState.IsValid)
+            {
+                // if user is authenticated
+                if (User.Identity.IsAuthenticated)
+                {
+                    var user = _dbcontext.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+                    // if user is authenticated then email is same as user's email id that he entered during sign up
+                    contactusviewmodel.Email = user.Email;
+                }
+                // send mail
+                BuildContactusTemplate(contactusviewmodel);
+
+                return RedirectToAction("Contactus");
+            }
+            else
+            {
+                return View(contactusviewmodel);
+            }
         }
 
-        public static void BuildContactusTemplate(ContactusViewModel contactusviewmodel)
+        // send mail to admin
+        public void BuildContactusTemplate(ContactusViewModel contactusviewmodel)
         {
-            string from, to, bcc, cc, subject, bodytxt, body;
+            string from, to, subject, bodytxt, body;
+            // get all text from contactus from emailtemplate directory
             bodytxt = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/EmailTemplate/") + "Contactus" + ".cshtml");
-            bodytxt = bodytxt.Replace("@ViewBag.FullName", contactusviewmodel.FullName);
-            bodytxt = bodytxt.Replace("@ViewBag.Comment", contactusviewmodel.Comment);
+            // replace fullname and comment 
+            bodytxt = bodytxt.Replace("ViewBag.FullName", contactusviewmodel.FullName);
+            bodytxt = bodytxt.Replace("ViewBag.Comment", contactusviewmodel.Comment);
             bodytxt = bodytxt.ToString();
 
-            from = contactusviewmodel.Email.Trim();
-            to = "email";
-            bcc = "";
-            cc = "";
+            // get support email and notify email
+            var fromemail = _dbcontext.SystemConfigurations.Where(x => x.Name == "supportemail").FirstOrDefault();
+            var tomail = _dbcontext.SystemConfigurations.Where(x => x.Name == "notifyemail").FirstOrDefault();
+
+            // set from, to, subject, body
+            from = fromemail.Value.Trim();
+            to = tomail.Value.Trim();
             subject = contactusviewmodel.Subject + " - Query";
             StringBuilder sb = new StringBuilder();
             sb.Append(bodytxt);
             body = sb.ToString();
+            
+            // create mailmessage object
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress(from, "NotesMarketplace");
             mail.To.Add(new MailAddress(to));
-            if (!string.IsNullOrEmpty(bcc))
-            {
-                mail.Bcc.Add(new MailAddress(bcc));
-            }
-            if (!string.IsNullOrEmpty(cc))
-            {
-                mail.CC.Add(new MailAddress(cc));
-            }
             mail.Subject = subject;
             mail.Body = body;
             mail.IsBodyHtml = true;
-            SendEmail(mail);
-        }
 
-        public static void SendEmail(MailMessage mail)
-        {
-            SmtpClient client = new SmtpClient();
-            client.Host = "smtp.gmail.com";
-            client.Port = 587;
-            client.EnableSsl = true;
-            client.UseDefaultCredentials = false;
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.Credentials = new System.Net.NetworkCredential("email", "password");
-            try
-            {
-                client.Send(mail);
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e);
-            }
-        }
-
-        // GET : Home/SearchNotes
-        [Route("SearchNotes")]
-        [HttpGet]
-        public ActionResult SearchNotes()
-        {
-            ViewBag.SearchNotes = "active";
-
-            var resultednotes = _dbcontext.SellerNotes.Where(x => x.Status == 9).ToList();
-            return View(resultednotes);
+            // send mail (NotesMarketplace/SendMail/)
+            SendingEmail.SendEmail(mail);
         }
 
     }

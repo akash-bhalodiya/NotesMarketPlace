@@ -1,4 +1,5 @@
-﻿using NotesMarketplace.Models;
+﻿using NotesMarketplace.SendMail;
+using NotesMarketplace.Models;
 using NotesMarketplace.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -12,65 +13,154 @@ using System.Web.Mvc;
 
 namespace NotesMarketplace.Controllers
 {
-    [RoutePrefix("BuyerRequest")]
     public class BuyerRequestController : Controller
     {
         readonly private NotesMarketplaceEntities _dbcontext = new NotesMarketplaceEntities();
 
 
-        // GET: BuyerRequest
         [Authorize]
-        [Route("")]
-        public ActionResult Index(string search, string sortorder, string sortby, int page = 1)
+        [Route("BuyerRequest")]
+        public ActionResult BuyerRequest(string search, string sort, int page = 1)
         {
+            // viewbag for active class in navigation
             ViewBag.BuyerRequest = "active";
 
-            ViewBag.SortOrder = sortorder;
+            // viewbag for sorting, searching and pagination
+            ViewBag.Sort = sort;
             ViewBag.Search = search;
-            ViewBag.SortBy = sortby;
             ViewBag.PageNumber = page;
 
+            //get logged in user
             User user = _dbcontext.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
 
+            // get buyer requests
             IEnumerable<BuyerRequestViewModel> buyerrequest = from download in _dbcontext.Downloads
                                                               join users in _dbcontext.Users on download.Downloader equals users.ID
                                                               join userprofile in _dbcontext.UserProfiles on download.Downloader equals userprofile.UserID
-                                                              where download.Seller == user.ID && download.IsSellerHasAllowedDownload == false
+                                                              where download.Seller == user.ID && download.IsSellerHasAllowedDownload == false && download.AttachmentPath == null
                                                               select new BuyerRequestViewModel { TblDownload = download, TblUser = users, TblUserProfile = userprofile };
 
-
+            // if search is not empty
             if (!string.IsNullOrEmpty(search))
             {
+                search = search.ToLower();
                 buyerrequest = buyerrequest.Where(
-                                                    x => x.TblDownload.NoteTitle.Contains(search) ||
-                                                         x.TblDownload.NoteCategory.Contains(search) ||
-                                                         x.TblUser.Email.Contains(search) ||
-                                                         x.TblDownload.PurchasedPrice.ToString().Contains(search) ||
-                                                         x.TblUserProfile.PhoneNumber.Contains(search)
-                                                 );
+                                                    x => x.TblDownload.NoteTitle.ToLower().Contains(search) ||
+                                                         x.TblDownload.NoteCategory.ToLower().Contains(search) ||
+                                                         x.TblUser.Email.ToLower().Contains(search) ||
+                                                         x.TblDownload.PurchasedPrice.ToString().ToLower().Contains(search) ||
+                                                         x.TblUserProfile.PhoneNumber.ToLower().Contains(search)
+                                                 ).ToList();
             }
 
-            buyerrequest = SortTableBuyerRequest(sortorder, sortby, buyerrequest);
-
+            // sort results
+            buyerrequest = SortTableBuyerRequest(sort, buyerrequest);
+            // get total pages
             ViewBag.TotalPages = Math.Ceiling(buyerrequest.Count() / 10.0);
-
+            // get result according to pagination
             buyerrequest = buyerrequest.Skip((page - 1) * 10).Take(10);
 
             return View(buyerrequest);
         }
 
-        // GET : AllowDownload
+        private IEnumerable<BuyerRequestViewModel> SortTableBuyerRequest(string sort, IEnumerable<BuyerRequestViewModel> table)
+        {
+            switch (sort)
+            {
+                case "Title_Asc":
+                    {
+                        table = table.OrderBy(x => x.TblDownload.NoteTitle);
+                        break;
+                    }
+                case "Title_Desc":
+                    {
+                        table = table.OrderByDescending(x => x.TblDownload.NoteTitle);
+                        break;
+                    }
+                case "Category_Asc":
+                    {
+                        table = table.OrderBy(x => x.TblDownload.NoteCategory);
+                        break;
+                    }
+                case "Category_Desc":
+                    {
+                        table = table.OrderByDescending(x => x.TblDownload.NoteCategory);
+                        break;
+                    }
+                case "Buyer_Asc":
+                    {
+                        table = table.OrderBy(x => x.TblUser.Email);
+                        break;
+                    }
+                case "Buyer_Desc":
+                    {
+                        table = table.OrderByDescending(x => x.TblUser.Email);
+                        break;
+                    }
+                case "Phone_Asc":
+                    {
+                        table = table.OrderBy(x => x.TblUserProfile.PhoneNumber);
+                        break;
+                    }
+                case "Phone_Desc":
+                    {
+                        table = table.OrderByDescending(x => x.TblUserProfile.PhoneNumber);
+                        break;
+                    }
+                case "Type_Asc":
+                    {
+                        table = table.OrderBy(x => x.TblDownload.IsPaid);
+                        break;
+                    }
+                case "Type_Desc":
+                    {
+                        table = table.OrderByDescending(x => x.TblDownload.IsPaid);
+                        break;
+                    }
+                case "Price_Asc":
+                    {
+                        table = table.OrderBy(x => x.TblDownload.PurchasedPrice);
+                        break;
+                    }
+                case "Price_Desc":
+                    {
+                        table = table.OrderByDescending(x => x.TblDownload.PurchasedPrice);
+                        break;
+                    }
+                case "DownloadedDate_Asc":
+                    {
+                        table = table.OrderBy(x => x.TblDownload.CreatedDate);
+                        break;
+                    }
+                case "DownloadedDate_Desc":
+                    {
+                        table = table.OrderByDescending(x => x.TblDownload.CreatedDate);
+                        break;
+                    }
+                default:
+                    {
+                        table = table.OrderByDescending(x => x.TblDownload.CreatedDate);
+                        break;
+                    }
+            }
+            return table;
+        }
+
         [Authorize]
-        [Route("AllowDownload/{id}")]
+        [Route("BuyerRequest/AllowDownload/{id}")]
         public ActionResult AllowDownload(int id)
         {
+            // get logged in user
             User user = _dbcontext.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            // get download object by id
             Download download = _dbcontext.Downloads.Find(id);
-
+            // check if logged in user and note seller is same or not
             if (user.ID == download.Seller)
             {
-                SellerNotesAttachement attachement = _dbcontext.SellerNotesAttachements.Where(x => x.NoteID == download.NoteID).FirstOrDefault();
-
+                // get sellernoteattachement object
+                SellerNotesAttachement attachement = _dbcontext.SellerNotesAttachements.Where(x => x.NoteID == download.NoteID && x.IsActive == true).FirstOrDefault();
+                
+                // update data in download table
                 _dbcontext.Downloads.Attach(download);
                 download.IsSellerHasAllowedDownload = true;
                 download.AttachmentPath = attachement.FilePath;
@@ -78,7 +168,8 @@ namespace NotesMarketplace.Controllers
                 download.ModifiedDate = DateTime.Now;
                 _dbcontext.SaveChanges();
 
-                AllowDownloadTemplate(download);
+                // send mail
+                AllowDownloadTemplate(download, user);
 
                 return RedirectToAction("BuyerRequest");
 
@@ -90,241 +181,41 @@ namespace NotesMarketplace.Controllers
             }
         }
 
-        public void AllowDownloadTemplate(Download download)
+        public void AllowDownloadTemplate(Download download, User seller)
         {
+            // get text from allowdownload template from emailtemplate directory
             string body = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/EmailTemplate/") + "SellerAllowDownloadTemplate" + ".cshtml");
+            // get downloader user object
             var downloader = _dbcontext.Users.Where(x => x.ID == download.Downloader).FirstOrDefault();
-            var seller = _dbcontext.Users.Where(x => x.ID == download.Seller).FirstOrDefault();
-            body = body.Replace("@ViewBag.SellerName", seller.FirstName);
-            body = body.Replace("@ViewBag.BuyerName", downloader.FirstName);
+            // replace seller and buyer name
+            body = body.Replace("ViewBag.SellerName", seller.FirstName);
+            body = body.Replace("ViewBag.BuyerName", downloader.FirstName);
             body = body.ToString();
 
-            string from, to, bcc, cc, subject;
-            from = "supportemail";
-            to = downloader.Email;
-            bcc = "";
-            cc = "";
+            // get support email
+            var fromemail = _dbcontext.SystemConfigurations.Where(x => x.Name == "supportemail").FirstOrDefault();
+
+            // set from, to, subject, body
+            string from, to, subject;
+            from = fromemail.Value.Trim();
+            to = downloader.Email.Trim();
             subject = seller.FirstName + " Allows you to download a note";
             StringBuilder sb = new StringBuilder();
             sb.Append(body);
             body = sb.ToString();
+
+            // create mailmessage object
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress(from, "NotesMarketplace");
             mail.To.Add(new MailAddress(to));
-            if (!string.IsNullOrEmpty(bcc))
-            {
-                mail.Bcc.Add(new MailAddress(bcc));
-            }
-            if (!string.IsNullOrEmpty(cc))
-            {
-                mail.CC.Add(new MailAddress(cc));
-            }
             mail.Subject = subject;
             mail.Body = body;
             mail.IsBodyHtml = true;
-            SendEmail(mail);
+
+            // send mail (NotesMarketplace/SendMail/)
+            SendingEmail.SendEmail(mail);
         }
 
-        public static void SendEmail(MailMessage mail)
-        {
-            SmtpClient client = new SmtpClient();
-            client.Host = "smtp.gmail.com";
-            client.Port = 587;
-            client.EnableSsl = true;
-            client.UseDefaultCredentials = false;
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.Credentials = new System.Net.NetworkCredential("supportemail", "password");
-            try
-            {
-                client.Send(mail);
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e);
-            }
-        }
-
-        private IEnumerable<BuyerRequestViewModel> SortTableBuyerRequest(string sortorder, string sortby, IEnumerable<BuyerRequestViewModel> table)
-        {
-            switch (sortby)
-            {
-                case "Title":
-                    {
-                        switch (sortorder)
-                        {
-                            case "Asc":
-                                {
-                                    table = table.OrderBy(x => x.TblDownload.NoteTitle);
-                                    return table;
-                                }
-                            case "Desc":
-                                {
-                                    table = table.OrderByDescending(x => x.TblDownload.NoteTitle);
-                                    return table;
-                                }
-                            default:
-                                {
-                                    table = table.OrderBy(x => x.TblDownload.NoteTitle);
-                                    return table;
-                                }
-                        }
-                    }
-
-                case "Category":
-                    {
-                        switch (sortorder)
-                        {
-                            case "Asc":
-                                {
-                                    table = table.OrderBy(x => x.TblDownload.NoteCategory);
-                                    return table;
-                                }
-                            case "Desc":
-                                {
-                                    table = table.OrderByDescending(x => x.TblDownload.NoteCategory);
-                                    return table;
-                                }
-                            default:
-                                {
-                                    table = table.OrderBy(x => x.TblDownload.NoteCategory);
-                                    return table;
-                                }
-                        }
-                    }
-
-                case "Buyer":
-                    {
-                        switch (sortorder)
-                        {
-                            case "Asc":
-                                {
-                                    table = table.OrderBy(x => x.TblUser.Email);
-                                    return table;
-                                }
-                            case "Desc":
-                                {
-                                    table = table.OrderByDescending(x => x.TblUser.Email);
-                                    return table;
-                                }
-                            default:
-                                {
-                                    table = table.OrderBy(x => x.TblUser.Email);
-                                    return table;
-                                }
-                        }
-                    }
-
-                case "Phone":
-                    {
-                        switch (sortorder)
-                        {
-                            case "Asc":
-                                {
-                                    table = table.OrderBy(x => x.TblUserProfile.PhoneNumber);
-                                    return table;
-                                }
-                            case "Desc":
-                                {
-                                    table = table.OrderByDescending(x => x.TblUserProfile.PhoneNumber);
-                                    return table;
-                                }
-                            default:
-                                {
-                                    table = table.OrderBy(x => x.TblUserProfile.PhoneNumber);
-                                    return table;
-                                }
-                        }
-                    }
-
-                case "Type":
-                    {
-                        switch (sortorder)
-                        {
-                            case "Asc":
-                                {
-                                    table = table.OrderBy(x => x.TblDownload.IsPaid);
-                                    return table;
-                                }
-                            case "Desc":
-                                {
-                                    table = table.OrderByDescending(x => x.TblDownload.IsPaid);
-                                    return table;
-                                }
-                            default:
-                                {
-                                    table = table.OrderBy(x => x.TblDownload.IsPaid);
-                                    return table;
-                                }
-                        }
-                    }
-
-                case "Price":
-                    {
-                        switch (sortorder)
-                        {
-                            case "Asc":
-                                {
-                                    table = table.OrderBy(x => x.TblDownload.PurchasedPrice);
-                                    return table;
-                                }
-                            case "Desc":
-                                {
-                                    table = table.OrderByDescending(x => x.TblDownload.PurchasedPrice);
-                                    return table;
-                                }
-                            default:
-                                {
-                                    table = table.OrderBy(x => x.TblDownload.PurchasedPrice);
-                                    return table;
-                                }
-                        }
-                    }
-
-                case "DownloadedDate":
-                    {
-                        switch (sortorder)
-                        {
-                            case "Asc":
-                                {
-                                    table = table.OrderBy(x => x.TblDownload.CreatedDate);
-                                    return table;
-                                }
-                            case "Desc":
-                                {
-                                    table = table.OrderByDescending(x => x.TblDownload.CreatedDate);
-                                    return table;
-                                }
-                            default:
-                                {
-                                    table = table.OrderBy(x => x.TblDownload.CreatedDate);
-                                    return table;
-                                }
-                        }
-                    }
-
-                default:
-                    {
-                        switch (sortorder)
-                        {
-                            case "Asc":
-                                {
-                                    table = table.OrderBy(x => x.TblDownload.CreatedDate);
-                                    return table;
-                                }
-                            case "Desc":
-                                {
-                                    table = table.OrderByDescending(x => x.TblDownload.CreatedDate);
-                                    return table;
-                                }
-                            default:
-                                {
-                                    table = table.OrderBy(x => x.TblDownload.CreatedDate);
-                                    return table;
-                                }
-                        }
-                    }
-
-            }
-        }
     }
+
 }

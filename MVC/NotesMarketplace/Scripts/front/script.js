@@ -111,45 +111,69 @@ $(document).ready(function () {
 //                      Add Note
 /* ========================================================================================================== */
 $(document).ready(function () {
-        $("input[name='IsPaid']").change(function () {
+        $("#add-form input[name='IsPaid']").change(function () {
             if ($("#paid").is(":checked")) {
                 $("#price").removeAttr("disabled");
                 $("#price").focus();
-                $('#note-preview').attr("required", "required");
+                $("#note-preview").attr("required", "required");
             } else {
-                $("#price").attr("value", "0");
+                $("#price").val(0);
                 $("#price").attr("disabled", "disabled");
-                $('#note-preview').removeAttr("required");
+                $("#note-preview").removeAttr("required");
             }
         });
 });
-/* ========================================================================================================== */
-//                      Note Detail
-/* ========================================================================================================== 
+
 $(document).ready(function () {
-    $("#closeconfirmation").click(function () {
-        $("#confirmation").attr("data-dismiss", "modal");
+    $("#edit-form input[name='IsPaid']").change(function () {
+        if ($("#paid").is(":checked")) {
+            $("#price").removeAttr("disabled");
+            $("#price").focus();
+        } else {
+            $("#price").val(0);
+            $("#price").attr("disabled", "disabled");
+        }
     });
 });
-
-/*
-$(document).ready(function (){
-    $("#thankspopupclose").click(function () {
-        $("#thankspopup").removeAttr("aria-modal");
-        $("#thankspopup").css("display", "none");
-        $("#thankspopup").attr("aria-hidden", "true");
-        $(".modal-backdrop").removeClass("show");
-    });
-});*/
-/*
-confirmationbutton
-thankspopup
-
+/* ========================================================================================================== */
+//                      Profile
+/* ========================================================================================================== */
 $(document).ready(function () {
-    $("#confirmationbutton").click(function () {
-        $("#thankspopup").removeAttr("aria-modal");
-        $("#thankspopup").css("display", "none");
-        $("#thankspopup").attr("aria-hidden", "true");
-        $(".modal-backdrop").removeClass("show");
+    $("#date-of-birth").each(function () {
+        $(this).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            minDate: new Date(1960,1 - 1,1),
+            yearRange: '1960:2030',
+            dateFormat: 'dd-mm-yy'
+        });
     });
-});*/
+});
+/* ========================================================================================================== */
+//                      Search Note
+/* ========================================================================================================== */
+$(document).ready(function () {
+
+    $(".search-filter #type").change(function () {
+        this.form.submit();
+    });
+    $(".search-filter #search").change(function () {
+        this.form.submit();
+    });
+    $(".search-filter #category").change(function () {
+        this.form.submit();
+    });
+    $(".search-filter #university").change(function () {
+        this.form.submit();
+    });
+    $(".search-filter #course").change(function () {
+        this.form.submit();
+    });
+    $(".search-filter #country").change(function () {
+        this.form.submit();
+    });
+    $(".search-filter #rating").change(function () {
+        this.form.submit();
+    });
+
+});

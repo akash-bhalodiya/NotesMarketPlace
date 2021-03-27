@@ -14,6 +14,9 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="~/Content/front/bootstrap/bootstrap.min.css">
 
+    <!-- Jquery UI -->
+    <link rel="stylesheet" href="~/Content/front/jquery-ui/jquery-ui.min.css">
+
     <!-- Fontawesome -->
     <link rel="stylesheet" href="~/Content/front/fontawesome/css/font-awesome.min.css">
 
@@ -55,30 +58,31 @@
                     <div class="collapse navbar-collapse col-lg-9" id="navbarSupportedContent">
 
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item"><a class="nav-link @ViewBag.SearchNotes" href="@Url.Action("SearchNotes","Home")">Search Notes</a></li>
-                            <li class="nav-item"><a class="nav-link @ViewBag.SellYourNotes" href="@Url.Action("Index","SellYourNotes")">Sell Your Notes</a></li>
-                            <li class="nav-item"><a class="nav-link @ViewBag.BuyerRequest" href="@Url.Action("Index","BuyerRequest")">Buyer Requests</a></li>
+                            <li class="nav-item"><a class="nav-link @ViewBag.SearchNotes" href="@Url.Action("Search","SearchNotes")">Search Notes</a></li>
+                            <li class="nav-item"><a class="nav-link @ViewBag.SellYourNotes" href="@Url.Action("Dashboard","SellYourNotes")">Sell Your Notes</a></li>
+                            <li class="nav-item"><a class="nav-link @ViewBag.BuyerRequest" href="@Url.Action("BuyerRequest","BuyerRequest")">Buyer Requests</a></li>
                             <li class="nav-item"><a class="nav-link @ViewBag.FAQ" href="@Url.Action("FAQs","Home")">FAQ</a></li>
                             <li class="nav-item"><a class="nav-link @ViewBag.Contactus" href="@Url.Action("Contactus","Home")">Contact Us</a></li>
 
-                            @if( User.Identity.IsAuthenticated )
-                            { 
+                            @if (User.Identity.IsAuthenticated)
+                            {
                                 <li class="nav-item profile-dropdown">
-                                    <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <img src="~/images/Homepage/client-2.jpg" class="rounded-circle">
+                                    <a class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <img src="@Url.Action("GetPhoto", "User")" class="rounded-circle">
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="user-profile.html">My Profile</a>
-                                        <a class="dropdown-item" href="my downloads.html">My Downloads</a>
-                                        <a class="dropdown-item" href="my sold notes.html">My Sold Notes</a>
-                                        <a class="dropdown-item" href="my rejected notes.html">My Rejected Notes</a>
-                                        <a class="dropdown-item" href="change-password.html">Change Password</a>
-                                        <a class="dropdown-item logout" href="@Url.Action("Logout","Account")">Logout</a>
+                                        <a class="dropdown-item" href="@Url.Action("UserProfile","User")">My Profile</a>
+                                        <a class="dropdown-item" href="@Url.Action("MyDownloads","User")">My Downloads</a>
+                                        <a class="dropdown-item" href="@Url.Action("MySoldNotes","User")">My Sold Notes</a>
+                                        <a class="dropdown-item" href="@Url.Action("MyRejectedNotes","User")">My Rejected Notes</a>
+                                        <a class="dropdown-item" href="@Url.Action("ChangePassword","Account")">Change Password</a>
+                                        <a class="dropdown-item logout" role="button" data-toggle="modal" data-target="#confirmlogout">Logout</a>
                                     </div>
                                 </li>
-                                <li class="nav-item"><a class="nav-link" href="@Url.Action("Logout","Account")">Logout</a></li>
+                                <li class="nav-item"><a class="nav-link" role="button" data-toggle="modal" data-target="#confirmlogout">Logout</a></li>
                             }
-                            else{
+                            else
+                            {
                                 <li class="nav-item"><a class="nav-link" href="@Url.Action("Login","Account")">Login</a></li>
                             }
 
@@ -90,6 +94,27 @@
             </div>
 
         </nav>
+
+        <!-- Section Logout Confirmation Box -->
+        <div class="modal fade show" id="confirmlogout" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-confirm-body">
+                        <div>
+                            <p class="confirm-text">
+                                Are you sure, you want to logout?
+                            </p>
+
+                            <div class="btn-confirm">
+                                <a class="btn btn-yes" href="@Url.Action("Logout","Account")" id="confirmationbutton" role="button">YES</a>
+                                <a class="btn btn-no" data-dismiss="modal" aria-label="Close" role="button">NO</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Section Logout Confirmation-Box END -->
 
     </header>
     <!-- Navigation Bar END -->
@@ -109,9 +134,9 @@
                 <!-- Social Icon -->
                 <div class="col-md-6 col-sm-4 foot-icon col-sm-4 text-right">
                     <ul class="social-list">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="https://twitter.com/?lang=en"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="https://in.linkedin.com/"><i class="fa fa-linkedin"></i></a></li>
                     </ul>
                 </div>
 
@@ -119,9 +144,11 @@
         </div>
     </footer>
     <!-- Section Footer END -->
-
     <!-- Jquery JS -->
     <script src="~/Scripts/front/jquery/jquery.min.js"></script>
+
+    <!-- Jquery UI -->
+    <script src="~/Scripts/front/jquery/jquery-ui.min.js"></script>
 
     <!-- Popper JS -->
     <script src="~/Scripts/front/bootstrap/popper.min.js"></script>

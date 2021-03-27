@@ -1,6 +1,6 @@
 ﻿@model NotesMarketplace.ViewModels.ContactusViewModel
 @{
-    ViewBag.Title = "Contactus";
+    ViewBag.Title = "Contact us";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -63,7 +63,14 @@
 
                             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-12">
                                 @Html.LabelFor(model => model.Email)
-                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "email", placeholder = "Enter your email address", required = "required" })
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "email", placeholder = "Enter your email address", required = "required", disabled="disabled" })
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "email", placeholder = "Enter your email address", required = "required" })
+                                }
                                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-invalid" })
                             </div>
 
