@@ -1,0 +1,135 @@
+﻿@model NotesMarketplace.ViewModels.SystemConfigurationViewModel
+
+@{
+    ViewBag.Title = "Manage System Configuration";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="blank">
+</section>
+
+<!-- Section Manage System Configuration -->
+<section id="manage-system-configuration">
+
+    <div class="content-box">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h2 class="heading-lg">Manage System Configuration</h2>
+                </div>
+            </div>
+
+            <br>
+
+            @using (@Html.BeginForm("ManageSystemConfiguration", "AdminSettings", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="row">
+
+                    <div class="form-group col-lg-7 col-md-8 col-sm-12 col-12">
+                        <label for="support-email-address">Support Email Address *</label>
+                        @Html.TextBoxFor(model => model.SupportEmail, new { @class = "form-control", id = "support-email-address", type = "email", placeholder = "Enter email address", required = "required" })
+                        @Html.ValidationMessageFor(model => model.SupportEmail, "", new { @class = "text-invalid" })
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="form-group col-lg-7 col-md-8 col-sm-12 col-12">
+                        <label for="support-phone-number">Support Phone Number *</label>
+                        @Html.TextBoxFor(model => model.SupportContact, new { @class = "form-control", id = "support-phone-number", placeholder = "Enter phone number", required = "required" })
+                        @Html.ValidationMessageFor(model => model.SupportContact, "", new { @class = "text-invalid" })
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="form-group col-lg-7 col-md-8 col-sm-12 col-12">
+                        <label for="events-email-address">Email Address(es)(for various events system will send notification to these users) *</label>
+                        @Html.TextBoxFor(model => model.NotifyEmail, new { @class = "form-control", id = "events-email-address", type = "email", placeholder = "Enter email address", required = "required" })
+                        @Html.ValidationMessageFor(model => model.NotifyEmail, "", new { @class = "text-invalid" })
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="form-group col-lg-7 col-md-8 col-sm-12 col-12">
+                        <label for="facebook">Facebook URL *</label>
+                        @Html.TextBoxFor(model => model.FacebookURL, new { @class = "form-control", id = "facebook", type = "url", placeholder = "Enter facebook url" })
+                        @Html.ValidationMessageFor(model => model.FacebookURL, "", new { @class = "text-invalid" })
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="form-group col-lg-7 col-md-8 col-sm-12 col-12">
+                        <label for="twitter">Twitter URL *</label>
+                        @Html.TextBoxFor(model => model.TwitterURL, new { @class = "form-control", id = "twitter", type = "url", placeholder = "Enter twitter url" })
+                        @Html.ValidationMessageFor(model => model.TwitterURL, "", new { @class = "text-invalid" })
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="form-group col-lg-7 col-md-8">
+                        <label for="linkedin">Linkedin URL *</label>
+                        @Html.TextBoxFor(model => model.LinkedInURL, new { @class = "form-control", id = "linkedin", type = "url", placeholder = "Enter linkedin url" })
+                        @Html.ValidationMessageFor(model => model.LinkedInURL, "", new { @class = "text-invalid" })
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="form-group col-lg-7 col-md-8 col-sm-12 col-12 type-file">
+                        <label for="default-notes-picture">Default image for notes(if seller do not upload) *</label>
+                        @Html.TextBoxFor(model => model.DefaultNote, new { @class = "form-control-file image-upload", id = "default-notes-picture", type = "file" })
+                        @Html.ValidationMessageFor(model => model.DefaultNote, "", new { @class = "text-invalid" })
+                        @if (!string.IsNullOrEmpty(Model.DefaultNoteURL))
+                        {
+                            <p class="uploaded-data">To see your previously uploaded default note picture <a href="@Url.Content(Model.DefaultNoteURL)" target="_blank">Click Here</a></p>
+                            @Html.HiddenFor(model => model.DefaultNoteURL)
+                        }
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="form-group col-lg-7 col-md-8 col-sm-12 col-12 type-file">
+                        <label for="default-profile-picture">Default Profile Picture(if user do not upload) *</label>
+                        @Html.TextBoxFor(model => model.DefaultProfile, new { @class = "form-control-file image-upload", id = "default-profile-picture", type = "file" })
+                        @Html.ValidationMessageFor(model => model.DefaultProfile, "", new { @class = "text-invalid" })
+                        @if (!string.IsNullOrEmpty(Model.DefaultProfileURL))
+                        {
+                            <p class="uploaded-data">To see your previously uploaded default profile picture <a href="@Url.Content(Model.DefaultProfileURL)" target="_blank">Click Here</a></p>
+                            @Html.HiddenFor(model => model.DefaultProfileURL)
+                        }
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-2 col-md-4 col-sm-6 col-6">
+                        <div class="btn-submit">
+                            <button class="btn btn-color" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Section Manage System Configuration END -->

@@ -17,7 +17,7 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress />
+    <Use64BitIISExpress>false</Use64BitIISExpress>
     <IISExpressSSLPort>44381</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -132,11 +132,17 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminMembersController.cs" />
+    <Compile Include="Controllers\AdminNotesController.cs" />
+    <Compile Include="Controllers\AdminProfileController.cs" />
+    <Compile Include="Controllers\AdminReportsController.cs" />
+    <Compile Include="Controllers\AdminSettingsController.cs" />
     <Compile Include="Controllers\BuyerRequestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchNotesController.cs" />
     <Compile Include="Controllers\SellYourNotesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Models\UserRoleProvider.cs" />
     <Compile Include="SendMail\SendingEmail.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -196,22 +202,51 @@
       <DependentUpon>NotesMarketplace.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AddAdministratorViewModel.cs" />
+    <Compile Include="ViewModels\AddCategoryViewModel.cs" />
+    <Compile Include="ViewModels\AddCountryViewModel.cs" />
     <Compile Include="ViewModels\AddNotesViewModel.cs" />
+    <Compile Include="ViewModels\AddTypeViewModel.cs" />
+    <Compile Include="ViewModels\AdminDashboardViewModel.cs" />
+    <Compile Include="ViewModels\AdminNoteDetailViewModel.cs" />
+    <Compile Include="ViewModels\AdminProfileViewModel.cs" />
     <Compile Include="ViewModels\BuyerRequestViewModel.cs" />
     <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\ContactusViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
+    <Compile Include="ViewModels\DownloadedNotesViewModel.cs" />
     <Compile Include="ViewModels\EditNotesViewModel.cs" />
     <Compile Include="ViewModels\ForgotPasswordViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\ManageAdministratorViewModel.cs" />
+    <Compile Include="ViewModels\ManageCategoryViewModel.cs" />
+    <Compile Include="ViewModels\ManageCountryViewModel.cs" />
+    <Compile Include="ViewModels\ManageTypeViewModel.cs" />
+    <Compile Include="ViewModels\MemberDetailViewModel.cs" />
+    <Compile Include="ViewModels\MembersViewModel.cs" />
     <Compile Include="ViewModels\MySoldNotesViewModel.cs" />
     <Compile Include="ViewModels\MyDownloadsViewModel.cs" />
     <Compile Include="ViewModels\NotesDetailViewModel.cs" />
+    <Compile Include="ViewModels\NotesUnderReviewViewModel.cs" />
+    <Compile Include="ViewModels\PublishedNoteViewModel.cs" />
+    <Compile Include="ViewModels\RejectedNotesViewModel.cs" />
     <Compile Include="ViewModels\SearchNotesViewModel.cs" />
     <Compile Include="ViewModels\SignupViewModel.cs" />
+    <Compile Include="ViewModels\SpamReportViewModel.cs" />
+    <Compile Include="ViewModels\SystemConfigurationViewModel.cs" />
     <Compile Include="ViewModels\UserProfileViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\admin\bootstrap\bootstrap.min.css" />
+    <Content Include="Content\admin\fontawesome\css\all.css" />
+    <Content Include="Content\admin\fontawesome\css\all.min.css" />
+    <Content Include="Content\admin\fontawesome\css\font-awesome.css" />
+    <Content Include="Content\admin\fontawesome\css\font-awesome.min.css" />
+    <Content Include="Content\admin\fontawesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\admin\general.css" />
+    <Content Include="Content\admin\jquery-ui\jquery-ui.min.css" />
+    <Content Include="Content\admin\responsive.css" />
+    <Content Include="Content\admin\style.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -295,6 +330,12 @@
       <DependentUpon>NotesMarketplace.edmx</DependentUpon>
       <LastGenOutput>NotesMarketplace.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\admin\bootstrap\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\admin\bootstrap\bootstrap.min.js" />
+    <Content Include="Scripts\admin\bootstrap\popper.min.js" />
+    <Content Include="Scripts\admin\jquery\jquery-ui.min.js" />
+    <Content Include="Scripts\admin\jquery\jquery.min.js" />
+    <Content Include="Scripts\admin\script.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\front\fontawesome\fonts\fontawesome-webfont.eot" />
@@ -322,8 +363,19 @@
     <Content Include="images\User-Profile\Thumbs.db" />
     <Content Include="EmailTemplate\SpamReport.cshtml" />
     <Content Include="EmailTemplate\PublishNote.cshtml" />
+    <Content Include="Content\admin\fontawesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\admin\fontawesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\admin\fontawesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\admin\fontawesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\admin\fontawesome\fonts\FontAwesome.otf" />
+    <Content Include="EmailTemplate\UnpublishNote.cshtml" />
+    <Content Include="Scripts\front\bootstrap\bootstrap.min.js.map" />
+    <Content Include="Scripts\admin\bootstrap\bootstrap.min.js.map" />
+    <Content Include="Content\admin\bootstrap\bootstrap.min.css.map" />
+    <Content Include="Content\front\bootstrap\bootstrap.min.css.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\front\jquery\jquery-ui.min.js" />
+    <Content Include="Scripts\front\jquery\jquery.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -338,7 +390,6 @@
     <Content Include="Scripts\front\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\front\bootstrap\popper.min.js" />
     <Content Include="Scripts\front\home-navbar.js" />
-    <Content Include="Scripts\front\jquery\jquery.min.js" />
     <Content Include="Scripts\front\script.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -371,11 +422,34 @@
     <Content Include="Views\User\MyDownloads.cshtml" />
     <Content Include="Views\User\MyRejectedNotes.cshtml" />
     <Content Include="Views\User\MySoldNotes.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Admin\Dashboard.cshtml" />
+    <Content Include="Views\AdminSettings\AddCategory.cshtml" />
+    <Content Include="Views\AdminSettings\ManageCategory.cshtml" />
+    <Content Include="Views\AdminSettings\EditCategory.cshtml" />
+    <Content Include="Views\AdminNotes\NotesUnderReview.cshtml" />
+    <Content Include="Views\AdminNotes\PublishedNotes.cshtml" />
+    <Content Include="Views\AdminNotes\DownloadedNotes.cshtml" />
+    <Content Include="Views\AdminNotes\RejectedNotes.cshtml" />
+    <Content Include="Views\AdminMembers\Members.cshtml" />
+    <Content Include="Views\AdminMembers\MemberDetail.cshtml" />
+    <Content Include="Views\AdminReports\SpamReport.cshtml" />
+    <Content Include="Views\AdminSettings\AddType.cshtml" />
+    <Content Include="Views\AdminSettings\EditType.cshtml" />
+    <Content Include="Views\AdminSettings\ManageType.cshtml" />
+    <Content Include="Views\AdminSettings\AddCountry.cshtml" />
+    <Content Include="Views\AdminSettings\EditCountry.cshtml" />
+    <Content Include="Views\AdminSettings\ManageCountry.cshtml" />
+    <Content Include="Views\AdminSettings\AddAdministrator.cshtml" />
+    <Content Include="Views\AdminSettings\EditAdministrator.cshtml" />
+    <Content Include="Views\AdminSettings\ManageAdministrator.cshtml" />
+    <Content Include="Views\AdminSettings\ManageSystemConfiguration.cshtml" />
+    <Content Include="Views\AdminProfile\MyProfile.cshtml" />
+    <Content Include="Views\Admin\NoteDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Members\" />
-    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

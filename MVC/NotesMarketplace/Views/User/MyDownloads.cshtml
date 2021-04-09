@@ -66,173 +66,165 @@
                             var srno = (ViewBag.PageNumber - 1) * 10;
                             foreach (var item in Model)
                             {
-                    <tr>
-                        @{ srno = srno + 1; }
-                        <td class="table-sr-no">@srno</td>
-                        <td class="table-notes-title"><a href="@Url.Action("Notes", "SearchNotes", new { id = @item.TblDownload.NoteID })">@item.TblDownload.NoteTitle</a></td>
-                        <td>@item.TblDownload.NoteCategory</td>
-                        <td>@item.TblUser.Email</td>
-                        @if (@item.TblDownload.IsPaid)
-                        {
-                            <td>Paid</td>
-                            <td>@item.TblDownload.PurchasedPrice</td>
-                        }
-                        else
-                        {
-                            <td>Free</td>
-                            <td>$0</td>
-                        }
-                        @if (@item.TblDownload.IsAttachmentDownloaded == true)
-                        {
-                            <td>@item.TblDownload.AttachmentDownloadedDate.Value.ToString("dd MMM yyyy, hh:mm:ss")</td>
-                        }
-                        else
-                        {
-                            <td></td>
-                        }
-                    <td class="">
-                        <div class="content-center table-images">
-
-                            <a href="@Url.Action("Notes", "SearchNotes", new { id = item.TblDownload.NoteID })"><img src="~/images/Dashboard/eye.png" alt="icon" class="eye"></a>
-                            <div class="btn-group dropleft">
-                                <button type="button" id="dropdownMenu" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="~/images/Dashboard/3dot.png" alt="icon" class="dots">
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                                    <a class="dropdown-item" href="@Url.Action("DownloadNotes", "SearchNotes", new { noteid = @item.TblDownload.NoteID } )">Download Note</a>
-                                    @if (item.TblDownload.IsAttachmentDownloaded == true)
+                                <tr>
+                                    @{ srno = srno + 1; }
+                                    <td class="table-sr-no">@srno</td>
+                                    <td class="table-notes-title"><a href="@Url.Action("Notes", "SearchNotes", new { id = @item.NoteID })">@item.Title</a></td>
+                                    <td>@item.Category</td>
+                                    <td>@item.Seller</td>
+                                    <td>@item.SellType</td>
+                                    @if (@item.Price != null)
                                     {
-                                        <a class="dropdown-item" data-toggle="modal" data-target="#addreview-@item.TblDownload.ID">Add Review/Feedback</a>
-                                        <a class="dropdown-item" data-toggle="modal" data-target="#reportspam-@item.TblDownload.ID">Report as Inappropriate</a>
+                                        <td>@item.Price</td>
                                     }
                                     else
                                     {
-                                        <a class="dropdown-item">Add Review/Feedback</a>
-                                        <a class="dropdown-item">Report as Inappropriate</a>
+                                        <td>$0</td>
                                     }
-                                </div>
-                            </div>
-                        </div>
+                                    <td>@item.DownloadedDate.Value.ToString("dd MMM yyyy, hh:mm:ss")</td>
+                                    <td class="">
+                                        <div class="content-center table-images">
 
-                       @if (item.TblDownload.IsAttachmentDownloaded == true)
-                        {
-                            <!-- Section Add Review / Feedback -->
-                            <div class="modal fade " id="addreview-@item.TblDownload.ID" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div>
-                                                <h3 class="heading-md">Add Review</h3>
-                                            </div>
-                                            <div>
-
-                                                @using (Html.BeginForm("AddReview", "User", FormMethod.Post))
-                                                {
-
-                                                    @Html.AntiForgeryToken()
-
-                                                    <input name="AgainstDownloadsID" value="@item.TblDownload.ID" hidden>
-                                                    <input name="noteid" value="@item.TblDownload.NoteID" hidden>
-
-                                                    <!-- Give Rating -->
-                                                    <div class="rate">
-                                                        @Html.RadioButtonFor(model => item.TblReview.Ratings, 5, new { id = "star5-" + @item.TblDownload.ID, Name = "Ratings" })
-                                                        <label for="star5-@item.TblDownload.ID" title="text">5 stars</label>
-                                                        @Html.RadioButtonFor(model => item.TblReview.Ratings, 4, new { id = "star4-" + @item.TblDownload.ID, Name = "Ratings" })
-                                                        <label for="star4-@item.TblDownload.ID" title="text">4 stars</label>
-                                                        @Html.RadioButtonFor(model => item.TblReview.Ratings, 3, new { id = "star3-" + @item.TblDownload.ID, Name = "Ratings" })
-                                                        <label for="star3-@item.TblDownload.ID" title="text">3 stars</label>
-                                                        @Html.RadioButtonFor(model => item.TblReview.Ratings, 2, new { id = "star2-" + @item.TblDownload.ID, Name = "Ratings" })
-                                                        <label for="star2-@item.TblDownload.ID" title="text">2 stars</label>
-                                                        @Html.RadioButtonFor(model => item.TblReview.Ratings, 1, new { id = "star1-" + @item.TblDownload.ID, Name = "Ratings" })
-                                                        <label for="star1-@item.TblDownload.ID" title="text">1 star</label>
-                                                        @Html.ValidationMessageFor(model => item.TblReview.Ratings, "", new { @class = "text-invalid" })
-                                                    </div>
-                                                    <br>
-                                                    <div class="form-group" id="modal-review-feedback">
-                                                        <label for="review-@item.TblDownload.ID">Description *</label>
-                                                        @Html.TextAreaFor(model => item.TblReview.Comments, new { @class = "form-control", id = "review-" + @item.TblDownload.ID, Name = "Comments", placeholder = "comments...", required = "required" })
-                                                        @Html.ValidationMessageFor(model => item.TblReview.Comments, "", new { @class = "text-invalid" })
-                                                    </div>
-
-                                                    <div class="btn-submit">
-                                                        <button class="btn btn-color">Submit</button>
-                                                    </div>
-
-                                                }
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Section Add Review / Feedback END -->
-                            <!-- Section Spam -->
-                            <div class="modal fade " id="reportspam-@item.TblDownload.ID" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div>
-                                                <h3 class="heading-md">@item.TblDownload.NoteTitle</h3>
-                                            </div>
-                                            <div>
-                                                @using (@Html.BeginForm("SpamReport", "User", FormMethod.Post))
-                                                {
-                                                    @Html.AntiForgeryToken()
-
-                                                    <input name="downloadid" value="@item.TblDownload.ID" hidden>
-                                                    <input name="noteid" value="@item.TblDownload.NoteID" hidden>
-
-                                                    <div class="form-group" id="modal-spam-report">
-                                                        <label for="review-@item.TblDownload.ID">Remarks *</label>
-                                                        <textarea class="form-control" name="spamreport" id="spamreport-@item.TblDownload.ID" placeholder="comments..." required></textarea>
-                                                    </div>
-                                                    <div class="btn-submit">
-                                                        <button class="btn btn-color btn-report" type="submit">Report an issue</button>
-                                                        <button class="btn btn-color" data-dismiss="modal" aria-label="Close">Cancel</button>
-                                                    </div>
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Section Spam END -->
-                            <!-- Section Confirmation Box -->
-                            <div class="modal fade " id="confirmation" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-confirm-body">
-                                            <div>
-                                                <p class="confirm-text">
-                                                    Are you sure you want to mark this report as spam, you cannot update it later?
-                                                </p>
-
-                                                <div class="btn-confirm">
-                                                    <a class="btn btn-yes" id="confirmationbutton" role="button">YES</a>
-                                                    <a class="btn btn-no" data-dismiss="modal" aria-label="Close" role="button">NO</a>
+                                            <a href="@Url.Action("Notes", "SearchNotes", new { id = item.NoteID })"><img src="~/images/Dashboard/eye.png" alt="icon" class="eye"></a>
+                                            <div class="btn-group dropleft">
+                                                <button type="button" id="dropdownMenu" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <img src="~/images/Dashboard/3dot.png" alt="icon" class="dots">
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                                    <a class="dropdown-item" href="@Url.Action("DownloadNotes", "SearchNotes", new { noteid = @item.NoteID } )">Download Note</a>
+                                                    @if (item.NoteDownloaded == true)
+                                                    {
+                                                        <a class="dropdown-item" data-toggle="modal" data-target="#addreview-@item.DownloadID">Add Review/Feedback</a>
+                                                        <a class="dropdown-item" data-toggle="modal" data-target="#reportspam-@item.DownloadID">Report as Inappropriate</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="dropdown-item">Add Review/Feedback</a>
+                                                        <a class="dropdown-item">Report as Inappropriate</a>
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Section Confirmation-Box END -->
-                        }
 
-                    </td>
+                                        @if (item.NoteDownloaded == true)
+                                        {
+                                            <!-- Section Add Review / Feedback -->
+                                            <div class="modal fade " id="addreview-@item.DownloadID" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div>
+                                                                <h3 class="heading-md">Add Review</h3>
+                                                            </div>
+                                                            <div>
 
-                    </tr>
+                                                                @using (Html.BeginForm("AddReview", "User", FormMethod.Post))
+                                                                {
+
+                                                                    @Html.AntiForgeryToken()
+
+                                                                    <input name="AgainstDownloadsID" value="@item.DownloadID" hidden>
+                                                                    <input name="noteid" value="@item.NoteID" hidden>
+
+                                                                    <!-- Give Rating -->
+                                                                    <div class="rate">
+                                                                        @Html.RadioButtonFor(model => item.Rating, 5, new { id = "star5-" + @item.DownloadID, Name = "Ratings" })
+                                                                        <label for="star5-@item.DownloadID" title="text">5 stars</label>
+                                                                        @Html.RadioButtonFor(model => item.Rating, 4, new { id = "star4-" + @item.DownloadID, Name = "Ratings" })
+                                                                        <label for="star4-@item.DownloadID" title="text">4 stars</label>
+                                                                        @Html.RadioButtonFor(model => item.Rating, 3, new { id = "star3-" + @item.DownloadID, Name = "Ratings" })
+                                                                        <label for="star3-@item.DownloadID" title="text">3 stars</label>
+                                                                        @Html.RadioButtonFor(model => item.Rating, 2, new { id = "star2-" + @item.DownloadID, Name = "Ratings" })
+                                                                        <label for="star2-@item.DownloadID" title="text">2 stars</label>
+                                                                        @Html.RadioButtonFor(model => item.Rating, 1, new { id = "star1-" + @item.DownloadID, Name = "Ratings" })
+                                                                        <label for="star1-@item.DownloadID" title="text">1 star</label>
+                                                                        @Html.ValidationMessageFor(model => item.Rating, "", new { @class = "text-invalid" })
+                                                                    </div>
+                                                                    <br>
+                                                                    <div class="form-group" id="modal-review-feedback">
+                                                                        <label for="review-@item.DownloadID">Description *</label>
+                                                                        @Html.TextAreaFor(model => item.Comment, new { @class = "form-control", id = "review-" + @item.DownloadID, Name = "Comments", placeholder = "comments...", required = "required" })
+                                                                        @Html.ValidationMessageFor(model => item.Comment, "", new { @class = "text-invalid" })
+                                                                    </div>
+
+                                                                    <div class="btn-submit">
+                                                                        <button class="btn btn-color">Submit</button>
+                                                                    </div>
+
+                                                                }
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Section Add Review / Feedback END -->
+                                            <!-- Section Spam -->
+                                            <div class="modal fade " id="reportspam-@item.DownloadID" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div>
+                                                                <h3 class="heading-md">@item.Title</h3>
+                                                            </div>
+                                                            <div>
+                                                                @using (@Html.BeginForm("SpamReport", "User", FormMethod.Post, new { id = "spamreport-" + @item.DownloadID }))
+                                                                {
+                                                                    @Html.AntiForgeryToken()
+
+                                                                    <input name="downloadid" value="@item.DownloadID" hidden>
+                                                                    <input name="noteid" value="@item.NoteID" hidden>
+
+                                                                    <div class="form-group" id="modal-spam-report">
+                                                                        <label for="review-@item.DownloadID">Remarks *</label>
+                                                                        <textarea class="form-control" name="spamreport" id="spamreport-@item.DownloadID" placeholder="comments..." required></textarea>
+                                                                    </div>
+                                                                    <div class="btn-submit">
+                                                                        <button class="btn btn-color btn-report" data-toggle="modal" data-target="#confirmation-@item.DownloadID" data-dismiss="modal" aria-label="Close">Report an issue</button>
+                                                                        <button class="btn btn-color" data-dismiss="modal" aria-label="Close">Cancel</button>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Section Spam END -->
+                                            <!-- Section Confirmation Box -->
+                                            <div class="modal fade " id="confirmation-@item.DownloadID" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-confirm-body">
+                                                            <div>
+                                                                <p class="confirm-text">
+                                                                    Are you sure you want to mark this report as spam, you cannot update it later?
+                                                                </p>
+
+                                                                <div class="btn-confirm">
+                                                                    <button class="btn btn-yes" onclick="$('#spamreport-'+@item.DownloadID).submit(); $(this).dialog('close');">YES</button>
+                                                                    <button class="btn btn-no" data-dismiss="modal" aria-label="Close">NO</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Section Confirmation-Box END -->
+                                        }
+
+                                    </td>
+
+                                </tr>
                             }
                         }
 

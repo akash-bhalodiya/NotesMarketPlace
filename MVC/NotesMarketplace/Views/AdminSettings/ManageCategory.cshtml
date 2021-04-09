@@ -1,0 +1,203 @@
+﻿@model IEnumerable<NotesMarketplace.ViewModels.ManageCategoryViewModel>
+
+@{
+    ViewBag.Title = "Manage Category";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="blank">
+</section>
+
+<!-- Section Manage Category -->
+<section id="manage-category">
+
+    <div class="content-box">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12 table-heading my-auto">
+                    <h4 class="heading-md">Manage Category</h4>
+                </div>
+            </div>
+            <br>
+
+            @using (Html.BeginForm("ManageCategory", "AdminSettings", FormMethod.Get))
+            {
+
+                <div class="row">
+                    <div class="col-lg-7 col-md-6 col-sm-6 col-12 btn-add-items">
+                        <div class="btn-add-administrator">
+                            <a class="btn btn-color" href="@Url.Action("AddCategory", "AdminSettings")" role="button">Add Category</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-6 col-sm-6 col-12" id="table-search">
+                        <div class="row search">
+                            <div class="search-bar col-lg-9 col-md-8 col-sm-8 col-8 form-group">
+                                <input type="search" value="@ViewBag.Search" name="search" class="form-control" id="search" placeholder="Search">
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-4 col-4 btn-search">
+                                <button class="btn btn-color" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+            <div class="row table-general table-responsive">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sr No.</th>
+                            <th>@Html.ActionLink("Category", "ManageCategory", new { sort = ViewBag.Sort == null ? "Category_Desc" : (ViewBag.Sort == "Category_Asc" ? "Category_Desc" : "Category_Asc"), search = ViewBag.Search, page = ViewBag.PageNumber })</th>
+                            <th>@Html.ActionLink("Description", "ManageCategory", new { sort = ViewBag.Sort == null ? "Description_Desc" : (ViewBag.Sort == "Description_Asc" ? "Description_Desc" : "Description_Asc"), search = ViewBag.Search, page = ViewBag.PageNumber })</th>
+                            <th>@Html.ActionLink("Date Added", "ManageCategory", new { sort = ViewBag.Sort == null ? "DateAdded_Asc" : (ViewBag.Sort == "DateAdded_Desc" ? "DateAdded_Asc" : "DateAdded_Desc"), search = ViewBag.Search, page = ViewBag.PageNumber })</th>
+                            <th>@Html.ActionLink("Added By", "ManageCategory", new { sort = ViewBag.Sort == null ? "AddedBy_Desc" : (ViewBag.Sort == "AddedBy_Asc" ? "AddedBy_Desc" : "AddedBy_Asc"), search = ViewBag.Search, page = ViewBag.PageNumber })</th>
+                            <th>@Html.ActionLink("Active", "ManageCategory", new { sort = ViewBag.Sort == null ? "Active_Desc" : (ViewBag.Sort == "Active_Asc" ? "Active_Desc" : "Active_Asc"), search = ViewBag.Search, page = ViewBag.PageNumber })</th>
+                            <th class="content-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Count() == 0)
+                        {
+                            <tr class="no-record">
+                                <td colspan="7" class="text-center">No Record Found</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            var srno = (ViewBag.PageNumber - 1) * 5;
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    @{ srno = srno + 1; }
+                                    <td class="table-sr-no">@srno</td>
+                                    <td>@item.Category</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.DateAdded.ToString("dd-MM-yyyy, hh:mm")</td>
+                                    <td>@item.AddedBy</td>
+                                    <td>@item.Active</td>
+                                    <td class="content-center">
+                                        <a href="@Url.Action("EditCategory", "AdminSettings", new { id = @item.ID })"><img src="~/images/Dashboard/edit.png" alt="view" class="edit"></a>
+                                        <a data-toggle="modal" data-target="#deletecategory-@item.ID" role="button"><img src="~/images/Dashboard/delete.png" alt="view" class="delete"></a>
+
+                                        <!-- Section Confirmation Box -->
+                                        <div class="modal fade " id="deletecategory-@item.ID" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-confirm-body">
+                                                        <div>
+                                                            <p class="confirm-text">
+                                                                Are you sure you want to make this category inactive?
+                                                            </p>
+
+                                                            <div class="btn-confirm">
+                                                                <a class="btn btn-yes" href="@Url.Action("DeleteCategory", "AdminSettings", new { id = @item.ID })" id="confirmationbutton" role="button">YES</a>
+                                                                <a class="btn btn-no" data-dismiss="modal" aria-label="Close" role="button">NO</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Section Confirmation-Box END -->
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+
+            @if (Model.Count() != 0)
+            {
+                <div class="row justify-content-center">
+
+                    <nav aria-label="...">
+                        <ul class="pagination flex-wrap">
+
+                            <li class="page-item">
+                                @if (ViewBag.PageNumber == 1)
+                                {
+                                    <a class="page-link" href="@Url.Action("ManageCategory", new { sort = ViewBag.Sort, search = ViewBag.Search, page = ViewBag.PageNumber })"><i class="fa fa-angle-left"></i></a>
+                                }
+                                else
+                                {
+                                    <a class="page-link" href="@Url.Action("ManageCategory", new { sort = ViewBag.Sort, search = ViewBag.Search, page = ViewBag.PageNumber - 1 })"><i class="fa fa-angle-left"></i></a>
+                                }
+                            </li>
+
+                            @{
+                                double? TotalPages = ViewBag.TotalPages;
+
+                                if (ViewBag.PageNumber != 1 && ViewBag.PageNumber - 2 > 1)
+                                {
+                                    int page = Convert.ToInt32(@ViewBag.PageNumber) - 3;
+                                    <li class="page-item">@Html.ActionLink("1", "ManageCategory", new { sort = ViewBag.Sort, search = ViewBag.Search, page = 1 }, new { @class = "page-link" })</li>
+                                    if (page != 1)
+                                    {
+                                        <li class="page-item more-pages-dots">@Html.ActionLink("...", "ManageCategory", new { sort = ViewBag.Sort, search = ViewBag.Search, page = page }, new { @class = "page-link more-pages-dots" })</li>
+                                    }
+                                }
+
+                                for (int i = 2; i > 0; i--)
+                                {
+                                    if (ViewBag.PageNumber - i > 0)
+                                    {
+                                        int page = Convert.ToInt32(@ViewBag.PageNumber) - i;
+                                        <li class="page-item">@Html.ActionLink(page.ToString(), "ManageCategory", new { sort = ViewBag.Sort, search = ViewBag.Search, page = page }, new { @class = "page-link" })</li>
+                                    }
+                                }
+
+                                <li class="page-item active">
+                                    <a class="page-link">@ViewBag.PageNumber<span class="sr-only">(current)</span></a>
+                                </li>
+
+                                for (int i = 1; i < 3; i++)
+                                {
+                                    if (ViewBag.PageNumber + i <= TotalPages)
+                                    {
+                                        int page = Convert.ToInt32(@ViewBag.PageNumber) + i;
+                                        <li class="page-item">@Html.ActionLink(page.ToString(), "ManageCategory", new { sort = ViewBag.Sort, search = ViewBag.Search, page = page }, new { @class = "page-link" })</li>
+                                    }
+                                }
+
+                                if (ViewBag.PageNumber != TotalPages && ViewBag.PageNumber + 2 < TotalPages)
+                                {
+                                    int page = Convert.ToInt32(@ViewBag.PageNumber) + 3;
+                                    if (page != TotalPages)
+                                    {
+                                        <li class="page-item">@Html.ActionLink("...", "ManageCategory", new { sort = ViewBag.Sort, search = ViewBag.Search, page = page }, new { @class = "page-link more-pages-dots" })</li>
+                                    }
+                                    <li class="page-item">@Html.ActionLink(TotalPages.ToString(), "ManageCategory", new { sort = ViewBag.Sort, search = ViewBag.Search, page = TotalPages }, new { @class = "page-link" })</li>
+                                }
+
+                            }
+
+                            <li class="page-item">
+                                @if (ViewBag.PageNumber == ViewBag.TotalPages)
+                                {
+                                    <a class="page-link" href="@Url.Action("ManageCategory", new { sort = ViewBag.Sort, search = ViewBag.Search, page = ViewBag.PageNumber })"><i class="fa fa-angle-right"></i></a>
+                                }
+                                else
+                                {
+                                    <a class="page-link" href="@Url.Action("ManageCategory", new { sort = ViewBag.Sort, search = ViewBag.Search, page = ViewBag.PageNumber + 1 })"><i class="fa fa-angle-right"></i></a>
+                                }
+                            </li>
+
+                        </ul>
+                    </nav>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Section Manage Category END -->

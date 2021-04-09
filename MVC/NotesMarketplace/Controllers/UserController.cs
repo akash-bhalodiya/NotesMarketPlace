@@ -16,13 +16,14 @@ using System.Web.Mvc;
 
 namespace NotesMarketplace.Controllers
 {
+    [OutputCache(Duration = 0)]
     [RoutePrefix("User")]
     public class UserController : Controller
     {
         readonly private NotesMarketplaceEntities _dbcontext = new NotesMarketplaceEntities();
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [Route("Profile")]
         public ActionResult UserProfile()
         {
@@ -62,7 +63,7 @@ namespace NotesMarketplace.Controllers
             else
             {
                 userprofileviewmodel.CountryList = _dbcontext.Countries.Where(x => x.IsActive == true).ToList();
-                userprofileviewmodel.GenderList = _dbcontext.ReferenceDatas.Where(x => x.RefCategory == "Gender" && x.IsActive == true).ToList();
+                userprofileviewmodel.GenderList = _dbcontext.ReferenceDatas.Where(x => x.RefCategory.ToLower() == "gender" && x.IsActive == true).ToList();
                 userprofileviewmodel.UserID = user.ID;
                 userprofileviewmodel.Email = user.Email;
                 userprofileviewmodel.FirstName = user.FirstName;
@@ -74,7 +75,7 @@ namespace NotesMarketplace.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [Route("Profile")]
         public ActionResult UserProfile(UserProfileViewModel userprofileviewmodel)
         {
@@ -107,19 +108,16 @@ namespace NotesMarketplace.Controllers
                 {
                     profile.DOB = userprofileviewmodel.DOB;
                     profile.Gender = userprofileviewmodel.Gender;
-                    profile.PhoneNumberCountryCode = userprofileviewmodel.PhoneNumberCountryCode;
-                    profile.PhoneNumber = userprofileviewmodel.PhoneNumber;
-                    profile.AddressLine1 = userprofileviewmodel.AddressLine1;
-                    if (!String.IsNullOrEmpty(userprofileviewmodel.AddressLine2))
-                    {
-                        profile.AddressLine2 = userprofileviewmodel.AddressLine2;
-                    }
-                    profile.City = userprofileviewmodel.City;
-                    profile.State = userprofileviewmodel.State;
-                    profile.ZipCode = userprofileviewmodel.ZipCode;
-                    profile.Country = userprofileviewmodel.Country;
-                    profile.University = userprofileviewmodel.University;
-                    profile.College = userprofileviewmodel.College;
+                    profile.PhoneNumberCountryCode = userprofileviewmodel.PhoneNumberCountryCode.Trim();
+                    profile.PhoneNumber = userprofileviewmodel.PhoneNumber.Trim();
+                    profile.AddressLine1 = userprofileviewmodel.AddressLine1.Trim();
+                    profile.AddressLine2 = userprofileviewmodel.AddressLine2.Trim();
+                    profile.City = userprofileviewmodel.City.Trim();
+                    profile.State = userprofileviewmodel.State.Trim();
+                    profile.ZipCode = userprofileviewmodel.ZipCode.Trim();
+                    profile.Country = userprofileviewmodel.Country.Trim();
+                    profile.University = userprofileviewmodel.University.Trim();
+                    profile.College = userprofileviewmodel.College.Trim();
                     profile.ModifiedDate = DateTime.Now;
                     profile.ModifiedBy = user.ID;
 
@@ -152,8 +150,8 @@ namespace NotesMarketplace.Controllers
                     _dbcontext.SaveChanges();
 
                     // update first name and lastname and save
-                    user.FirstName = userprofileviewmodel.FirstName;
-                    user.LastName = userprofileviewmodel.LastName;
+                    user.FirstName = userprofileviewmodel.FirstName.Trim();
+                    user.LastName = userprofileviewmodel.LastName.Trim();
                     _dbcontext.Entry(user).State = EntityState.Modified;
                     _dbcontext.SaveChanges();
 
@@ -167,16 +165,16 @@ namespace NotesMarketplace.Controllers
                     userprofile.UserID = user.ID;
                     userprofile.DOB = userprofileviewmodel.DOB;
                     userprofile.Gender = userprofileviewmodel.Gender;
-                    userprofile.PhoneNumberCountryCode = userprofileviewmodel.PhoneNumberCountryCode;
-                    userprofile.PhoneNumber = userprofileviewmodel.PhoneNumber;
-                    userprofile.AddressLine1 = userprofileviewmodel.AddressLine1;
-                    userprofile.AddressLine2 = userprofileviewmodel.AddressLine2;
-                    userprofile.City = userprofileviewmodel.City;
-                    userprofile.State = userprofileviewmodel.State;
-                    userprofile.ZipCode = userprofileviewmodel.ZipCode;
-                    userprofile.Country = userprofileviewmodel.Country;
-                    userprofile.University = userprofileviewmodel.University;
-                    userprofile.College = userprofileviewmodel.College;
+                    userprofile.PhoneNumberCountryCode = userprofileviewmodel.PhoneNumberCountryCode.Trim();
+                    userprofile.PhoneNumber = userprofileviewmodel.PhoneNumber.Trim();
+                    userprofile.AddressLine1 = userprofileviewmodel.AddressLine1.Trim();
+                    userprofile.AddressLine2 = userprofileviewmodel.AddressLine2.Trim();
+                    userprofile.City = userprofileviewmodel.City.Trim();
+                    userprofile.State = userprofileviewmodel.State.Trim();
+                    userprofile.ZipCode = userprofileviewmodel.ZipCode.Trim();
+                    userprofile.Country = userprofileviewmodel.Country.Trim();
+                    userprofile.University = userprofileviewmodel.University.Trim();
+                    userprofile.College = userprofileviewmodel.College.Trim();
                     userprofile.CreatedDate = DateTime.Now;
                     userprofile.CreatedBy = user.ID;
 
@@ -198,8 +196,8 @@ namespace NotesMarketplace.Controllers
                     _dbcontext.SaveChanges();
 
                     // save firstname and lastname and save
-                    user.FirstName = userprofileviewmodel.FirstName;
-                    user.LastName = userprofileviewmodel.LastName;
+                    user.FirstName = userprofileviewmodel.FirstName.Trim();
+                    user.LastName = userprofileviewmodel.LastName.Trim();
                     _dbcontext.Entry(user).State = EntityState.Modified;
                     _dbcontext.SaveChanges();
                 }
@@ -226,8 +224,8 @@ namespace NotesMarketplace.Controllers
                 Directory.CreateDirectory(Server.MapPath(folderpath));
         }
 
-        [Authorize]
         [HttpGet]
+        [Authorize(Roles = "Member")]
         [Route("MyDownloads")]
         public ActionResult MyDownloads(string search, string sort, int page = 1)
         {
@@ -245,16 +243,32 @@ namespace NotesMarketplace.Controllers
                                                             join review in _dbcontext.SellerNotesReviews on download.ID equals review.AgainstDownloadsID into r
                                                             from notereview in r.DefaultIfEmpty()
                                                             where download.Downloader == user.ID && download.IsSellerHasAllowedDownload == true && download.AttachmentPath != null
-                                                            select new MyDownloadsViewModel { TblDownload = download, TblUser = users, TblReview = notereview };
+                                                            select new MyDownloadsViewModel
+                                                            {
+                                                                NoteID = download.NoteID,
+                                                                DownloadID = download.ID,
+                                                                Title = download.NoteTitle,
+                                                                Category = download.NoteCategory,
+                                                                Seller = users.Email,
+                                                                SellType = download.IsPaid == true ? "Paid" : "Free",
+                                                                Price = download.PurchasedPrice,
+                                                                DownloadedDate = download.AttachmentDownloadedDate.Value,
+                                                                NoteDownloaded = download.IsAttachmentDownloaded,
+                                                                ReviewID = notereview.ID,
+                                                                Rating = notereview.Ratings,
+                                                                Comment = notereview.Comments
+                                                            };
 
             // get searched result if search is not empty
             if (!string.IsNullOrEmpty(search))
             {
                 search = search.ToLower();
-                mydownloads = mydownloads.Where(x => x.TblDownload.NoteTitle.ToLower().Contains(search) ||
-                                                     x.TblDownload.NoteCategory.ToLower().Contains(search) ||
-                                                     x.TblUser.Email.ToLower().Contains(search) ||
-                                                     x.TblDownload.PurchasedPrice.ToString().ToLower().Contains(search));
+                mydownloads = mydownloads.Where(x => x.Title.ToLower().Contains(search) ||
+                                                     x.Category.ToLower().Contains(search) ||
+                                                     x.Seller.ToLower().Contains(search) ||
+                                                     x.Price.ToString().ToLower().Contains(search) || 
+                                                     x.SellType.ToLower().Contains(search)      
+                                               );
             }
 
             // sorting result
@@ -277,67 +291,67 @@ namespace NotesMarketplace.Controllers
             {
                 case "Title_Asc":
                     {
-                        table = table.OrderBy(x => x.TblDownload.NoteTitle);
+                        table = table.OrderBy(x => x.Title);
                         break;
                     }
                 case "Title_Desc":
                     {
-                        table = table.OrderByDescending(x => x.TblDownload.NoteTitle);
+                        table = table.OrderByDescending(x => x.Title);
                         break;
                     }
                 case "Category_Asc":
                     {
-                        table = table.OrderBy(x => x.TblDownload.NoteCategory);
+                        table = table.OrderBy(x => x.Category);
                         break;
                     }
                 case "Category_Desc":
                     {
-                        table = table.OrderByDescending(x => x.TblDownload.NoteCategory);
+                        table = table.OrderByDescending(x => x.Category);
                         break;
                     }
                 case "Seller_Asc":
                     {
-                        table = table.OrderBy(x => x.TblUser.Email);
+                        table = table.OrderBy(x => x.Seller);
                         break;
                     }
                 case "Seller_Desc":
                     {
-                        table = table.OrderByDescending(x => x.TblUser.Email);
+                        table = table.OrderByDescending(x => x.Seller);
                         break;
                     }
                 case "Type_Asc":
                     {
-                        table = table.OrderBy(x => x.TblDownload.IsPaid);
+                        table = table.OrderBy(x => x.SellType);
                         break;
                     }
                 case "Type_Desc":
                     {
-                        table = table.OrderByDescending(x => x.TblDownload.IsPaid);
+                        table = table.OrderByDescending(x => x.SellType);
                         break;
                     }
                 case "Price_Asc":
                     {
-                        table = table.OrderBy(x => x.TblDownload.PurchasedPrice);
+                        table = table.OrderBy(x => x.Price);
                         break;
                     }
                 case "Price_Desc":
                     {
-                        table = table.OrderByDescending(x => x.TblDownload.PurchasedPrice);
+                        table = table.OrderByDescending(x => x.Price);
                         break;
                     }
                 case "DownloadedDate_Asc":
                     {
-                        table = table.OrderBy(x => x.TblDownload.AttachmentDownloadedDate);
+                        table = table.OrderBy(x => x.DownloadedDate);
                         break;
                     }
                 case "DownloadedDate_Desc":
                     {
-                        table = table.OrderByDescending(x => x.TblDownload.AttachmentDownloadedDate);
+                        table = table.OrderByDescending(x => x.DownloadedDate);
                         break;
                     }
                 default:
                     {
-                        table = table.OrderByDescending(x => x.TblDownload.AttachmentDownloadedDate);
+                        table = table.OrderByDescending(x => x.DownloadedDate);
                         break;
                     }
             }
@@ -345,8 +359,8 @@ namespace NotesMarketplace.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Member")]
         [Route("Note/AddReview")]
         public ActionResult AddReview(SellerNotesReview notereview)
         {
@@ -414,8 +428,8 @@ namespace NotesMarketplace.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Member")]
         [Route("Note/ReportSpam")]
         public ActionResult SpamReport(FormCollection form)
         {
@@ -496,9 +510,8 @@ namespace NotesMarketplace.Controllers
             SendingEmail.SendEmail(mail);
         }
 
-
-        [Authorize]
         [HttpGet]
+        [Authorize(Roles = "Member")]
         [Route("MyRejectedNotes")]
         public ActionResult MyRejectedNotes(string search, string sort, int page = 1)
         {
@@ -510,9 +523,11 @@ namespace NotesMarketplace.Controllers
             // get logged in user
             var user = _dbcontext.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
 
+            // get rejected id
+            var rejectedid = _dbcontext.ReferenceDatas.Where(x => x.Value.ToLower() == "rejected").Select(x => x.ID).FirstOrDefault();
+
             // get user's rejected notes 
-            // status 10 is for rejected note
-            IEnumerable<SellerNote> rejectednotes = _dbcontext.SellerNotes.Where(x => x.SellerID == user.ID && x.Status == 10 && x.IsActive == true).ToList();
+            IEnumerable<SellerNote> rejectednotes = _dbcontext.SellerNotes.Where(x => x.SellerID == user.ID && x.Status == rejectedid && x.IsActive == true).ToList();
 
             // get searched result if search is not empty
             if (!string.IsNullOrEmpty(search))
@@ -580,8 +595,8 @@ namespace NotesMarketplace.Controllers
             return table;
         }
 
-        [Authorize]
         [HttpGet]
+        [Authorize(Roles = "Member")]
         [Route("MyRejectedNotes/{noteid}/Clone")]
         public ActionResult CloneNote(int noteid)
         {
@@ -595,7 +610,7 @@ namespace NotesMarketplace.Controllers
             SellerNote clonenote = new SellerNote();
 
             clonenote.SellerID = rejectednote.SellerID;
-            clonenote.Status = 6;
+            clonenote.Status = _dbcontext.ReferenceDatas.Where(x => x.Value.ToLower() == "draft").Select(x => x.ID).FirstOrDefault();
             clonenote.Title = rejectednote.Title;
             clonenote.Category = rejectednote.Category;
             clonenote.NoteType = rejectednote.NoteType;
@@ -680,6 +695,7 @@ namespace NotesMarketplace.Controllers
                     System.IO.File.Copy(file.ToString(), Path.Combine(attachementfilepath, Path.GetFileName(file.ToString())));
                 }
 
+                // save attachment in database
                 SellerNotesAttachement attachement = new SellerNotesAttachement();
                 attachement.NoteID = clonenote.ID;
                 attachement.FileName = Path.GetFileName(file.ToString());
@@ -694,8 +710,8 @@ namespace NotesMarketplace.Controllers
             return RedirectToAction("Dashboard", "SellYourNotes");
         }
 
-        [Authorize]
         [HttpGet]
+        [Authorize(Roles = "Member")]
         [Route("MySoldNotes")]
         public ActionResult MySoldNotes(string search, string sort, int page = 1)
         {
@@ -709,18 +725,31 @@ namespace NotesMarketplace.Controllers
 
             //get my sold notes
             IEnumerable<MySoldNotesViewModel> mysoldnotes = from download in _dbcontext.Downloads
-                                                          join users in _dbcontext.Users on download.Downloader equals users.ID
-                                                          where download.Seller == user.ID && download.IsSellerHasAllowedDownload == true && download.AttachmentPath != null
-                                                          select new MySoldNotesViewModel { TblDownload = download, TblUser = users };
+                                                            join users in _dbcontext.Users on download.Downloader equals users.ID
+                                                            where download.Seller == user.ID && download.IsSellerHasAllowedDownload == true && download.AttachmentPath != null
+                                                            select new MySoldNotesViewModel
+                                                            {
+                                                                DownloadID = download.ID,
+                                                                NoteID = download.NoteID,
+                                                                Title = download.NoteTitle,
+                                                                Category = download.NoteCategory,
+                                                                Buyer = users.Email,
+                                                                SellType = download.IsPaid == true ? "Paid" : "Free",
+                                                                Price = download.PurchasedPrice,
+                                                                DownloadedDate = download.AttachmentDownloadedDate.Value,
+                                                                NoteDownloaded = download.IsAttachmentDownloaded
+                                                          };
             
             //get searched result if search is not empty
             if (!string.IsNullOrEmpty(search))
             {
                 search = search.ToLower();
-                mysoldnotes = mysoldnotes.Where(x => x.TblDownload.NoteTitle.ToLower().Contains(search) ||
-                                                     x.TblDownload.NoteCategory.ToLower().Contains(search) ||
-                                                     x.TblUser.Email.ToLower().Contains(search) ||
-                                                     x.TblDownload.PurchasedPrice.ToString().ToLower().Contains(search));
+                mysoldnotes = mysoldnotes.Where(x => x.Title.ToLower().Contains(search) ||
+                                                     x.Category.ToLower().Contains(search) ||
+                                                     x.Buyer.ToLower().Contains(search) ||
+                                                     x.Price.ToString().ToLower().Contains(search) || 
+                                                     x.SellType.ToLower().Contains(search)
+                                               ).ToList();
             }
 
             //sort result
@@ -742,104 +771,71 @@ namespace NotesMarketplace.Controllers
             {
                 case "Title_Asc":
                     {
-                        table = table.OrderBy(x => x.TblDownload.NoteTitle);
+                        table = table.OrderBy(x => x.Title);
                         break;
                     }
                 case "Title_Desc":
                     {
-                        table = table.OrderByDescending(x => x.TblDownload.NoteTitle);
+                        table = table.OrderByDescending(x => x.Title);
                         break;
                     }
                 case "Category_Asc":
                     {
-                        table = table.OrderBy(x => x.TblDownload.NoteCategory);
+                        table = table.OrderBy(x => x.Category);
                         break;
                     }
                 case "Category_Desc":
                     {
-                        table = table.OrderByDescending(x => x.TblDownload.NoteCategory);
+                        table = table.OrderByDescending(x => x.Category);
                         break;
                     }
                 case "Buyer_Asc":
                     {
-                        table = table.OrderBy(x => x.TblUser.Email);
+                        table = table.OrderBy(x => x.Buyer);
                         break;
                     }
                 case "Buyer_Desc":
                     {
-                        table = table.OrderByDescending(x => x.TblUser.Email);
+                        table = table.OrderByDescending(x => x.Buyer);
                         break;
                     }
                 case "Type_Asc":
                     {
-                        table = table.OrderBy(x => x.TblDownload.IsPaid);
+                        table = table.OrderBy(x => x.SellType);
                         break;
                     }
                 case "Type_Desc":
                     {
-                        table = table.OrderByDescending(x => x.TblDownload.IsPaid);
+                        table = table.OrderByDescending(x => x.SellType);
                         break;
                     }
                 case "Price_Asc":
                     {
-                        table = table.OrderBy(x => x.TblDownload.PurchasedPrice);
+                        table = table.OrderBy(x => x.Price);
                         break;
                     }
                 case "Price_Desc":
                     {
-                        table = table.OrderByDescending(x => x.TblDownload.PurchasedPrice);
+                        table = table.OrderByDescending(x => x.Price);
                         break;
                     }
                 case "DownloadedDate_Asc":
                     {
-                        table = table.OrderBy(x => x.TblDownload.AttachmentDownloadedDate);
+                        table = table.OrderBy(x => x.DownloadedDate);
                         break;
                     }
                 case "DownloadedDate_Desc":
                     {
-                        table = table.OrderByDescending(x => x.TblDownload.AttachmentDownloadedDate);
+                        table = table.OrderByDescending(x => x.DownloadedDate);
                         break;
                     }
                 default:
                     {
-                        table = table.OrderByDescending(x => x.TblDownload.AttachmentDownloadedDate);
+                        table = table.OrderByDescending(x => x.DownloadedDate);
                         break;
                     }
             }
             return table;
-        }
-
-        // get profile image for navigation bar
-        [Authorize]
-        public ActionResult GetPhoto()
-        {
-            // get user
-            var user = _dbcontext.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
-            // get user profile
-            var profile = _dbcontext.UserProfiles.Where(x => x.UserID == user.ID).FirstOrDefault();
-            byte[] photo;
-            // if profile and profile picture is not null then show user's profile picture
-            if (profile != null)
-            {
-                if (profile.ProfilePicture != null)
-                {
-                    string imgPath = Server.MapPath(profile.ProfilePicture);
-                    photo = System.IO.File.ReadAllBytes(imgPath);
-                }
-                else
-                {
-                    string imgPath = Server.MapPath("~/DefaultImage/profile.png");
-                    photo = System.IO.File.ReadAllBytes(imgPath);
-                }
-            }
-            // else show default profile picture
-            else
-            {
-                string imgPath = Server.MapPath("~/DefaultImage/profile.png");
-                photo = System.IO.File.ReadAllBytes(imgPath);
-            }
-            // return image
-            return File(photo, "image/jpeg");
         }
 
     }

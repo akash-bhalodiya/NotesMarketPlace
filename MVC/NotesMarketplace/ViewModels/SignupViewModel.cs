@@ -10,14 +10,14 @@ namespace NotesMarketplace.ViewModels
     public class SignupViewModel
     {
         [Required(ErrorMessage = "This field is required")]
+        [RegularExpression("[A-Za-z ]*", ErrorMessage = "Invalid Name")]
         [MaxLength(50, ErrorMessage = "Name is too long")]
-        [RegularExpression("[^0-9]", ErrorMessage = "Numbers not allowed")]
         [DisplayName("First Name *")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
+        [RegularExpression("[A-Za-z ]*", ErrorMessage = "Invalid Name")]
         [MaxLength(50, ErrorMessage = "Name is too long")]
-        [RegularExpression("[^0-9]", ErrorMessage = "Numbers not allowed")]
         [DisplayName("Last Name *")]
         public string LastName { get; set; }
 

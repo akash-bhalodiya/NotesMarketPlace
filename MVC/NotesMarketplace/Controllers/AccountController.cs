@@ -20,6 +20,7 @@ namespace NotesMarketplace.Controllers
         readonly private NotesMarketplaceEntities _dbcontext = new NotesMarketplaceEntities();
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("Signup")]
         public ActionResult Signup()
         {
@@ -28,6 +29,7 @@ namespace NotesMarketplace.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         [Route("Signup")]
         public ActionResult Signup(SignupViewModel signupviewmodel)
         {
@@ -46,10 +48,10 @@ namespace NotesMarketplace.Controllers
                     //create user and save into database
                     User user = new User
                     {
-                        FirstName = signupviewmodel.FirstName,
-                        LastName = signupviewmodel.LastName,
-                        Email = signupviewmodel.Email,
-                        Password = signupviewmodel.Password,
+                        FirstName = signupviewmodel.FirstName.Trim(),
+                        LastName = signupviewmodel.LastName.Trim(),
+                        Email = signupviewmodel.Email.Trim(),
+                        Password = signupviewmodel.Password.Trim(),
                         CreatedDate = DateTime.Now,
                         RoleID = 2,
                         IsActive = true
@@ -118,6 +120,7 @@ namespace NotesMarketplace.Controllers
             SendingEmail.SendEmail(mail);
         }        
 
+        [AllowAnonymous]
         [Route("VerifyEmail")]
         public ActionResult VerifyEmail(int key, string value)
         {
@@ -128,6 +131,7 @@ namespace NotesMarketplace.Controllers
         }
 
         //to set isemailverified true in database after verification of email
+        [AllowAnonymous]
         [Route("RegisterConfirm")]
         public ActionResult RegisterConfirm(int key, string value)
         {
@@ -152,6 +156,7 @@ namespace NotesMarketplace.Controllers
         }
         
         [HttpGet]
+        [AllowAnonymous]
         [Route("Login")]
         public ActionResult Login()
         {
@@ -168,6 +173,7 @@ namespace NotesMarketplace.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         [Route("Login")]
         public ActionResult Login(LoginViewModel loginviewmodel)
         {
@@ -187,8 +193,9 @@ namespace NotesMarketplace.Controllers
                             //check if password match or not
                             if (user.Password == loginviewmodel.Password)
                             {
+                                int memberid = _dbcontext.UsersRoles.Where(x => x.Name.ToLower() == "member").Select(x => x.ID).FirstOrDefault();
                                 //check if user member
-                                if (user.RoleID == 2)
+                                if (user.RoleID == memberid)
                                 {
                                     //set authentication cookie
                                     FormsAuthentication.SetAuthCookie(user.Email, loginviewmodel.RememberMe);
@@ -249,7 +256,7 @@ namespace NotesMarketplace.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "SuperAdmin,Admin,Member")]
         [Route("Logout")]
         public ActionResult Logout()
         {
@@ -258,17 +265,17 @@ namespace NotesMarketplace.Controllers
             return RedirectToAction("Login");
         }
 
-        [Authorize]
         [HttpGet]
+        [Authorize(Roles = "SuperAdmin,Admin,Member")]
         [Route("ChangePassword")]
         public ActionResult ChangePassword()
         {
             return View();
         }
 
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin,Admin,Member")]
         [Route("ChangePassword")]
         public ActionResult ChangePassword(ChangePasswordViewModel changepasswordviewmodel)
         {
@@ -315,6 +322,7 @@ namespace NotesMarketplace.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("ForgotPassword")]
         public ActionResult ForgotPassword()
         {
@@ -322,6 +330,7 @@ namespace NotesMarketplace.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [Route("ForgotPassword")]
         public ActionResult ForgotPassword(ForgotPasswordViewModel forgotpasswordviewmodel)

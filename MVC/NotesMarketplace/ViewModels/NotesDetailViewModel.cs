@@ -10,6 +10,8 @@ namespace NotesMarketplace.ViewModels
     {
         public int? UserID { get; set; }
         public SellerNote SellerNote { get; set; }
+        public string Seller { get; set; }
+        public string Buyer { get; set; }
         public IEnumerable<ReviewsViewModel> NotesReview { get; set; }
         public int? AverageRating { get; set; }
         public int? TotalReview { get; set; }

@@ -73,7 +73,7 @@
 
                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
                         @Html.LabelFor(model => model.DOB)
-                        @Html.TextBoxFor(model => model.DOB, "{0:dd/MM/yyyy}", new { @class = "form-control", id = "date-of-birth", placeholder = "Enter your date of birth" })
+                        @Html.TextBoxFor(model => model.DOB, "{0:yyyy-MM-dd}", new { @class = "form-control", id = "date-of-birth", placeholder = "Enter your date of birth" })
                         @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-invalid" })
                     </div>
 
@@ -85,12 +85,12 @@
 
                     <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                         <div class="row" id="phone">
-                            <div class="form-group col-lg-4 col-md-4 col-sm-4 col-4">
+                            <div class="form-group col-lg-3 col-md-4 col-sm-4 col-4">
                                 <label for="country-code">Phone Number *</label>
                                 @Html.DropDownListFor(model => model.PhoneNumberCountryCode, new SelectList(Model.CountryList, "CountryCode", "CountryCode", Model.PhoneNumberCountryCode), new { @class = "form-control", id = "phone-number-country-code", required = "required" })
                                 @Html.ValidationMessageFor(model => model.PhoneNumberCountryCode, "", new { @class = "text-invalid" })
                             </div>
-                            <div class="form-group col-lg-8 col-md-8 col-sm-8 col-8">
+                            <div class="form-group col-lg-9 col-md-8 col-sm-8 col-8">
                                 <label for="phone-number"> </label>
                                 @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", id = "phone-number", placeholder = "Enter your phone number", required = "required" })
                                 @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-invalid" })
@@ -100,11 +100,11 @@
 
                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12 type-file">
                         @Html.LabelFor(model => model.ProfilePicture)
-                        @Html.TextBoxFor(model => model.ProfilePicture, new { @class = "form-control-file image-upload", id = "profile-picture", type = "file" })
+                        @Html.TextBoxFor(model => model.ProfilePicture, new { @class = "form-control-file image-upload", id = "profile-picture", type = "file", accept = "image/*" })
                         @Html.ValidationMessageFor(model => model.ProfilePicture, "", new { @class = "text-invalid" })
                         @if (!string.IsNullOrEmpty(Model.ProfilePictureUrl))
                         {
-                            <p class="uploaded-data">To see your previously uploaded profile picture<a href="@Url.Content(Model.ProfilePictureUrl)" target="_blank"> Click Here</a></p>
+                            <p class="uploaded-data">To see your previously uploaded profile picture <a href="@Url.Content(Model.ProfilePictureUrl)" target="_blank">Click Here</a></p>
                         }
                     </div>
 

@@ -17,7 +17,7 @@ namespace NotesMarketplace.SendMail
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.Credentials = new System.Net.NetworkCredential("******@gmail.com", "******");
+            client.Credentials = new System.Net.NetworkCredential("********@gmail.com", "********");
             client.Send(mail);
         }
     }

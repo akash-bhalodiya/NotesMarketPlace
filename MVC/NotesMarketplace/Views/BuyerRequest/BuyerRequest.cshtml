@@ -65,40 +65,39 @@
                             var srno = (ViewBag.PageNumber - 1) * 10;
                             foreach (var item in Model)
                             {
-                                <tr>
-                                    @{ srno = srno + 1; }
-                                    <td class="table-sr-no">@srno</td>
-                                    <td class="table-notes-title"><a href="@Url.Action("Notes", "SearchNotes", new { id = @item.TblDownload.NoteID })">@item.TblDownload.NoteTitle</a></td>
-                                    <td>@item.TblDownload.NoteCategory</td>
-                                    <td>@item.TblUser.Email</td>
-                                    <td>@item.TblUserProfile.PhoneNumberCountryCode @item.TblUserProfile.PhoneNumber</td>
-                                    @if (@item.TblDownload.IsPaid == true)
-                                    {
-                                        <td>Paid</td>
-                                        <td>$@item.TblDownload.PurchasedPrice</td>
-                                    }
-                                    else
-                                    {
-                                        <td>Free</td>
-                                        <td>$0</td>
-                                    }
-                                    <td>@item.TblDownload.CreatedDate.Value.ToString("dd MMM yyyy hh:mm:ss")</td>
-                                    <td>
-                                        <div class="table-images">
+                    <tr>
+                        @{ srno = srno + 1; }
+                        <td class="table-sr-no">@srno</td>
+                        <td class="table-notes-title"><a href="@Url.Action("Notes", "SearchNotes", new { id = @item.NoteID })">@item.Title</a></td>
+                        <td>@item.Category.</td>
+                        <td>@item.Buyer</td>
+                        <td>@item.PhoneNo</td>
+                        <td>@item.SellType</td>
+                        @if (@item.Price != null)
+                        {
+                            <td>$@item.Price</td>
+                        }
+                        else
+                        {
+                            <td>$0</td>
+                        }
+                        <td>@item.DownloadedDate.Value.ToString("dd MMM yyyy, hh:mm:ss")</td>
+                        <td>
+                            <div class="table-images">
 
-                                            <a href="@Url.Action("Notes", "SearchNotes", new { id = @item.TblDownload.NoteID } )"><img src="~/images/Dashboard/eye.png" alt="view" class="eye"></a>
-                                            <!-- Default dropleft button -->
-                                            <div class="btn-group dropleft">
-                                                <button type="button" id="dropdownMenu" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <img src="~/images/Dashboard/3dot.png" alt="menu" class="dots">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                                                    <a href="@Url.Action("AllowDownload", new { id = @item.TblDownload.ID })" class="dropdown-item" type="button">Allow Download</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                <a href="@Url.Action("Notes", "SearchNotes", new { id = @item.NoteID } )"><img src="~/images/Dashboard/eye.png" alt="view" class="eye"></a>
+                                <!-- Default dropleft button -->
+                                <div class="btn-group dropleft">
+                                    <button type="button" id="dropdownMenu" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <img src="~/images/Dashboard/3dot.png" alt="menu" class="dots">
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                        <a href="@Url.Action("AllowDownload", new { id = @item.DownloadID })" class="dropdown-item" type="button">Allow Download</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                             }
                         }
 

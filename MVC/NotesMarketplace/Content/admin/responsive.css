@@ -1,0 +1,893 @@
+/* ========================================================================================================== */
+/*                                      992px to 1200px                                                       */
+/* ========================================================================================================== */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+    /*----------------------------------------------------------------------*/
+    /*                              Navigation Bar                          */
+    /*----------------------------------------------------------------------*/
+    #navbarSupportedContent .nav-item {
+        padding: 0 10px;
+    }
+
+    /*--------------- DropDowns --------------*/
+    nav .profile-dropdown div.dropdown-menu.show {
+        -webkit-transform: translate3d(525px, 0, 0) !important;
+        transform: translate3d(525px, 0, 0) !important;
+    }
+
+    nav .notes-dropdown div.dropdown-menu.show {
+        -webkit-transform: translate3d(190px, 0, 0) !important;
+        transform: translate3d(190px, 0, 0) !important;
+    }
+
+    nav .reports-dropdown div.dropdown-menu.show {
+        -webkit-transform: translate3d(380px, 0, 0) !important;
+        transform: translate3d(380px, 0, 0) !important;
+    }
+
+    nav .settings-dropdown div.dropdown-menu.show {
+        -webkit-transform: translate3d(435px, 0, 0) !important;
+        transform: translate3d(435px, 0, 0) !important;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Button                                  */
+    /*----------------------------------------------------------------------*/
+    .btn-search a.btn.btn-color,
+    .btn-search button.btn.btn-color {
+        height: 38px;
+        margin-left: -5px;
+        width: 100%;
+        padding: 0;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Note Detail                             */
+    /*----------------------------------------------------------------------*/
+    .note-detail-preview {
+        height: 445px;
+    }
+
+    #comment {
+        height: 443px;
+    }
+
+}
+
+/* ========================================================================================================== */
+/*                                      768px to 991px                                                        */
+/* ========================================================================================================== */
+@media (min-width: 768px) and (max-width: 991px) {
+
+    .container {
+        max-width: 95%;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Heading                                 */
+    /*----------------------------------------------------------------------*/
+    .heading-lg {
+        font-size: 30px;
+        line-height: 34px;
+        margin-bottom: 0
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Navigation                              */
+    /*----------------------------------------------------------------------*/
+    .navbar {
+        display: block;
+    }
+
+    nav .container {
+        max-width: 100%;
+        margin: 0 !important;
+    }
+
+    .navbar-brand {
+        padding-left: 20px;
+    }
+
+    #navbarSupportedContent {
+        background: #fff;
+    }
+
+    .navbar-toggler {
+        padding-right: 20px !important;
+    }
+
+    nav .dropdown-menu {
+        border: none;
+        -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+
+    nav li.profile-dropdown .dropdown-menu a.logout:hover {
+        color: #6255a5;
+    }
+
+    nav .dropdown-item {
+        padding: 9px 18px;
+        font-size: 14px;
+    }
+
+    nav .dropdown-menu .dropdown-item:hover,
+    nav .dropdown-menu .dropdown-item:focus,
+    nav .dropdown-menu .dropdown-item:active {
+        color: #6255a5;
+        background-color: #fff;
+    }
+
+    /*--------------- DropDowns --------------*/
+    nav .profile-dropdown div.dropdown-menu.show,
+    nav .reports-dropdown div.dropdown-menu.show,
+    nav .notes-dropdown div.dropdown-menu.show,
+    nav .settings-dropdown div.dropdown-menu.show {
+        -webkit-transform: translate3d(25px, 0, 0) !important;
+        transform: translate3d(25px, 0, 0) !important;
+    }
+
+    ul.navbar-nav {
+        padding: 0 10px;
+        margin-top: 15px;
+    }
+
+    ul.navbar-nav li {
+        margin-bottom: 15px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Download Notes                          */
+    /*----------------------------------------------------------------------*/
+    .filter-table-text p {
+        margin-bottom: 10px;
+        width: 100px;
+        margin-right: 20px;
+    }
+
+    .filter-table select {
+        height: 38px;
+        width: 100px;
+        margin-right: 20px;
+    }
+
+    #published-notes .filter-table select,
+    #notes-under-review .filter-table select,
+    #rejected-notes .filter-table select {
+        height: 38px;
+        width: 180px;
+        margin-right: 20px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Member Detail                           */
+    /*----------------------------------------------------------------------*/
+    .member-data img {
+        margin-bottom: 30px
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Note Detail                             */
+    /*----------------------------------------------------------------------*/
+
+    #note-detail-top-left {
+        margin-bottom: 40px;
+    }
+
+    #note-detail-bottom-left {
+        margin-bottom: 40px;
+    }
+
+    /*------------- Section Note Info Author And Rating -------------*/
+    .notes-info {
+        padding: 0 200px 0 15px;
+    }
+
+    /*------------- Section Note Detail PDF Preview -------------*/
+
+    .note-detail-preview {
+        margin: 0;
+        height: 475px;
+        width: 100%;
+    }
+
+    /*------------- Note Detail Comments -------------*/
+    .user-comment-image img {
+        width: 75px;
+        height: 75px;
+    }
+
+    #comment {
+        height: 475px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Button                                  */
+    /*----------------------------------------------------------------------*/
+    .btn-search a.btn.btn-color,
+    .btn-search button.btn.btn-color {
+        height: 38px;
+        margin-left: -5px;
+        width: 100%;
+        padding: 0;
+    }
+
+}
+
+/* ========================================================================================================== */
+/*                                      576px to 767px                                                       */
+/* ========================================================================================================== */
+@media (min-width: 576px) and (max-width: 767px) {
+
+    .container {
+        max-width: 95%;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Heading                                 */
+    /*----------------------------------------------------------------------*/
+    .heading-lg {
+        font-size: 30px;
+        line-height: 34px;
+        margin-bottom: 0
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Navigation                              */
+    /*----------------------------------------------------------------------*/
+    .navbar {
+        display: block;
+    }
+
+    nav .container {
+        max-width: 100%;
+        margin: 0 !important;
+    }
+
+    .navbar-brand {
+        padding-left: 20px;
+    }
+
+    #navbarSupportedContent {
+        background: #fff;
+    }
+
+    .navbar-toggler {
+        padding-right: 20px !important;
+    }
+
+    nav .dropdown-menu {
+        border: none;
+        -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+
+    nav li.profile-dropdown .dropdown-menu a.logout:hover {
+        color: #6255a5;
+    }
+
+    nav .dropdown-item {
+        padding: 9px 18px;
+        font-size: 14px;
+    }
+
+    nav .dropdown-menu .dropdown-item:hover,
+    nav .dropdown-menu .dropdown-item:focus,
+    nav .dropdown-menu .dropdown-item:active {
+        color: #6255a5;
+        background-color: #fff;
+    }
+
+    /*--------------- DropDowns --------------*/
+    nav .profile-dropdown div.dropdown-menu.show,
+    nav .reports-dropdown div.dropdown-menu.show,
+    nav .notes-dropdown div.dropdown-menu.show nav .settings-dropdown div.dropdown-menu.show {
+        -webkit-transform: translate3d(25px, 0, 0) !important;
+        transform: translate3d(25px, 0, 0) !important;
+    }
+
+    ul.navbar-nav {
+        padding: 0 10px;
+        margin-top: 15px;
+    }
+
+    ul.navbar-nav li {
+        margin-bottom: 15px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Download Notes                          */
+    /*----------------------------------------------------------------------*/
+    .filter-table-row {
+        padding: 0;
+    }
+
+    .filter-table-text {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Member Detail                           */
+    /*----------------------------------------------------------------------*/
+    #member-detail .member-info-left {
+        border-bottom: 1px solid #d1d1d1;
+        border-right: none;
+    }
+
+    #member-detail .member-info-right,
+    #member-detail .member-info-left {
+        margin-top: 20px;
+        padding-bottom: 10px;
+    }
+
+    .member-data p {
+        margin-bottom: 10px
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Note Detail                             */
+    /*----------------------------------------------------------------------*/
+
+    #note-detail-top-left {
+        margin-bottom: 40px;
+    }
+
+    #note-detail-bottom-left {
+        margin-bottom: 40px;
+    }
+
+    /*------------- Section Note Info Author And Rating -------------*/
+    .notes-info {
+        padding: 0 15px 0 15px;
+    }
+
+    /*------------- Section Note Detail PDF Preview -------------*/
+
+    .note-detail-preview {
+        margin: 0;
+        height: 425px;
+        width: 100%;
+    }
+
+    /*------------- Note Detail Comments -------------*/
+    #comment {
+        height: 425px;
+        width: 100%;
+    }
+
+    .user-comment-image img {
+        width: 75px;
+        height: 75px;
+    }
+
+    /*-----------------------------------------------*/
+    /*              Button                           */
+    /*-----------------------------------------------*/
+
+    .btn-search a.btn.btn-color,
+    .btn-search button.btn.btn-color {
+        height: 38px;
+        margin-left: -5px;
+        width: 100%;
+        padding: 0;
+    }
+
+}
+
+/* ========================================================================================================== */
+/*                                      < 575px                                                               */
+/* ========================================================================================================== */
+@media (max-width: 575px) {
+
+    .blank{
+        height: 70px;
+    }
+    
+    /*----------------------------------------------------------------------*/
+    /*                              Navigation                              */
+    /*----------------------------------------------------------------------*/
+    .navbar {
+        display: block;
+        padding: 10px 0;
+    }
+
+    .navbar-fixed-height {
+        height: 70px;
+    }
+
+    nav .container {
+        max-width: 100%;
+        margin: 0 !important;
+    }
+
+    .navbar-brand {
+        padding-left: 20px;
+    }
+
+    #navbarSupportedContent {
+        background: #fff;
+    }
+
+    .navbar-toggler {
+        padding-right: 20px !important;
+    }
+
+    nav .dropdown-menu {
+        border: none;
+        -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+
+    nav li.profile-dropdown .dropdown-menu a.logout:hover {
+        color: #6255a5;
+    }
+
+    nav .dropdown-item {
+        padding: 9px 18px;
+        font-size: 14px;
+    }
+
+    nav .dropdown-menu .dropdown-item:hover,
+    nav .dropdown-menu .dropdown-item:focus,
+    nav .dropdown-menu .dropdown-item:active {
+        color: #6255a5;
+        background-color: #fff;
+    }
+
+    /*--------------- DropDowns --------------*/
+    nav .profile-dropdown div.dropdown-menu.show,
+    nav .reports-dropdown div.dropdown-menu.show,
+    nav .notes-dropdown div.dropdown-menu.show,
+    nav .settings-dropdown div.dropdown-menu.show {
+        -webkit-transform: translate3d(25px, 0, 0) !important;
+        transform: translate3d(25px, 0, 0) !important;
+    }
+
+    ul.navbar-nav {
+        padding: 0 10px;
+        margin-top: 15px;
+    }
+
+    ul.navbar-nav li {
+        margin-bottom: 15px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Content Box                             */
+    /*----------------------------------------------------------------------*/
+    .content-box {
+        padding: 40px 0;
+    }
+
+    .content-box-top {
+        padding: 30px 0 20px 0;
+    }
+
+
+    /*----------------------------------------------------------------------*/
+    /*                              Footer                                  */
+    /*----------------------------------------------------------------------*/
+    footer.footer-admin {
+        margin-top: 0;
+        padding: 10px 0 0 0;
+    }
+
+    .admin-version p,
+    .admin-footer-text p {
+        font-size: 13px;
+        text-align: center;
+        float: none;
+        margin-bottom: 5px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Heading                                 */
+    /*----------------------------------------------------------------------*/
+    .heading-lg {
+        font-size: 24px;
+        line-height: 34px;
+        margin-bottom: 0
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Button                                  */
+    /*----------------------------------------------------------------------*/
+
+    a.btn {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    a.btn-transperent {
+        height: 34px;
+    }
+
+    a.btn-color {
+        height: 34px;
+    }
+
+    .btn-submit a,
+        {
+        width: 100%;
+    }
+
+    .btn-add-administrator a {
+        width: 100%;
+    }
+
+    .btn-search a {
+        height: 34px;
+        padding-top: 6px;
+        margin-left: 0;
+    }
+
+    .btn-add-items {
+        margin-bottom: 15px;
+    }
+
+    .btn-form {
+        margin-top: 10px;
+        width: 100%;
+        height: 36px;
+        font-size: 15px;
+        line-height: 20px;
+    }
+
+    .btn-search a.btn.btn-color,
+    .btn-search button.btn.btn-color {
+        height: 34px;
+        margin-left: 0;
+        width: 100%;
+        padding: 0;
+    }
+
+    .btn-search button.btn.btn-color.btn-dashboard-search{
+       margin-left: 0px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Form Control                            */
+    /*----------------------------------------------------------------------*/
+    .form-group input,
+    .form-group select {
+        height: 38px;
+    }
+
+    .form-control {
+        font-size: 15px;
+    }
+
+    .form-group label,
+    .form-check label {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+
+    /*------ File Upload Background Image --------*/
+    input[type="file"].image-upload {
+        padding: 100px 0 0 0;
+        height: 100px;
+    }
+
+    input[type="file"].image-upload-note {
+        padding: 100px 0 0 0;
+        height: 100px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Tables                                  */
+    /*----------------------------------------------------------------------*/
+    #admin-published-notes,
+    #downloaded-notes,
+    #manage-administrator,
+    #manage-category,
+    #manage-country,
+    #manage-type,
+    #member-note-table,
+    #members,
+    #notes-under-review,
+    #published-notes,
+    #rejected-notes,
+    #spam-reports {
+        padding: 0 15px;
+    }
+
+    .search-bar {
+        padding-left: 0;
+    }
+
+    .search .form-group input,
+    .search .form-group select {
+        height: 34px;
+    }
+
+    .search {
+        padding-left: 10px;
+    }
+
+    #table-search {
+        padding: 0 5px;
+    }
+
+    .table-general table th {
+        font-size: 15px;
+        line-height: 20px;
+        padding-top: 5px;
+    }
+
+    .table-general table td {
+        font-size: 15px;
+        line-height: 18px;
+    }
+
+    .table-general table td.table-sr-no {
+        font-size: 15px;
+        line-height: 18px;
+    }
+
+    .table td,
+    .table thead th {
+        vertical-align: middle;
+        min-height: 50px;
+        padding: 3px 0 3px 15px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Pagination                              */
+    /*----------------------------------------------------------------------*/
+    .pagination {
+        margin: 0 0 0 0;
+    }
+
+    .page-link i {
+        font-size: 20px;
+        line-height: 20px;
+    }
+
+    a.page-link {
+        font-size: 15px;
+        line-height: 18px;
+    }
+
+    .page-link {
+        padding: 5px 7px;
+    }
+
+    li.page-item {
+        margin: 0 1px;
+    }
+
+    /*-------------------------------------------------------*/
+    /*            Add Category
+    /*-------------------------------------------------------*/
+    #add-category textarea {
+        height: 150px;
+    }
+
+    /*-------------------------------------------------------*/
+    /*            Add Type  
+    /*-------------------------------------------------------*/
+    #add-type textarea {
+        height: 150px;
+    }
+
+    /*-------------------------------------------------------*/
+    /*            Dashboard  
+    /*-------------------------------------------------------*/
+    #dashboard-heading {
+        padding-left: 15px;
+    }
+
+    #admin-dashboard-box-middle,
+    #admin-dashboard-box-first {
+        margin-bottom: 20px;
+    }
+
+    .dashboard-box h3 {
+        font-size: 24px;
+        line-height: 30px;
+    }
+
+    #admin-dashboard-box-last {
+        padding-right: 15px;
+    }
+
+    #admin-dashboard-box-first {
+        padding-left: 15px;
+    }
+
+    .search-month {
+        padding-left: 0;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Download Notes                          */
+    /*----------------------------------------------------------------------*/
+    .filter-table-text p {
+        font-size: 15px;
+        line-height: 18px;
+    }
+
+    .filter-table-row {
+        padding: 0;
+    }
+
+    .filter-table-text {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Member Detail                           */
+    /*----------------------------------------------------------------------*/
+    #member-detail .member-info-left {
+        border-bottom: 1px solid #d1d1d1;
+        border-right: none;
+    }
+
+    #member-detail .member-info-right,
+    #member-detail .member-info-left {
+        margin-top: 20px;
+        padding-bottom: 10px;
+    }
+
+    .member-data p {
+        margin-bottom: 10px
+    }
+
+    #member-detail .member-data {
+        margin-bottom: 0;
+    }
+
+    #member-detail .member-info-left p,
+    #member-detail .member-info-right p {
+        font-size: 15px;
+        line-height: 18px;
+    }
+
+    #member-detail p.member-personal-info {
+        font-size: 15px;
+        line-height: 18px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Notes Under Review                      */
+    /*----------------------------------------------------------------------*/
+    #notes-under-review .btn-approve,
+    #notes-under-review .btn-inreview,
+    #notes-under-review .btn-reject {
+        height: 30px;
+        border-radius: 3px;
+        font-size: 15px;
+        line-height: 14px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*                              Note Detail                             */
+    /*----------------------------------------------------------------------*/
+
+    #note-detail-top-left {
+        margin-bottom: 40px;
+    }
+
+    #note-detail-bottom-left {
+        margin-bottom: 40px;
+    }
+
+    #note-detail-img {
+        margin-bottom: 10px;
+    }
+
+    #note-detail-info p {
+        margin: 20px 0;
+        font-size: 15px;
+        color: #333333;
+        line-height: 20px;
+    }
+
+    /*------------- Section Note Info Author And Rating -------------*/
+    .notes-info {
+        padding: 0 15px;
+    }
+
+    .notes-info p {
+        margin-bottom: 5px;
+    }
+
+    .notes-info p span.first {
+        font-size: 15px;
+        line-height: 20px;
+    }
+
+    .notes-info p span.last {
+        font-size: 15px;
+        line-height: 28px;
+    }
+
+    /*------------- Section Note Detail PDF Preview -------------*/
+
+    .note-detail-preview {
+        margin: 0;
+        height: 400px;
+        width: 100%;
+    }
+
+    /*------------- Note Detail Comments -------------*/
+    #comment {
+        height: 400px;
+        width: 100%;
+    }
+
+    .user-comment-image {
+        padding-left: 0;
+    }
+
+    .user-comment h6 {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .user-comment p {
+        font-size: 15px;
+        line-height: 18px;
+    }
+
+    /* Star Rating In Comment */
+    .user-comment .rating span {
+        font-size: 15px;
+        line-height: 18px;
+    }
+
+    .user-comment .rating i {
+        font-size: 15px;
+    }
+
+    /*----------------------------------------------------------------------*/
+    /*    Login, Signup, Forgot Password, Change Password                   */
+    /*----------------------------------------------------------------------*/
+    .form-container {
+        width: 100%;
+    }
+
+    .logo {
+        margin-bottom: 20px;
+    }
+
+    .white-box {
+        padding: 20px;
+    }
+
+    .form-group input,
+    .form-group select {
+        height: 36px;
+    }
+
+    .form-group label,
+    .form-check label {
+        font-size: 15px;
+        line-height: 18px;
+    }
+
+    .white-box .form-check .form-check-input {
+        height: 16px;
+        width: 16px;
+    }
+
+    .white-box p {
+        font-size: 14px;
+    }
+
+    /*------------------- Password Show-Hide ---------------------*/
+    .field-icon {
+        width: 20px;
+        height: 15px;
+        float: right;
+        position: relative;
+        top: -26px;
+        right: 10px;
+    }
+
+
+}

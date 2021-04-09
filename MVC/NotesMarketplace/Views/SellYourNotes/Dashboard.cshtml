@@ -147,19 +147,19 @@
                             foreach (var inprogressnote in Model.InProgressNotes)
                             {
                                 <tr>
-                                    <td>@inprogressnote.CreatedDate.Value.ToString("dd-MM-yyyy")</td>
+                                    <td>@inprogressnote.AddedDate.Value.ToString("dd-MM-yyyy")</td>
                                     <td>@inprogressnote.Title</td>
-                                    <td>@inprogressnote.NoteCategory.Name</td>
-                                    <td>@inprogressnote.ReferenceData.Value</td>
+                                    <td>@inprogressnote.Category</td>
+                                    <td>@inprogressnote.Status</td>
                                     <td>
                                         <div class="table-images">
-                                            @if (inprogressnote.Status == 6)
+                                            @if (inprogressnote.Status.ToLower().Equals("draft"))
                                             {
-                                                <a href="@Url.Action("EditNotes","SellYourNotes", new { id = inprogressnote.ID })"><img src="~/images/Dashboard/edit.png" alt="edit" class="edit"></a>
-                                                <a><img src="~/images/Dashboard/delete.png" alt="delete" class="delete" data-toggle="modal" data-target="#delete-@inprogressnote.ID"></a>
+                                                <a href="@Url.Action("EditNotes","SellYourNotes", new { id = inprogressnote.NoteID })"><img src="~/images/Dashboard/edit.png" alt="edit" class="edit"></a>
+                                                <a><img src="~/images/Dashboard/delete.png" alt="delete" class="delete" data-toggle="modal" data-target="#delete-@inprogressnote.NoteID"></a>
 
                                                 <!-- Section Confirmation Box -->
-                                                <div class="modal fade " id="delete-@inprogressnote.ID" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal fade " id="delete-@inprogressnote.NoteID" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-confirm-body">
@@ -171,7 +171,7 @@
                                                                         </p>
 
                                                                         <div class="btn-confirm">
-                                                                            <a class="btn btn-yes" href="@Url.Action("DeleteDraft", "SellYourNotes", new { id = inprogressnote.ID })">YES</a>
+                                                                            <a class="btn btn-yes" href="@Url.Action("DeleteDraft", "SellYourNotes", new { id = inprogressnote.NoteID })">YES</a>
                                                                             <a class="btn btn-no" role="button" data-dismiss="modal" aria-label="Close">NO</a>
                                                                         </div>
 
@@ -185,7 +185,7 @@
                                             }
                                             else
                                             {
-                                                <a href="@Url.Action("Notes", "SearchNotes", new { id = @inprogressnote.ID })"><img src="~/images/Dashboard/eye.png" alt="view" class="eye"></a>
+                                                <a href="@Url.Action("Notes", "SearchNotes", new { id = @inprogressnote.NoteID })"><img src="~/images/Dashboard/eye.png" alt="view" class="eye"></a>
                                             }
                                         </div>
                                     </td>
@@ -346,20 +346,19 @@
                                 <tr>
                                     <td>@publishednote.PublishedDate.Value.ToString("dd-MM-yyyy")</td>
                                     <td>@publishednote.Title</td>
-                                    <td>@publishednote.NoteCategory.Name</td>
-                                    @if (publishednote.IsPaid)
+                                    <td>@publishednote.Category</td>
+                                    <td>@publishednote.SellType</td>
+                                    @if (publishednote.Price != null)
                                     {
-                                        <td>Paid</td>
-                                        <td>$@publishednote.SellingPrice</td>
+                                        <td>$@publishednote.Price</td>
                                     }
                                     else
                                     {
-                                        <td>Free</td>
                                         <td>$0</td>
                                     }
                                     <td>
                                         <div class="table-images">
-                                            <a href="@Url.Action("Notes", "SearchNotes", new { id = @publishednote.ID })"><img src="~/images/Dashboard/eye.png" alt="view" class="eye"></a>
+                                            <a href="@Url.Action("Notes", "SearchNotes", new { id = @publishednote.NoteID })"><img src="~/images/Dashboard/eye.png" alt="view" class="eye"></a>
                                         </div>
                                     </td>
                                 </tr>

@@ -66,22 +66,21 @@
                                 <tr>
                                     @{ srno = srno + 1; }
                                     <td class="table-sr-no">@srno</td>
-                                    <td class="table-notes-title"><a href="@Url.Action("Notes", "SearchNotes", new { id = @item.TblDownload.NoteID })">@item.TblDownload.NoteTitle</a></td>
-                                    <td>@item.TblDownload.NoteCategory</td>
-                                    <td>@item.TblUser.Email</td>
-                                    @if (@item.TblDownload.IsPaid)
+                                    <td class="table-notes-title"><a href="@Url.Action("Notes", "SearchNotes", new { id = @item.NoteID })">@item.Title</a></td>
+                                    <td>@item.Category</td>
+                                    <td>@item.Buyer</td>
+                                    <td>@item.SellType</td>
+                                    @if (@item.Price != null)
                                     {
-                                        <td>Paid</td>
-                                        <td>@item.TblDownload.PurchasedPrice</td>
+                                        <td>@item.Price</td>
                                     }
                                     else
                                     {
-                                        <td>Free</td>
                                         <td>$0</td>
                                     }
-                                    @if(item.TblDownload.IsAttachmentDownloaded == true)
+                                    @if(item.NoteDownloaded == true)
                                     { 
-                                        <td>@item.TblDownload.AttachmentDownloadedDate.Value.ToString("dd MMM yyyy, hh:mm:ss")</td>
+                                        <td>@item.DownloadedDate.Value.ToString("dd MMM yyyy, hh:mm:ss")</td>
                                     }
                                     else{
                                         <td></td>
@@ -89,14 +88,14 @@
                                     <td>
                                         <div class="table-images">
 
-                                            <a href="@Url.Action("Notes", "SearchNotes", new { id = @item.TblDownload.NoteID })"><img src="~/images/Dashboard/eye.png" alt="view" class="eye"></a>
+                                            <a href="@Url.Action("Notes", "SearchNotes", new { id = @item.NoteID })"><img src="~/images/Dashboard/eye.png" alt="view" class="eye"></a>
                                             <!-- Default dropleft button -->
                                             <div class="btn-group dropleft">
-                                                <button type="button" id="dropdownMenu2" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <button type="button" id="dropdownMenu" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <img src="~/images/Dashboard/3dot.png" alt="menu" class="dots">
                                                 </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                                    <a class="dropdown-item" href="@Url.Action("DownloadNotes", "SearchNotes", new { noteid = @item.TblDownload.NoteID } )">Download Note</a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                                    <a class="dropdown-item" href="@Url.Action("DownloadNotes", "SearchNotes", new { noteid = @item.NoteID } )">Download Note</a>
                                                 </div>
                                             </div>
                                         </div>

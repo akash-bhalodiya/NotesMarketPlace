@@ -16,14 +16,26 @@ using System.Web.Mvc;
 
 namespace NotesMarketplace.Controllers
 {
+    [OutputCache(Duration = 0)]
     public class SearchNotesController : Controller
     {
         readonly private NotesMarketplaceEntities _dbcontext = new NotesMarketplaceEntities();
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("Search")]
         public ActionResult Search(string search, string type, string category, string university, string course, string country, string ratings, int page = 1)
         {
+            // if  is logged iusern and logged in user is not member then redirect to admin dashboard
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = _dbcontext.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+                if (user.RoleID != _dbcontext.UsersRoles.Where(x => x.Name.ToLower() == "member").Select(x => x.ID).FirstOrDefault())
+                {
+                    return RedirectToAction("Dashboard", "Admin");
+                }
+            }
+
             // Viewbag for active class in navigation
             ViewBag.SearchNotes = "active";
 
@@ -37,9 +49,9 @@ namespace NotesMarketplace.Controllers
             ViewBag.Rating = ratings;
 
             // viewbag for dropdown lists
-            ViewBag.CategoryList = _dbcontext.NoteCategories.Where(x => x.IsActive == true).ToList();
-            ViewBag.TypeList = _dbcontext.NoteTypes.Where(x => x.IsActive == true).ToList();
-            ViewBag.CountryList = _dbcontext.Countries.Where(x => x.IsActive == true).ToList();
+            ViewBag.CategoryList = _dbcontext.NoteCategories.ToList();
+            ViewBag.TypeList = _dbcontext.NoteTypes.ToList();
+            ViewBag.CountryList = _dbcontext.Countries.ToList();
             ViewBag.UniversityList = _dbcontext.SellerNotes.Where(x => x.IsActive == true && x.UniversityName != null && x.Status == 9).Select(x => x.UniversityName).Distinct();
             ViewBag.CourseList = _dbcontext.SellerNotes.Where(x => x.IsActive == true && x.Course != null && x.Status == 9).Select(x => x.Course).Distinct();
             ViewBag.RatingList = new List<SelectListItem> { new SelectListItem { Text = "1+", Value = "1" }, new SelectListItem { Text = "2+", Value = "2" }, new SelectListItem { Text = "3+", Value = "3" }, new SelectListItem { Text = "4+", Value = "4" }, new SelectListItem { Text = "5", Value = "5" } };
@@ -152,11 +164,22 @@ namespace NotesMarketplace.Controllers
             return View(result);
         }
 
+        [AllowAnonymous]
         [Route("Search/Notes/{id}")]
         public ActionResult Notes(int id)
         {
             // get logged in user if user is logged in 
             var user = _dbcontext.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+
+            // if  is logged iusern and logged in user is not member then redirect to admin dashboard
+            if (User.Identity.IsAuthenticated)
+            {
+                if (user.RoleID != _dbcontext.UsersRoles.Where(x => x.Name.ToLower() == "member").Select(x => x.ID).FirstOrDefault())
+                {
+                    return RedirectToAction("Dashboard", "Admin");
+                }
+            }
+
             // get note by id
             var NoteDetail = _dbcontext.SellerNotes.Where(x => x.ID == id && x.IsActive == true).FirstOrDefault();
             // if note is not found
@@ -164,6 +187,8 @@ namespace NotesMarketplace.Controllers
             {
                 return HttpNotFound();
             }
+            // get seller
+            var seller = _dbcontext.Users.Where(x => x.ID == NoteDetail.SellerID).FirstOrDefault();
             // get reviews and user's full name and user's image
             IEnumerable<ReviewsViewModel> reviews  =  from review in _dbcontext.SellerNotesReviews
                                                       join users in _dbcontext.Users on review.ReviewedByID equals users.ID
@@ -188,6 +213,8 @@ namespace NotesMarketplace.Controllers
                 notesdetail.UserID = user.ID;
             }
             notesdetail.SellerNote = NoteDetail;
+            notesdetail.Seller = seller.FirstName + " " + seller.LastName;
+            notesdetail.Buyer = user.FirstName;
             notesdetail.NotesReview = reviews;
             notesdetail.AverageRating = Convert.ToInt32(avgreview);
             notesdetail.TotalReview = reviewcounts;
@@ -221,10 +248,15 @@ namespace NotesMarketplace.Controllers
                 }
             }
 
+            if(TempData["Requested"] != null)
+            {
+                ViewBag.Requested = "Requested";
+            }
+
             return View(notesdetail);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [Route("Search/Notes/{noteid}/Download")]
         public ActionResult DownloadNotes(int noteid)
         {
@@ -337,7 +369,6 @@ namespace NotesMarketplace.Controllers
                     // if user is download note first time then we need to update following record in download table 
                     if (downloadpaidnote.IsAttachmentDownloaded == false)
                     {
-                        downloadpaidnote.AttachmentDownloadedDate = DateTime.Now;
                         downloadpaidnote.IsAttachmentDownloaded = true;
                         downloadpaidnote.ModifiedDate = DateTime.Now;
                         downloadpaidnote.ModifiedBy = user.ID;
@@ -373,7 +404,7 @@ namespace NotesMarketplace.Controllers
         }
 
 
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [Route("Search/Notes/{noteid}/Request")]
         public ActionResult RequestPaidNotes(int noteid)
         {
@@ -404,6 +435,8 @@ namespace NotesMarketplace.Controllers
 
             // sned mail
             RequestPaidNotesTemplate(download, user);
+
+            TempData["Requested"] = "Requested";
 
             return RedirectToAction("Notes", new { id = note.ID });
         }

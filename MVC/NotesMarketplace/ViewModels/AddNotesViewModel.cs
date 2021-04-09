@@ -11,6 +11,7 @@ namespace NotesMarketplace.ViewModels
     public class AddNotesViewModel
     {
         [Required(ErrorMessage = "This field is required")]
+        [MaxLength(100, ErrorMessage = "Note Title is too long")]
         [DisplayName("Title *")]
         public string Title { get; set; }
 
@@ -29,6 +30,7 @@ namespace NotesMarketplace.ViewModels
         public Nullable<int> NoteType { get; set; }
 
         [DisplayName("Number of Pages")]
+        [RegularExpression("[0-9]*", ErrorMessage = "Only numeric entry allowed")]
         public Nullable<int> NumberofPages { get; set; }
 
         [Required(ErrorMessage = "This field is required")]
@@ -36,18 +38,22 @@ namespace NotesMarketplace.ViewModels
         public string Description { get; set; }
 
         [DisplayName("Institution Name")]
+        [MaxLength(200, ErrorMessage = "University information is too long")]
         public string UniversityName { get; set; }
 
         [DisplayName("Country")]
         public Nullable<int> Country { get; set; }
 
         [DisplayName("Course Name")]
+        [MaxLength(100, ErrorMessage = "Course name is too long")]
         public string Course { get; set; }
 
         [DisplayName("Course Code")]
+        [MaxLength(100, ErrorMessage = "Course code is too long")]
         public string CourseCode { get; set; }
 
         [DisplayName("Proffesor / Lecturer")]
+        [MaxLength(100, ErrorMessage = "Professor name is too long")]
         public string Professor { get; set; }
 
         [Required(ErrorMessage = "This field is required")]

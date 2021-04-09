@@ -1,0 +1,118 @@
+﻿@model NotesMarketplace.ViewModels.AdminProfileViewModel
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="blank">
+</section>
+
+
+<!-- Section My Profile -->
+<section id="admin-my-profile">
+
+    <div class="content-box">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-12 col-12">
+                    <h2 class="heading-lg">My Profile</h2>
+                </div>
+            </div>
+
+            <br>
+
+            @using (Html.BeginForm("MyProfile", "AdminProfile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="row">
+
+                    <div class="form-group col-lg-6 col-md-8 col-sm-12 col-12">
+                        <label for="first-name">First Name *</label>
+                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", id = "first-name", placeholder = "Enter your first name", required = "required" })
+                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-invalid" })
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="form-group col-lg-6 col-md-8 col-sm-12 col-12">
+                        <label for="last-name">Last Name *</label>
+                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", id = "last-name", placeholder = "Enter your last name", required = "required" })
+                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-invalid" })
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="form-group col-lg-6 col-md-8 col-sm-12 col-12">
+                        <label for="email">Email *</label>
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "email", type = "email", placeholder = "Enter your email address", required = "required", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-invalid" })
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="form-group col-lg-6 col-md-8 col-sm-12 col-12">
+                        <label for="secondary-email">Secondary Email</label>
+                        @Html.TextBoxFor(model => model.SecondaryEmail, new { @class = "form-control", id = "secondary-email", type = "email", placeholder = "Enter your email address" })
+                        @Html.ValidationMessageFor(model => model.SecondaryEmail, "", new { @class = "text-invalid" })
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="form-group col-lg-6 col-md-8 col-sm-12 col-12">
+                        <div class="row" id="phone">
+                            <div class="form-group col-lg-4 col-md-4 col-sm-4 col-4">
+                                <label for="country-code">Phone Number *</label>
+                                @Html.DropDownListFor(model => model.PhoneNumberCountryCode, new SelectList(@Model.CountryCodeList), new { @class = "form-control", id = "country-code", required = "required" })
+                                @Html.ValidationMessageFor(model => model.PhoneNumberCountryCode, "", new { @class = "text-invalid" })
+                            </div>
+                            <div class="form-group col-lg-8 col-md-8 col-sm-8 col-8">
+                                <label for="phone-number"> </label>
+                                @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", id = "phone-number", placeholder = "Enter your phone number", required = "required" })
+                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-invalid" })
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="form-group col-lg-6 col-md-8 col-sm-12 col-12 type-file">
+                        <label for="profile-picture">Profile Picture</label>
+                        @Html.TextBoxFor(model => model.ProfilePicture, new { @class = "form-control-file image-upload", id = "profile-picture", type = "file", accept = "image/*" })
+                        @if (!string.IsNullOrEmpty(Model.ProfilePictureUrl))
+                        {
+                            <p class="uploaded-data">To see your previously uploaded profile picture <a href="@Url.Content(Model.ProfilePictureUrl)" target="_blank">Click Here</a></p>
+                        }
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+                        <div class="btn-submit">
+                            <button class="btn btn-color" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Section My Profile END -->

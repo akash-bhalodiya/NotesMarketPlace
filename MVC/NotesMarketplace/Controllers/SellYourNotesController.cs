@@ -17,12 +17,13 @@ using System.Web.UI.WebControls;
 
 namespace NotesMarketplace.Controllers
 {
+    [OutputCache(Duration = 0)]
     public class SellYourNotesController : Controller
     {
         readonly private NotesMarketplaceEntities _dbcontext = new NotesMarketplaceEntities();
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [Route("SellYourNotes")]
         public ActionResult Dashboard(string search1, string search2, string sort1, string sort2, int page1 = 1, int page2 = 1)
         {
@@ -37,7 +38,12 @@ namespace NotesMarketplace.Controllers
             ViewBag.Search1 = search1;
             ViewBag.Search2 = search2;
 
-            // note status id.....  6 = draft, 7 = submitted for review, 8 = inreview, 9 = published, 10 = rejected 
+            // get id for note status submitted for review, in review , draft, rejected, published
+            var submittedforreviewid = _dbcontext.ReferenceDatas.Where(x => x.Value.ToLower() == "submitted for review").Select(x => x.ID).FirstOrDefault();
+            var inreviewid = _dbcontext.ReferenceDatas.Where(x => x.Value.ToLower() == "in review").Select(x => x.ID).FirstOrDefault();
+            var draftid = _dbcontext.ReferenceDatas.Where(x => x.Value.ToLower() == "draft").Select(x => x.ID).FirstOrDefault();
+            var rejectedid = _dbcontext.ReferenceDatas.Where(x => x.Value.ToLower() == "rejected").Select(x => x.ID).FirstOrDefault();
+            var publishedid = _dbcontext.ReferenceDatas.Where(x => x.Value.ToLower() == "published").Select(x => x.ID).FirstOrDefault();
 
             // create object of dashboardviewmodel
             DashboardViewModel dashboardviewmodel = new DashboardViewModel();
@@ -49,40 +55,51 @@ namespace NotesMarketplace.Controllers
             dashboardviewmodel.NumberOfSoldNotes = _dbcontext.Downloads.Where(x => x.Seller == user.ID && x.IsSellerHasAllowedDownload == true && x.AttachmentPath != null).Count();
             dashboardviewmodel.MoneyEarned = _dbcontext.Downloads.Where(x => x.Seller == user.ID && x.IsSellerHasAllowedDownload == true && x.AttachmentPath != null).Select(x => x.PurchasedPrice).Sum();
             dashboardviewmodel.MyDownloads = _dbcontext.Downloads.Where(x => x.Downloader == user.ID && x.IsSellerHasAllowedDownload == true && x.AttachmentPath != null).Count();
-            dashboardviewmodel.MyRejectedNotes = _dbcontext.SellerNotes.Where(x => x.SellerID == user.ID && x.Status == 10 && x.IsActive == true).Count();
+            dashboardviewmodel.MyRejectedNotes = _dbcontext.SellerNotes.Where(x => x.SellerID == user.ID && x.Status == rejectedid && x.IsActive == true).Count();
             dashboardviewmodel.BuyerRequest = _dbcontext.Downloads.Where(x => x.Seller == user.ID && x.IsSellerHasAllowedDownload == false && x.AttachmentPath == null).Count();
-            
-            // if search in inprogressnote is empty
-            if (string.IsNullOrEmpty(search1))
-            {
-                dashboardviewmodel.InProgressNotes = _dbcontext.SellerNotes.Where(x => x.SellerID == user.ID && (x.Status == 6 || x.Status == 7 || x.Status == 8));
-            }
-            // if search in inprogressnote is not empty
-            else
+
+            // get inprogress notes
+            dashboardviewmodel.InProgressNotes = from note in _dbcontext.SellerNotes
+                                                 where (note.Status == draftid || note.Status == submittedforreviewid || note.Status == inreviewid) && note.SellerID == user.ID
+                                                 select new InProgressNote
+                                                 {
+                                                     NoteID = note.ID,
+                                                     Title = note.Title,
+                                                     Category = note.NoteCategory.Name,
+                                                     Status = note.ReferenceData.Value,
+                                                     AddedDate = note.CreatedDate.Value
+                                                 };
+            // if search1 is not empty then get search result in inprogressnote
+            if (!string.IsNullOrEmpty(search1))
             {
                 search1 = search1.ToLower();
-                dashboardviewmodel.InProgressNotes = _dbcontext.SellerNotes.Where
-                                                                     (
-                                                                        x => x.SellerID == user.ID &&
-                                                                        (x.Status == 6 || x.Status == 7 || x.Status == 8) &&
-                                                                        (x.Title.ToLower().Contains(search1) || x.NoteCategory.Name.ToLower().Contains(search1) || x.ReferenceData.Value.ToLower().Contains(search1))
-                                                                     );
+                dashboardviewmodel.InProgressNotes = dashboardviewmodel.InProgressNotes.Where(x => x.Title.ToLower().Contains(search1) ||
+                                                                                                   x.Category.ToLower().Contains(search1) ||
+                                                                                                   x.Status.ToLower().Contains(search1)
+                                                                                             ).ToList();
             }
-            // if search in publishednote is empty
-            if (string.IsNullOrEmpty(search2))
-            {
-                dashboardviewmodel.PublishedNotes = _dbcontext.SellerNotes.Where(x => x.SellerID == user.ID && x.Status == 9);
-            }
-            // if search in inprogressnote is not empty
-            else
+
+            // get published notes
+            dashboardviewmodel.PublishedNotes = from note in _dbcontext.SellerNotes
+                                                where note.Status == publishedid && note.SellerID == user.ID
+                                                select new PublishedNote
+                                                {
+                                                    NoteID = note.ID,
+                                                    Title = note.Title,
+                                                    Category = note.NoteCategory.Name,
+                                                    SellType = note.IsPaid == true ? "Paid" : "Free",
+                                                    Price = note.SellingPrice,
+                                                    PublishedDate = note.PublishedDate.Value
+                                                };
+            // if search2 is not empty get search result in publishednote 
+            if (!string.IsNullOrEmpty(search2))
             {
                 search2 = search2.ToLower();
-                dashboardviewmodel.PublishedNotes = _dbcontext.SellerNotes.Where
-                                                    (
-                                                        x => x.SellerID == user.ID &&
-                                                        x.Status == 9 &&
-                                                        (x.Title.ToLower().Contains(search2) || x.NoteCategory.Name.ToLower().Contains(search2) || x.SellingPrice.ToString().ToLower().Contains(search2))
-                                                    );
+                dashboardviewmodel.PublishedNotes = dashboardviewmodel.PublishedNotes.Where(x => x.Title.ToLower().Contains(search2) ||
+                                                                                                  x.Category.ToLower().Contains(search2) ||
+                                                                                                  x.SellType.ToLower().Contains(search2) ||
+                                                                                                  x.Price.ToString().Contains(search2)
+                                                                                            ).ToList();
             }
 
             // sorting table
@@ -101,18 +118,18 @@ namespace NotesMarketplace.Controllers
         }
 
         // sorting for inprogress table
-        private IEnumerable<SellerNote> SortTableInProgressNote(string sort, IEnumerable<SellerNote> table)
+        private IEnumerable<InProgressNote> SortTableInProgressNote(string sort, IEnumerable<InProgressNote> table)
         {
             switch (sort)
             {
                 case "CreatedDate_Asc":
                     {
-                        table = table.OrderBy(x => x.CreatedDate);
+                        table = table.OrderBy(x => x.AddedDate);
                         break;
                     }
                 case "CreatedDate_Desc":
                     {
-                        table = table.OrderByDescending(x => x.CreatedDate);
+                        table = table.OrderByDescending(x => x.AddedDate);
                         break;
                     }
                 case "Title_Asc":
@@ -127,27 +144,27 @@ namespace NotesMarketplace.Controllers
                     }
                 case "Category_Asc":
                     {
-                        table = table.OrderBy(x => x.NoteCategory.Name);
+                        table = table.OrderBy(x => x.Category);
                         break;
                     }
                 case "Category_Desc":
                     {
-                        table = table.OrderByDescending(x => x.NoteCategory.Name);
+                        table = table.OrderByDescending(x => x.Category);
                         break;
                     }
                 case "Status_Asc":
                     {
-                        table = table.OrderBy(x => x.ReferenceData.Value);
+                        table = table.OrderBy(x => x.Status);
                         break;
                     }
                 case "Status_Desc":
                     {
-                        table = table.OrderByDescending(x => x.ReferenceData.Value);
+                        table = table.OrderByDescending(x => x.Status);
                         break;
                     }
                 default:
                     {
-                        table = table.OrderByDescending(x => x.CreatedDate);
+                        table = table.OrderByDescending(x => x.AddedDate);
                         break;
                     }
             }
@@ -155,7 +172,7 @@ namespace NotesMarketplace.Controllers
         }
 
         // sorting for published note table
-        private IEnumerable<SellerNote> SortTablePublishNote(string sort, IEnumerable<SellerNote> table)
+        private IEnumerable<PublishedNote> SortTablePublishNote(string sort, IEnumerable<PublishedNote> table)
         {
             switch (sort)
             {
@@ -171,12 +188,12 @@ namespace NotesMarketplace.Controllers
                     }
                 case "Category_Asc":
                     {
-                        table = table.OrderBy(x => x.NoteCategory.Name);
+                        table = table.OrderBy(x => x.Category);
                         break;
                     }
                 case "Category_Desc":
                     {
-                        table = table.OrderByDescending(x => x.NoteCategory.Name);
+                        table = table.OrderByDescending(x => x.Category);
                         break;
                     }
                 case "PublishedDate_Asc":
@@ -191,22 +208,22 @@ namespace NotesMarketplace.Controllers
                     }
                 case "IsPaid_Asc":
                     {
-                        table = table.OrderBy(x => x.IsPaid);
+                        table = table.OrderBy(x => x.SellType);
                         break;
                     }
                 case "IsPaid_Desc":
                     {
-                        table = table.OrderByDescending(x => x.IsPaid);
+                        table = table.OrderByDescending(x => x.SellType);
                         break;
                     }
                 case "SellingPrice_Asc":
                     {
-                        table = table.OrderBy(x => x.SellingPrice);
+                        table = table.OrderBy(x => x.Price);
                         break;
                     }
                 case "SellingPrice_Desc":
                     {
-                        table = table.OrderByDescending(x => x.SellingPrice);
+                        table = table.OrderByDescending(x => x.Price);
                         break;
                     }
                 default:
@@ -218,7 +235,7 @@ namespace NotesMarketplace.Controllers
             return table;
         }
 
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [Route("SellYourNotes/DeleteDraft/{id}")]
         public ActionResult DeleteDraft(int id)
         {
@@ -266,7 +283,7 @@ namespace NotesMarketplace.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [Route("SellYourNotes/AddNotes")]
         public ActionResult AddNotes()
         {
@@ -282,8 +299,8 @@ namespace NotesMarketplace.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Member")]
         [Route("SellYourNotes/AddNotes")]
         public ActionResult AddNotes(AddNotesViewModel addnotesviewmodel)
         {
@@ -291,14 +308,34 @@ namespace NotesMarketplace.Controllers
             if(addnotesviewmodel.UploadNotes[0] == null)
             {
                 ModelState.AddModelError("UploadNotes", "This field is required");
+                addnotesviewmodel.NoteCategoryList = _dbcontext.NoteCategories.Where(x => x.IsActive == true).ToList();
+                addnotesviewmodel.NoteTypeList = _dbcontext.NoteTypes.Where(x => x.IsActive == true).ToList();
+                addnotesviewmodel.CountryList = _dbcontext.Countries.Where(x => x.IsActive == true).ToList();
                 return View(addnotesviewmodel);
             }
             // check and raise error for note preview is null for paid notes
             if (addnotesviewmodel.IsPaid == true && addnotesviewmodel.NotesPreview == null)
             {
                 ModelState.AddModelError("NotesPreview", "This field is required if selling type is paid");
+                addnotesviewmodel.NoteCategoryList = _dbcontext.NoteCategories.Where(x => x.IsActive == true).ToList();
+                addnotesviewmodel.NoteTypeList = _dbcontext.NoteTypes.Where(x => x.IsActive == true).ToList();
+                addnotesviewmodel.CountryList = _dbcontext.Countries.Where(x => x.IsActive == true).ToList();
                 return View(addnotesviewmodel);
+            }            
+
+             foreach(HttpPostedFileBase file in addnotesviewmodel.UploadNotes)
+            {
+                if (!System.IO.Path.GetExtension(file.FileName).Equals(".pdf"))
+                {
+                    ModelState.AddModelError("UploadNotes", "Only PDF Format is allowed");
+                    addnotesviewmodel.NoteCategoryList = _dbcontext.NoteCategories.Where(x => x.IsActive == true).ToList();
+                    addnotesviewmodel.NoteTypeList = _dbcontext.NoteTypes.Where(x => x.IsActive == true).ToList();
+                    addnotesviewmodel.CountryList = _dbcontext.Countries.Where(x => x.IsActive == true).ToList();
+                    return View(addnotesviewmodel);
+                }
             }
+
+
             // check model state
             if (ModelState.IsValid)
             {
@@ -308,17 +345,17 @@ namespace NotesMarketplace.Controllers
                 User user = _dbcontext.Users.FirstOrDefault(x => x.Email == User.Identity.Name);
 
                 sellernotes.SellerID = user.ID;
-                sellernotes.Title = addnotesviewmodel.Title;
-                sellernotes.Status = 6;
+                sellernotes.Title = addnotesviewmodel.Title.Trim();
+                sellernotes.Status = _dbcontext.ReferenceDatas.Where(x => x.Value.ToLower() == "draft").Select(x => x.ID).FirstOrDefault();
                 sellernotes.Category = addnotesviewmodel.Category;
                 sellernotes.NoteType = addnotesviewmodel.NoteType;
                 sellernotes.NumberofPages = addnotesviewmodel.NumberofPages;
-                sellernotes.Description = addnotesviewmodel.Description;
-                sellernotes.UniversityName = addnotesviewmodel.UniversityName;
+                sellernotes.Description = addnotesviewmodel.Description.Trim();
+                sellernotes.UniversityName = addnotesviewmodel.UniversityName.Trim();
                 sellernotes.Country = addnotesviewmodel.Country;
-                sellernotes.Course = addnotesviewmodel.Course;
-                sellernotes.CourseCode = addnotesviewmodel.CourseCode;
-                sellernotes.Professor = addnotesviewmodel.Professor;
+                sellernotes.Course = addnotesviewmodel.Course.Trim();
+                sellernotes.CourseCode = addnotesviewmodel.CourseCode.Trim();
+                sellernotes.Professor = addnotesviewmodel.Professor.Trim();
                 sellernotes.IsPaid = addnotesviewmodel.IsPaid;
                 if (sellernotes.IsPaid)
                 {
@@ -415,7 +452,7 @@ namespace NotesMarketplace.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [Route("SellYourNotes/EditNotes/{id}")]
         public ActionResult EditNotes(int id)
         {
@@ -464,7 +501,7 @@ namespace NotesMarketplace.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [ValidateAntiForgeryToken]
         [Route("SellYourNotes/EditNotes/{id}")]
         public ActionResult EditNotes(int id, EditNotesViewModel notes)
@@ -492,16 +529,16 @@ namespace NotesMarketplace.Controllers
 
                 // attache note object and update
                 _dbcontext.SellerNotes.Attach(sellernotes);
-                sellernotes.Title = notes.Title;
+                sellernotes.Title = notes.Title.Trim();
                 sellernotes.Category = notes.Category;
                 sellernotes.NoteType = notes.NoteType;
                 sellernotes.NumberofPages = notes.NumberofPages;
-                sellernotes.Description = notes.Description;
+                sellernotes.Description = notes.Description.Trim();
                 sellernotes.Country = notes.Country;
-                sellernotes.UniversityName = notes.UniversityName;
-                sellernotes.Course = notes.Course;
-                sellernotes.CourseCode = notes.CourseCode;
-                sellernotes.Professor = notes.Professor;
+                sellernotes.UniversityName = notes.UniversityName.Trim();
+                sellernotes.Course = notes.Course.Trim();
+                sellernotes.CourseCode = notes.CourseCode.Trim();
+                sellernotes.Professor = notes.Professor.Trim();
                 if (notes.IsPaid == true)
                 {
                     sellernotes.IsPaid = true;
@@ -617,7 +654,7 @@ namespace NotesMarketplace.Controllers
 
         }
 
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [Route("Notes/Publish")]
         public ActionResult PublishNote(int id)
         {
@@ -636,9 +673,9 @@ namespace NotesMarketplace.Controllers
 
             if(user.ID == note.SellerID)
             {
-                // update note status from draft = 6 to submitted for review = 7
+                // update note status from draft to submitted for review
                 _dbcontext.SellerNotes.Attach(note);
-                note.Status = 7;
+                note.Status = _dbcontext.ReferenceDatas.Where(x => x.Value.ToLower() == "submitted for review").Select(x => x.ID).FirstOrDefault(); ;
                 note.ModifiedDate = DateTime.Now;
                 note.ModifiedBy = user.ID;
                 _dbcontext.SaveChanges();

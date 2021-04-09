@@ -1,0 +1,317 @@
+﻿@model NotesMarketplace.ViewModels.MemberDetailViewModel
+
+@{
+    ViewBag.Title = "Member Detail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="blank">
+</section>
+
+
+<!-- Section Member Detail -->
+<section id="member-detail">
+
+    <div class="content-box-top">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="heading-lg">Member Detail</h2>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row member-data">
+
+                <div class="col-lg-2 col-md-12 col-sm-12 col-12">
+                    @if (Model.ProfilePicture != null)
+                    {
+                        <img src="@Url.Content(Model.ProfilePicture)" class="img-fluid">
+                    }
+                    else
+                    {
+                        <img src="~/DefaultImage/profile.png" class="img-fluid">
+                    }
+                </div>
+
+                <div class="col-lg-5 col-md-6 col-sm-12 col-12 member-info-left">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-5 col-5">
+                            <p>First Name:</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-7 col-7">
+                            <p class="member-personal-info">@Model.FirstName</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-5 col-5">
+                            <p>Last Name:</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-7 col-7">
+                            <p class="member-personal-info">@Model.LastName</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-5 col-5">
+                            <p>Email:</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-7 col-7">
+                            <p class="member-personal-info">@Model.Email</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-5 col-5">
+                            <p>DOB:</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-7 col-7">
+                            @if (Model.DOB != null)
+                            {
+                                <p class="member-personal-info">@Model.DOB.Value.ToString("dd-MM-yyyy")</p>
+                            }
+                            else
+                            {
+                                <p class="member-personal-info"></p>
+                            }
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-5 col-5">
+                            <p>Phone Number:</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-7 col-7">
+                            <p class="member-personal-info">@Model.PhoneNumberCountryCode @Model.PhoneNumber</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-5 col-5">
+                            <p>College / University:</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-7 col-7">
+                            <p class="member-personal-info">@Model.College</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-md-6 col-sm-12 member-info-right">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-5 col-5">
+                            <p>Address 1:</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-7 col-7">
+                            <p class="member-personal-info">@Model.Address1</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-5 col-5">
+                            <p>Address 2:</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-7 col-7">
+                            <p class="member-personal-info">@Model.Address2</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-5 col-5">
+                            <p>City:</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-7 col-7">
+                            <p class="member-personal-info">@Model.City</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-5 col-5">
+                            <p>State:</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-7 col-7">
+                            <p class="member-personal-info">@Model.State</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-5 col-5">
+                            <p>Country:</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-7 col-7">
+                            <p class="member-personal-info">@Model.Country</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-5 col-5">
+                            <p>Zip Code:</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-7 col-7">
+                            <p class="member-personal-info">@Model.ZipCode</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+</section>
+<!-- Section Member Detail END -->
+<!-- Section Member Note Table Section -->
+<section id="member-note-table">
+
+    <div class="content-box">
+
+        <div class="container">
+
+            <div class="row search-bar">
+                <div class="my-auto">
+
+                    <h4 class="heading-md">Notes</h4>
+
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row table-general table-responsive">
+
+                <table class="table">
+                    <thead>
+                        <tr class="column-title">
+                            <th>Sr No.</th>
+                            <th>@Html.ActionLink("Notes Title", "MemberDetail", new { member = ViewBag.Member, sort = ViewBag.Sort == null ? "Title_Desc" : (ViewBag.Sort == "Title_Asc" ? "Title_Desc" : "Title_Asc"), page = @ViewBag.PageNumber })</th>
+                            <th>@Html.ActionLink("Category", "MemberDetail", new { member = ViewBag.Member, sort = ViewBag.Sort == null ? "Category_Desc" : (ViewBag.Sort == "Category_Asc" ? "Category_Desc" : "Category_Asc"), page = @ViewBag.PageNumber })</th>
+                            <th>@Html.ActionLink("Status", "MemberDetail", new { member = ViewBag.Member, sort = ViewBag.Sort == null ? "Status_Desc" : (ViewBag.Sort == "Status_Asc" ? "Status_Desc" : "Status_Asc"), page = @ViewBag.PageNumber })</th>
+                            <th class="content-center">@Html.ActionLink("Downloaded Notes", "MemberDetail", new { member = ViewBag.Member, sort = ViewBag.Sort == null ? "DownloadedNotes_Desc" : (ViewBag.Sort == "DownloadedNotes_Asc" ? "DownloadedNotes_Desc" : "DownloadedNotes_Asc"), page = @ViewBag.PageNumber })</th>
+                            <th class="content-center">@Html.ActionLink("Total Earnings", "MemberDetail", new { member = ViewBag.Member, sort = ViewBag.Sort == null ? "TotalEarning_Desc" : (ViewBag.Sort == "TotalEarning_Asc" ? "TotalEarning_Desc" : "TotalEarning_Asc"), page = @ViewBag.PageNumber })</th>
+                            <th class="table-date">@Html.ActionLink("Date Added", "MemberDetail", new { member = ViewBag.Member, sort = ViewBag.Sort == null ? "DateAdded_Desc" : (ViewBag.Sort == "DateAdded_Asc" ? "DateAdded_Desc" : "DateAdded_Asc"), page = @ViewBag.PageNumber })</th>
+                            <th class="table-date">@Html.ActionLink("Published Date", "MemberDetail", new { member = ViewBag.Member, sort = ViewBag.Sort == null ? "PublishedDate_Desc" : (ViewBag.Sort == "PublishedDate_Asc" ? "PublishedDate_Desc" : "PublishedDate_Asc"), page = @ViewBag.PageNumber })</th>
+                            <th class="content-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model.Notes.Count() == 0)
+                        {
+                            <tr class="no-record">
+                                <td colspan="9" class="text-center">No Record Found</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            var srno = (ViewBag.PageNumber - 1) * 5;
+                            foreach (var item in Model.Notes)
+                            {
+                                { srno = srno + 1; }
+                                <tr>
+                                    <td class="table-sr-no">@srno</td>
+                                    <td class="table-notes-title"><a href="@Url.Action("NoteDetail", "Admin", new { noteid = @item.ID })">@item.Title</a></td>
+                                    <td>@item.Category</td>
+                                    <td>@item.Status</td>
+                                    <td class="content-center table-number-link"><a href="@Url.Action("DownloadedNotes", "AdminNotes", new { selectednote = item.ID })">@item.DownloadedNotes</a></td>
+                                    @if (item.TotalEarning != null)
+                                    {
+                                        <td class="content-center">$@item.TotalEarning</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="content-center">$0</td>
+                                    }
+                                    <td>@item.DateAdded.Value.ToString("dd-MM-yyyy, hh:mm")</td>
+                                    @if (item.PublishedDate != null)
+                                    {
+                                        <td>@item.PublishedDate.Value.ToString("dd-MM-yyyy, hh:mm")</td>
+                                    }
+                                    else
+                                    {
+                                        <td>NA</td>
+                                    }
+                                    <td class="content-center">
+                                        <!-- Default dropleft button -->
+                                        <div class="btn-group dropleft">
+                                            <button type="button" id="dropdownMenu2" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <img src="~/images/Dashboard/3dot.png" alt="menu" class="dots">
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                                <a class="dropdown-item" href="@Url.Action("AdminDownloadNote", "Admin", new { noteid = @item.ID })" role="button">Download Notes</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            }
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+
+            @if (Model.Notes.Count() != 0)
+            {
+                <div class="row justify-content-center">
+
+                    <nav aria-label="...">
+                        <ul class="pagination flex-wrap">
+
+                            <li class="page-item">
+                                @if (ViewBag.PageNumber == 1)
+                                {
+                                    <a class="page-link" href="@Url.Action("MemberDetail", new { member = ViewBag.Member, sort = ViewBag.Sort, page = @ViewBag.PageNumber })"><i class="fa fa-angle-left"></i></a>
+                                }
+                                else
+                                {
+                                    <a class="page-link" href="@Url.Action("MemberDetail", new { member = ViewBag.Member, sort = ViewBag.Sort, page = @ViewBag.PageNumber - 1 })"><i class="fa fa-angle-left"></i></a>
+                                }
+                            </li>
+
+                            @{
+                                double? TotalPages = ViewBag.TotalPages;
+
+                                if (ViewBag.PageNumber != 1 && ViewBag.PageNumber - 2 > 1)
+                                {
+                                    int page = Convert.ToInt32(@ViewBag.PageNumber) - 3;
+                                    <li class="page-item">@Html.ActionLink("1", "MemberDetail", new { member = ViewBag.Member, sort = ViewBag.Sort, page = 1 }, new { @class = "page-link" })</li>
+                                    if (page != 1)
+                                    {
+                                        <li class="page-item more-pages-dots">@Html.ActionLink("...", "MemberDetail", new { member = ViewBag.Member, sort = ViewBag.Sort, page = page }, new { @class = "page-link more-pages-dots" })</li>
+                                    }
+                                }
+
+                                for (int i = 2; i > 0; i--)
+                                {
+                                    if (ViewBag.PageNumber - i > 0)
+                                    {
+                                        int page = Convert.ToInt32(@ViewBag.PageNumber) - i;
+                                        <li class="page-item">@Html.ActionLink(page.ToString(), "MemberDetail", new { member = ViewBag.Member, sort = ViewBag.Sort, page = page }, new { @class = "page-link" })</li>
+                                    }
+                                }
+
+                                <li class="page-item active">
+                                    <a class="page-link">@ViewBag.PageNumber<span class="sr-only">(current)</span></a>
+                                </li>
+
+                                for (int i = 1; i < 3; i++)
+                                {
+                                    if (ViewBag.PageNumber + i <= TotalPages)
+                                    {
+                                        int page = Convert.ToInt32(@ViewBag.PageNumber) + i;
+                                        <li class="page-item">@Html.ActionLink(page.ToString(), "MemberDetail", new { member = ViewBag.Member, sort = ViewBag.Sort, page = page }, new { @class = "page-link" })</li>
+                                    }
+                                }
+
+                                if (ViewBag.PageNumber != TotalPages && ViewBag.PageNumber + 2 < TotalPages)
+                                {
+                                    int page = Convert.ToInt32(@ViewBag.PageNumber) + 3;
+                                    if (page != TotalPages)
+                                    {
+                                        <li class="page-item">@Html.ActionLink("...", "MemberDetail", new { member = ViewBag.Member, sort = ViewBag.Sort, page = page }, new { @class = "page-link more-pages-dots" })</li>
+                                    }
+                                    <li class="page-item">@Html.ActionLink(TotalPages.ToString(), "MemberDetail", new { member = ViewBag.Member, sort = ViewBag.Sort, page = TotalPages }, new { @class = "page-link" })</li>
+                                }
+
+                            }
+
+                            <li class="page-item">
+                                @if (ViewBag.PageNumber == ViewBag.TotalPages)
+                                {
+                                    <a class="page-link" href="@Url.Action("MemberDetail", new { member = ViewBag.Member, sort = ViewBag.Sort, page = @ViewBag.PageNumber })"><i class="fa fa-angle-right"></i></a>
+                                }
+                                else
+                                {
+                                    <a class="page-link" href="@Url.Action("MemberDetail", new { member = ViewBag.Member, sort = ViewBag.Sort, page = @ViewBag.PageNumber + 1 })"><i class="fa fa-angle-right"></i></a>
+                                }
+                            </li>
+
+                        </ul>
+                    </nav>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Section Member Note Table Section END -->

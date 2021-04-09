@@ -102,6 +102,11 @@
 
             </div>
 
+            @{
+                var _dbcontext = new NotesMarketplace.Models.NotesMarketplaceEntities();
+                var defaultNote = _dbcontext.SystemConfigurations.Where(x => x.Name.ToLower() == "defaultnote").FirstOrDefault();
+            }
+
             <!-- Notes -->
             <div class="row results">
 
@@ -119,7 +124,7 @@
                                     }
                                     else
                                     {
-                                        <img src="~/DefaultImage/note.jpg" alt="note" class="img-fluid">
+                                        <img src="@Url.Content(@defaultNote.Value)" alt="note" class="img-fluid">
                                     }
                                 </a>
                             </div>
@@ -231,7 +236,7 @@
                                     if (ViewBag.PageNumber + i <= TotalPages)
                                     {
                                         int page = Convert.ToInt32(@ViewBag.PageNumber) + i;
-                                        <li class="page-item">@Html.ActionLink(page.ToString(), "Search", new { search = ViewBag.Search, type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = page}, new { @class = "page-link" })</li>
+                                        <li class="page-item">@Html.ActionLink(page.ToString(), "Search", new { search = ViewBag.Search, type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = page }, new { @class = "page-link" })</li>
                                     }
                                 }
 

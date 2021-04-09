@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - NotesMarketplace</title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="~/images/favicon/favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href=" https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="~/Content/admin/bootstrap/bootstrap.min.css">
+
+    <!-- Jquery UI -->
+    <link rel="stylesheet" href="~/Content/admin/jquery-ui/jquery-ui.min.css">
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="~/Content/admin/fontawesome/css/font-awesome.min.css">
+
+    <!-- Common CSS -->
+    <link rel="stylesheet" href="~/Content/admin/general.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/Content/admin/style.css">
+
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/Content/admin/responsive.css">
+
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            var _dbcontext = new NotesMarketplace.Models.NotesMarketplaceEntities();
+            var user = _dbcontext.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+            var profile = _dbcontext.UserProfiles.Where(x => x.UserID == user.ID).FirstOrDefault();
+
+            <nav class="navbar navbar-expand-lg white-navbar navbar-fixed-height fixed-top">
+
+                <div class="container">
+                    <div class="row">
+
+                        <!-- Logo -->
+                        <div class="navbar-header col-lg-3 col-10">
+
+                            <a class="navbar-brand text-left" role="button">
+                                <img src="~/images/Logos/top-logo-dark.png" alt="logo">
+                            </a>
+
+                        </div>
+
+                        <button class="navbar-toggler collapsed col-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="mobile-nav-close-btn">&times;</span>
+                            <span class="mobile-nav-open-btn">&#9776;</span>
+                        </button>
+
+                        <div class="collapse navbar-collapse col-lg-9" id="navbarSupportedContent">
+
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item"><a class="nav-link" href="@Url.Action("Dashboard", "Admin")">Dashboard</a></li>
+                                <li class="nav-item notes-dropdown">
+                                    <a class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Notes
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="@Url.Action("NotesUnderReview", "AdminNotes")">Notes Under Review</a>
+                                        <a class="dropdown-item" href="@Url.Action("PublishedNotes", "AdminNotes")">Published Notes</a>
+                                        <a class="dropdown-item" href="@Url.Action("DownloadedNotes", "AdminNotes")">Download Notes</a>
+                                        <a class="dropdown-item" href="@Url.Action("RejectedNotes", "AdminNotes")">Rejected Notes</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="@Url.Action("Members", "AdminMembers")">Members</a></li>
+                                <li class="nav-item reports-dropdown">
+                                    <a class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Reports
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="@Url.Action("SpamReport", "AdminReports")">Spam Reports</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item settings-dropdown">
+                                    <a class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Settings
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        @if (user.UsersRole.Name.ToLower().Equals("superadmin"))
+                                        {
+                                            <a class="dropdown-item" href="@Url.Action("ManageSystemConfiguration", "AdminSettings")">Manage System Configuration</a>
+                                            <a class="dropdown-item" href="@Url.Action("ManageAdministrator", "AdminSettings")">Manage Administrator</a>
+                                        }
+                                        <a class="dropdown-item" href="@Url.Action("ManageCategory", "AdminSettings")">Manage Category</a>
+                                        <a class="dropdown-item" href="@Url.Action("ManageType", "AdminSettings")">Manage Type</a>
+                                        <a class="dropdown-item" href="@Url.Action("ManageCountry", "AdminSettings")">Manage Countries</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item profile-dropdown">
+                                    <a class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        @if (profile == null || profile.ProfilePicture == null)
+                                        {
+                                            var defaultProfile = _dbcontext.SystemConfigurations.Where(x => x.Name.ToLower() == "defaultprofile").FirstOrDefault();
+                                            <img src="@Url.Content(defaultProfile.Value)" class="rounded-circle">
+                                        }
+                                        else
+                                        {
+                                            <img src="@Url.Content(profile.ProfilePicture)" class="rounded-circle">
+                                        }
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="@Url.Action("MyProfile", "AdminProfile")">Update Profile</a>
+                                        <a class="dropdown-item" href="@Url.Action("ChangePassword", "Account")">Change Password</a>
+                                        <a class="dropdown-item logout" data-toggle="modal" data-target="#confirmlogout">Logout</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" role="button" data-toggle="modal" data-target="#confirmlogout">Logout</a></li>
+                            </ul>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </nav>
+
+            <!-- Section Logout Confirmation Box -->
+            <div class="modal fade show" id="confirmlogout" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-confirm-body">
+                            <div>
+                                <p class="confirm-text">
+                                    Are you sure, you want to logout?
+                                </p>
+
+                                <div class="btn-confirm">
+                                    <a class="btn btn-yes" href="@Url.Action("Logout", "Account")" id="confirmationbutton" role="button">YES</a>
+                                    <a class="btn btn-no" data-dismiss="modal" aria-label="Close" role="button">NO</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Section Logout Confirmation-Box END -->
+
+        }
+
+    </header>
+    <!-- Navigation Bar END -->
+
+    @RenderBody()
+
+    <!-- Section Footer -->
+    <footer class="footer-admin">
+        <div class="container">
+            <div class="row">
+
+                <!-- Version -->
+                <div class="admin-version col-lg-4 col-md-4 col-sm-4 col-12">
+                    <p>Version : 1.1.24</p>
+                </div>
+
+                <!-- Copyright -->
+                <div class="admin-footer-text col-lg-8 col-md-8 col-sm-8 col-12">
+                    <p>Copyright &copy; TatvaSoft All Rights Reserved By</p>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+    <!-- Section Footer END -->
+    <!-- Jquery JS -->
+    <script src="~/Scripts/admin/jquery/jquery.min.js"></script>
+
+    <!-- Jquery UI -->
+    <script src="~/Scripts/admin/jquery/jquery-ui.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="~/Scripts/admin/bootstrap/popper.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="~/Scripts/admin/bootstrap/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/Scripts/admin/script.js"></script>
+
+</body>
+</html>

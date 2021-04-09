@@ -1,0 +1,207 @@
+﻿@model IEnumerable<NotesMarketplace.ViewModels.SpamReportViewModel>
+
+@{
+    ViewBag.Title = "Spam Report";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="blank">
+</section>
+
+<!-- Section Spam Reports -->
+<section id="spam-reports">
+
+    <div class="content-box">
+
+        <div class="container">
+
+            @using (Html.BeginForm("SpamReport", "AdminReports", FormMethod.Get))
+            {
+
+                <div class="row">
+                    <div class="col-lg-7 col-md-6 col-sm-5 col-12 table-heading my-auto">
+                        <h4 class="heading-md">Spam Reports</h4>
+                    </div>
+                    <div class="col-lg-5 col-md-6 col-sm-7 col-12" id="table-search">
+                        <div class="row search">
+                            <div class="search-bar col-lg-9 col-md-9 col-sm-8 col-8 form-group">
+                                <input type="search" value="@ViewBag.Search" name="search"  class="form-control" id="search" placeholder="Search">
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-4 btn-search">
+                                <button class="btn btn-color" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+            <div class="row table-general table-responsive">
+
+                <table class="table">
+                    <thead>
+                        <tr class="column-title">
+                            <th>Sr No.</th>
+                            <th>@Html.ActionLink("Reported By", "SpamReport", new { sort = ViewBag.Sort == null ? "ReportedBy_Desc" : (ViewBag.Sort == "ReportedBy_Asc" ? "ReportedBy_Desc" : "ReportedBy_Asc"), search = ViewBag.Search, page = ViewBag.PageNumber })</th>
+                            <th>@Html.ActionLink("Note Title", "SpamReport", new { sort = ViewBag.Sort == null ? "Title_Desc" : (ViewBag.Sort == "Title_Asc" ? "Title_Desc" : "Title_Asc"), search = ViewBag.Search, page = ViewBag.PageNumber })</th>
+                            <th>@Html.ActionLink("Category", "SpamReport", new { sort = ViewBag.Sort == null ? "Category_Desc" : (ViewBag.Sort == "Category_Asc" ? "Category_Desc" : "Category_Asc"), search = ViewBag.Search, page = ViewBag.PageNumber })</th>
+                            <th>@Html.ActionLink("Date Added", "SpamReport", new { sort = ViewBag.Sort == null ? "DateAdded_Asc" : (ViewBag.Sort == "DateAdded_Desc" ? "DateAdded_Asc" : "DateAdded_Desc"), search = ViewBag.Search, page = ViewBag.PageNumber })</th>
+                            <th>@Html.ActionLink("Remark", "SpamReport", new { sort = ViewBag.Sort == null ? "Remark_Desc" : (ViewBag.Sort == "Remark_Asc" ? "Remark_Desc" : "Remark_Asc"), search = ViewBag.Search, page = ViewBag.PageNumber })</th>
+                            <th class="content-center">Action</th>
+                            <th class="content-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model.Count() == 0)
+                        {
+                            <tr class="no-record">
+                                <td colspan="8" class="text-center">No Record Found</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            var srno = (ViewBag.PageNumber - 1) * 5;
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    @{ srno = srno + 1; }
+                                    <td class="table-sr-no">@srno</td>
+                                    <td>@item.ReportedBy</td>
+                                    <td class="table-notes-title"><a href="@Url.Action("NoteDetail", "Admin", new { noteid = @item.NoteID })">@item.NoteTitle</a></td>
+                                    <td>@item.Category</td>
+                                    <td>@item.DateAdded.ToString("dd-MM-yyyy hh:mm")</td>
+                                    <td>@item.Remark</td>
+                                    <td class="content-center">
+                                        <a data-toggle="modal" data-target="#confirmation-@item.ID" role="button"><img src="~/images/Dashboard/delete.png" class="delete"></a>
+                                        <!-- Section Confirmation Box -->
+                                        <div class="modal fade " id="confirmation-@item.ID" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-confirm-body">
+                                                        <div>
+                                                            <p class="confirm-text">
+                                                                Are you sure you want to delete reported issue?
+                                                            </p>
+
+                                                            <div class="btn-confirm">
+                                                                <a class="btn btn-yes" href="@Url.Action("DeleteSpamReport", "AdminReports", new { id = @item.ID })" role="button">YES</a>
+                                                                <a class="btn btn-no" data-dismiss="modal" aria-label="Close" role="button">NO</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Section Confirmation-Box END -->
+                                    </td>
+                                    <td class="content-center">
+                                        <!-- Default dropleft button -->
+                                        <div class="btn-group dropleft">
+                                            <button type="button" id="dropdownMenu2" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <img src="~/images/Dashboard/3dot.png" alt="menu" class="dots">
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                                <a class="dropdown-item" href="@Url.Action("AdminDownloadNote", "Admin", new { noteid = @item.NoteID })" role="button">Download Notes</a>
+                                                <a class="dropdown-item" href="@Url.Action("NoteDetail", "Admin", new { noteid = @item.NoteID })" role="button">View More Details</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            }
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+
+            @if (Model.Count() != 0)
+            {
+                <div class="row justify-content-center">
+
+                    <nav aria-label="...">
+                        <ul class="pagination flex-wrap">
+
+                            <li class="page-item">
+                                @if (ViewBag.PageNumber == 1)
+                                {
+                                    <a class="page-link" href="@Url.Action("SpamReport", new { sort = ViewBag.Sort, search = ViewBag.Search, page = ViewBag.PageNumber })"><i class="fa fa-angle-left"></i></a>
+                                }
+                                else
+                                {
+                                    <a class="page-link" href="@Url.Action("SpamReport", new { sort = ViewBag.Sort, search = ViewBag.Search, page = ViewBag.PageNumber - 1 })"><i class="fa fa-angle-left"></i></a>
+                                }
+                            </li>
+
+                            @{
+                                double? TotalPages = ViewBag.TotalPages;
+
+                                if (ViewBag.PageNumber != 1 && ViewBag.PageNumber - 2 > 1)
+                                {
+                                    int page = Convert.ToInt32(@ViewBag.PageNumber) - 3;
+                                    <li class="page-item">@Html.ActionLink("1", "SpamReport", new { sort = ViewBag.Sort, search = ViewBag.Search, page = 1 }, new { @class = "page-link" })</li>
+                                    if (page != 1)
+                                    {
+                                        <li class="page-item more-pages-dots">@Html.ActionLink("...", "SpamReport", new { sort = ViewBag.Sort, search = ViewBag.Search, page = page }, new { @class = "page-link more-pages-dots" })</li>
+                                    }
+                                }
+
+                                for (int i = 2; i > 0; i--)
+                                {
+                                    if (ViewBag.PageNumber - i > 0)
+                                    {
+                                        int page = Convert.ToInt32(@ViewBag.PageNumber) - i;
+                                        <li class="page-item">@Html.ActionLink(page.ToString(), "SpamReport", new { sort = ViewBag.Sort, search = ViewBag.Search, page = page }, new { @class = "page-link" })</li>
+                                    }
+                                }
+
+                                <li class="page-item active">
+                                    <a class="page-link">@ViewBag.PageNumber<span class="sr-only">(current)</span></a>
+                                </li>
+
+                                for (int i = 1; i < 3; i++)
+                                {
+                                    if (ViewBag.PageNumber + i <= TotalPages)
+                                    {
+                                        int page = Convert.ToInt32(@ViewBag.PageNumber) + i;
+                                        <li class="page-item">@Html.ActionLink(page.ToString(), "SpamReport", new { sort = ViewBag.Sort, search = ViewBag.Search, page = page }, new { @class = "page-link" })</li>
+                                    }
+                                }
+
+                                if (ViewBag.PageNumber != TotalPages && ViewBag.PageNumber + 2 < TotalPages)
+                                {
+                                    int page = Convert.ToInt32(@ViewBag.PageNumber) + 3;
+                                    if (page != TotalPages)
+                                    {
+                                        <li class="page-item">@Html.ActionLink("...", "SpamReport", new { sort = ViewBag.Sort, search = ViewBag.Search, page = page }, new { @class = "page-link more-pages-dots" })</li>
+                                    }
+                                    <li class="page-item">@Html.ActionLink(TotalPages.ToString(), "SpamReport", new { sort = ViewBag.Sort, search = ViewBag.Search, page = TotalPages }, new { @class = "page-link" })</li>
+                                }
+
+                            }
+
+                            <li class="page-item">
+                                @if (ViewBag.PageNumber == ViewBag.TotalPages)
+                                {
+                                    <a class="page-link" href="@Url.Action("SpamReport", new { sort = ViewBag.Sort, search = ViewBag.Search, page = ViewBag.PageNumber })"><i class="fa fa-angle-right"></i></a>
+                                }
+                                else
+                                {
+                                    <a class="page-link" href="@Url.Action("SpamReport", new { sort = ViewBag.Sort, search = ViewBag.Search, page = ViewBag.PageNumber + 1 })"><i class="fa fa-angle-right"></i></a>
+                                }
+                            </li>
+
+                        </ul>
+                    </nav>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Section Spam Reports END -->

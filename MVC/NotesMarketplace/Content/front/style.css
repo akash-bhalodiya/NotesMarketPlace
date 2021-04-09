@@ -707,10 +707,15 @@
 }
 
 
-    /*===========================================================================================================*/
-    /*                              My Downloades                                                                */
-    /*===========================================================================================================*/
-    a: focus {
+/*===========================================================================================================*/
+/*                              My Downloades                                                                */
+/*===========================================================================================================*/
+#my-downloads{
+    position: relative;
+    min-height: 75%;
+}
+
+a: focus {
     outline: 0px;
 }
 
@@ -821,6 +826,11 @@
 /*===========================================================================================================*/
 /*                              My Sold Notes                                                                */
 /*===========================================================================================================*/
+#my-sold-notes {
+    position: relative;
+    min-height: 75%;
+}
+
 /*----------- Drop Down Left --------------*/
 #my-sold-notes .dropleft div.dropdown-menu.show {
     -webkit-transform: translate3d(-150px, -11px, 0px) !important;
@@ -835,6 +845,10 @@
 /*===========================================================================================================*/
 /*                              My Rejected Notes                                                            */
 /*===========================================================================================================*/
+#my-rejected-notes {
+    position: relative;
+    min-height: 75%;
+}
 /*----------- Drop Down Left --------------*/
 #my-rejected-notes .dropleft div.dropdown-menu.show {
     -webkit-transform: translate3d(-150px, -11px, 0px) !important;
@@ -849,6 +863,11 @@
 /*===========================================================================================================*/
 /*                              Buyer Reques                                                                 */
 /*===========================================================================================================*/
+#buyer-request {
+    position: relative;
+    min-height: 75%;
+}
+
 /*----------- Drop Down Left --------------*/
 #buyer-request .dropleft div.dropdown-menu.show {
     -webkit-transform: translate3d(-150px, -11px, 0px) !important;
@@ -1232,10 +1251,12 @@ input.input-validation-error {
     text-align: center;
 }
 
+.btn-confirm button.btn.btn-yes,
 .btn-confirm a.btn.btn-yes {
     color: #fff;
     background: #cccccc;
     height: 32px;
+    border: 1px solid #cccccc;
     border-radius: 3px;
     width: 100px;
     font-weight: 600;
@@ -1244,10 +1265,12 @@ input.input-validation-error {
     margin-right: 20px;
 }
 
+.btn-confirm button.btn.btn-no,
 .btn-confirm a.btn.btn-no {
     color: #fff;
     background: #ff3636;
     height: 32px;
+    border: 1px solid #ff3636;
     border-radius: 3px;
     width: 100px;
     font-weight: 600;
@@ -1256,8 +1279,14 @@ input.input-validation-error {
     margin-left: 20px;
 }
 
-.btn-confirm a.btn.btn-no:hover,
+.btn-confirm button.btn.btn-no:hover,
+.btn-confirm a.btn.btn-no:hover{
+    border: 1px solid #ff3636;
+    border-radius: 3px;
+}
+
+.btn-confirm button.btn.btn-yes:hover,
 .btn-confirm a.btn.btn-yes:hover{
-    border: 1px solid white;
+    border: 1px solid #cccccc;
     border-radius: 3px;
 }

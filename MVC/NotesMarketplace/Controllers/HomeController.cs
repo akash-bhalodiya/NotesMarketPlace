@@ -16,16 +16,38 @@ namespace NotesMarketplace.Controllers
     public class HomeController : Controller
     {
         readonly private NotesMarketplaceEntities _dbcontext = new NotesMarketplaceEntities();
-
+        
+        [AllowAnonymous]
         [Route("")]
         public ActionResult Index()
         {
+            // if  is logged iusern and logged in user is not member then redirect to admin dashboard
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = _dbcontext.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+                if(user.RoleID != _dbcontext.UsersRoles.Where(x => x.Name.ToLower() == "member").Select(x => x.ID).FirstOrDefault())
+                {
+                    return RedirectToAction("Dashboard", "Admin");
+                }
+            }
+
             return View();
         }
 
+        [AllowAnonymous]
         [Route("FAQs")]
         public ActionResult FAQs()
         {
+            // if  is logged iusern and logged in user is not member then redirect to admin dashboard
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = _dbcontext.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+                if (user.RoleID != _dbcontext.UsersRoles.Where(x => x.Name.ToLower() == "member").Select(x => x.ID).FirstOrDefault())
+                {
+                    return RedirectToAction("Dashboard", "Admin");
+                }
+            }
+
             // viewbag for active class in navigation
             ViewBag.FAQ = "active";
 
@@ -33,9 +55,20 @@ namespace NotesMarketplace.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("Contactus")]
         public ActionResult Contactus()
         {
+            // if  is logged iusern and logged in user is not member then redirect to admin dashboard
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = _dbcontext.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+                if (user.RoleID != _dbcontext.UsersRoles.Where(x => x.Name.ToLower() == "member").Select(x => x.ID).FirstOrDefault())
+                {
+                    return RedirectToAction("Dashboard", "Admin");
+                }
+            }
+
             // viewbag for active class in navigation
             ViewBag.Contactus = "active";
             // check if user is authenticated then we need to show full name and email
@@ -58,6 +91,7 @@ namespace NotesMarketplace.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         [Route("Contactus")]
         public ActionResult Contactus(ContactusViewModel contactusviewmodel)
         {
@@ -88,8 +122,8 @@ namespace NotesMarketplace.Controllers
             // get all text from contactus from emailtemplate directory
             bodytxt = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/EmailTemplate/") + "Contactus" + ".cshtml");
             // replace fullname and comment 
-            bodytxt = bodytxt.Replace("ViewBag.FullName", contactusviewmodel.FullName);
-            bodytxt = bodytxt.Replace("ViewBag.Comment", contactusviewmodel.Comment);
+            bodytxt = bodytxt.Replace("ViewBag.FullName", contactusviewmodel.FullName.Trim());
+            bodytxt = bodytxt.Replace("ViewBag.Comment", contactusviewmodel.Comment.Trim());
             bodytxt = bodytxt.ToString();
 
             // get support email and notify email

@@ -8,8 +8,14 @@ namespace NotesMarketplace.ViewModels
 {
     public class BuyerRequestViewModel
     {
-        public Download TblDownload { get; set; }
-        public User TblUser { get; set; }
-        public UserProfile TblUserProfile { get; set; }
+        public int NoteID { get; set; }
+        public int DownloadID { get; set; }
+        public string Title { get; set; }
+        public string Category { get; set; }
+        public string Buyer { get; set; }
+        public string PhoneNo { get; set; }
+        public string SellType { get; set; }
+        public decimal? Price { get; set; }
+        public DateTime? DownloadedDate { get; set; }
     }
 }

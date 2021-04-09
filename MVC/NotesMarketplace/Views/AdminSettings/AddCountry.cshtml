@@ -1,0 +1,67 @@
+﻿@model NotesMarketplace.ViewModels.AddCountryViewModel
+
+@{
+    ViewBag.Title = "Add Country";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="blank">
+</section>
+
+<!-- Section Add Country -->
+<section id="add-country">
+
+    <div class="content-box">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h2 class="heading-lg">Add Country</h2>
+                </div>
+            </div>
+
+            <br>
+
+            @using (Html.BeginForm("AddCountry", "AdminSettings", FormMethod.Post))
+            {
+
+                @Html.AntiForgeryToken()
+
+                <div class="row">
+
+                    <div class="form-group col-lg-6 col-md-8 col-sm-12 col-12">
+                        <label for="country-name">Country Name *</label>
+                        @Html.TextBoxFor(model => model.CountryName, new { @class = "form-control", id = "country-name", placeholder = "Enter country name", required = "required" })
+                        @Html.ValidationMessageFor(model => model.CountryName, "", new { @class = "text-invalid" })
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="form-group col-lg-6 col-md-8 col-sm-12 col-12">
+                        <label for="country-code">Country Code *</label>
+                        @Html.TextBoxFor(model => model.CountryCode, new { @class = "form-control", id = "country-code", placeholder = "Enter country code", required = "required" })
+                        @Html.ValidationMessageFor(model => model.CountryCode, "", new { @class = "text-invalid" })
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-4 col-6">
+                        <div class="btn-submit">
+                            <button class="btn btn-color" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Section Add Country END -->

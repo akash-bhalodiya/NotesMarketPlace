@@ -74,12 +74,20 @@
                         @Html.LabelFor(model => model.DisplayPicture)
                         @Html.TextBoxFor(model => model.DisplayPicture, new { @class = "form-control-file image-upload", id = "display-picture", type = "file", accept = ".jpg , .jpeg , .png" })
                         @Html.ValidationMessageFor(model => model.DisplayPicture, "", new { @class = "text-invalid" })
+                        @if (!string.IsNullOrEmpty(Model.Picture))
+                        {
+                            <p class="uploaded-data">To see your previously uploaded display notes picture <a href="@Url.Content(Model.Picture)" target="_blank">Click Here</a></p>
+                        }
                     </div>
 
                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12 type-file">
                         @Html.LabelFor(model => model.UploadNotes)
                         @Html.TextBoxFor(model => model.UploadNotes, new { @class = "form-control-file image-upload-note", id = "upload-notes", type = "file", accept = ".pdf", multiple = "multiple" })
                         @Html.ValidationMessageFor(model => model.UploadNotes, "", new { @class = "text-invalid" })
+                        @if (!string.IsNullOrEmpty(Model.Note))
+                        {
+                            <p class="uploaded-data">To see your previously uploaded notes <a href="@Url.Action("DownloadNotes", "SearchNotes", new { noteid = Model.NoteID })" target="_blank">Click Here</a></p>
+                        }
                     </div>
 
                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-12">
@@ -201,6 +209,10 @@
                             @Html.LabelFor(model => model.NotesPreview)
                             @Html.TextBoxFor(model => model.NotesPreview, new { @class = "form-control-file image-upload", id = "note-preview", type = "file", accept = ".pdf" })
                             @Html.ValidationMessageFor(model => model.NotesPreview, "", new { @class = "text-invalid" })
+                            @if (!string.IsNullOrEmpty(Model.Preview))
+                            {
+                                <p class="uploaded-data">To see your previously uploaded preview <a href="@Url.Content(Model.Preview)" target="_blank">Click Here</a></p>
+                            }
                         </div>
                     </div>
 

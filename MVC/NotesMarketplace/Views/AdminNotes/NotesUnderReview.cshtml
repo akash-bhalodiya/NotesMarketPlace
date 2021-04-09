@@ -1,0 +1,326 @@
+﻿@model IEnumerable<NotesMarketplace.ViewModels.NotesUnderReviewViewModel>
+
+@{
+    ViewBag.Title = "NotesUnderReview";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="blank">
+</section>
+
+<!-- Section Notes Under Review -->
+<section id="notes-under-review">
+
+    <div class="content-box">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12 table-heading my-auto">
+                    <h4 class="heading-md">Notes Under Review</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-7 col-md-6 col-sm-12 col-12 filter-table-text">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4 col-sm-4 col-6">
+                            <p>seller</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @using (Html.BeginForm("NotesUnderReview", "AdminNotes", FormMethod.Get))
+            {
+                <input value="@ViewBag.Member" name="member" hidden>
+
+                <div class="row">
+                    <div class="col-lg-7 col-md-6 col-sm-12 col-12 text-left filter-table-row">
+                        <div class="row">
+                            <div class="form-group col-lg-3 col-md-6 col-sm-4 col-6 filter-table">
+                                @Html.DropDownList("seller", new SelectList(@ViewBag.SellerList, "Value", "Text", @ViewBag.Seller), "Select seller", new { @class = "form-control", id = "notesunderreview-seller" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-6 col-sm-12 col-12" id="table-search">
+                        <div class="row search">
+                            <div class="search-bar col-lg-9 col-md-8 col-sm-9 col-8 form-group">
+                                <input type="search" name="search" value="@ViewBag.Search" class="form-control" id="search" placeholder="Search">
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-3 col-4 btn-search">
+                                <button class="btn btn-color" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+            <div class="row table-general table-responsive">
+
+                <table class="table">
+                    <thead>
+                        <tr class="column-title">
+                            <th>Sr No.</th>
+                            <th>@Html.ActionLink("Note Title", "NotesUnderReview", new { member = @ViewBag.Member, sort = ViewBag.Sort == null ? "Title_Desc" : (ViewBag.Sort == "Title_Asc" ? "Title_Desc" : "Title_Asc"), search = ViewBag.Search, seller = ViewBag.Seller, page = ViewBag.PageNumber })</th>
+                            <th>@Html.ActionLink("Category", "NotesUnderReview", new { member = @ViewBag.Member, sort = ViewBag.Sort == null ? "Category_Desc" : (ViewBag.Sort == "Category_Asc" ? "Category_Desc" : "Category_Asc"), search = ViewBag.Search, seller = ViewBag.Seller, page = ViewBag.PageNumber })</th>
+                            <th>@Html.ActionLink("Seller", "NotesUnderReview", new { member = @ViewBag.Member, sort = ViewBag.Sort == null ? "Seller_Desc" : (ViewBag.Sort == "Seller_Asc" ? "Seller_Desc" : "Seller_Asc"), search = ViewBag.Search, seller = ViewBag.Seller, page = ViewBag.PageNumber })</th>
+                            <th class="user-info-eye-column"></th>
+                            <th class="table-date">@Html.ActionLink("Date Added", "NotesUnderReview", new { member = @ViewBag.Member, sort = ViewBag.Sort == null ? "DateAdded_Desc" : (ViewBag.Sort == "DateAdded_Asc" ? "DateAdded_Desc" : "DateAdded_Asc"), search = ViewBag.Search, seller = ViewBag.Seller, page = ViewBag.PageNumber })</th>
+                            <th>@Html.ActionLink("Status", "NotesUnderReview", new { member = @ViewBag.Member, sort = ViewBag.Sort == null ? "Status_Desc" : (ViewBag.Sort == "Status_Asc" ? "Status_Desc" : "Status_Asc"), search = ViewBag.Search, seller = ViewBag.Seller, page = ViewBag.PageNumber })</th>
+                            <th class="content-center action-button">Action</th>
+                            <th class="content-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model.Count() == 0)
+                        {
+                            <tr class="no-record">
+                                <td colspan="9" class="text-center">No Record Found</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            var srno = (ViewBag.PageNumber - 1) * 5;
+                            foreach (var item in Model)
+                            {
+
+                                <tr>
+                                    @{ srno = srno + 1; }
+                                    <td class="table-sr-no">@srno</td>
+                                    <td class="table-notes-title"><a href="@Url.Action("NoteDetail", "Admin", new { noteid = @item.NoteID })">@item.Title</a></td>
+                                    <td>@item.Category</td>
+                                    <td class="user-info-eye-link">
+                                        @item.Seller
+                                    </td>
+                                    <td class="user-info-eye-icon">
+                                        <a href="@Url.Action("MemberDetail", "AdminMembers", new { member = @item.SellerID })"><img src="~/images/Dashboard/eye.png" class="eye"></a>
+                                    </td>
+                                    <td>@item.DateAdded.ToString("dd-MM-yyyy, hh:mm")</td>
+                                    <td>@item.Status</td>
+                                    <td>
+                                        <button type="button" class="btn btn-approve" data-toggle="modal" data-target="#approve-@item.NoteID">Approve</button>
+                                        <button type="button" class="btn btn-reject" data-toggle="modal" data-target="#reject-@item.NoteID">Reject</button>
+                                        @if (String.Equals(item.Status.ToLower(), "submitted for review"))
+                                        {
+                                            <button type="button" class="btn btn-inreview" data-toggle="modal" data-target="#inreview-@item.NoteID">InReview</button>
+                                        }
+                                        else
+                                        {
+                                            <button type="button" class="btn btn-inreview" disabled>InReview</button>
+                                        }
+                                        <!-- Section Inreview Confirmation Box -->
+                                        <div class="modal fade " id="inreview-@item.NoteID" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-confirm-body">
+                                                        <div>
+                                                            <p class="confirm-text">
+                                                                Via marking the note In Review – System will let user know that review process has been initiated. Please press yes to continue.
+                                                            </p>
+
+                                                            <div class="btn-confirm">
+                                                                <a class="btn btn-yes" href="@Url.Action("MakeNoteInReview", "AdminNotes", new { id = @item.NoteID })" id="confirmationbutton" role="button">YES</a>
+                                                                <a class="btn btn-no" data-dismiss="modal" aria-label="Close" role="button">NO</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Section Inreview Confirmation-Box END -->
+                                        <!-- Section Approve Confirmation Box -->
+                                        <div class="modal fade " id="approve-@item.NoteID" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-confirm-body">
+                                                        <div>
+                                                            <p class="confirm-text">
+                                                                If you approve the notes – System will publish the notes over portal. Please press yes to continue.
+                                                            </p>
+
+                                                            <div class="btn-confirm">
+                                                                <a class="btn btn-yes" href="@Url.Action("MakeNotePublish", "AdminNotes", new { id = @item.NoteID })" id="confirmationbutton" role="button">YES</a>
+                                                                <a class="btn btn-no" data-dismiss="modal" aria-label="Close" role="button">NO</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Section Approve Confirmation-Box END -->
+                                        <!-- Section Add Remark -->
+                                        <div class="modal fade " id="reject-@item.NoteID" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div>
+                                                            <h3 class="heading-md">@item.Title</h3>
+                                                        </div>
+                                                        <div>
+
+                                                            @using (Html.BeginForm("MakeNoteReject", "AdminNotes", FormMethod.Post, new { id = "makenotereject-" + @item.NoteID }))
+                                                            {
+
+                                                                <input value="@item.NoteID" name="noteid" hidden>
+
+                                                                <div class="form-group" id="modal-remark">
+                                                                    <label for="remark">Remarks *</label>
+                                                                    <textarea class="form-control" name="remark" id="remark" placeholder="remark..." required></textarea>
+                                                                </div>
+
+                                                                <div id="reject-modal-btn">
+                                                                    <div class="btn-modal-reject">
+                                                                        <button class="btn" data-toggle="modal" data-target="#confirmation-@item.NoteID" data-dismiss="modal" aria-label="Close">Reject</button>
+                                                                    </div>
+                                                                    <div class="btn-modal-cancle">
+                                                                        <button class="btn" data-dismiss="modal">Cancle</button>
+                                                                    </div>
+                                                                </div>
+
+                                                            }
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Section Add Remark END -->
+                                        <!-- Section Confirmation Box -->
+                                        <div class="modal fade " id="confirmation-@item.NoteID" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-confirm-body">
+                                                        <div>
+                                                            <p class="confirm-text">
+                                                                Are you sure you want to reject seller request?
+                                                            </p>
+
+                                                            <div class="btn-confirm">
+                                                                <button class="btn btn-yes" onclick="$('#makenotereject-'+@item.NoteID).submit(); $(this).dialog('close');">YES</button>
+                                                                <button class="btn btn-no" data-dismiss="modal" aria-label="Close" role="button">NO</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Section Confirmation-Box END -->
+
+                                    </td>
+                                    <td class="content-center">
+                                        <!-- Default dropleft button -->
+                                        <div class="btn-group dropleft">
+                                            <button type="button" id="dropdownMenu2" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <img src="~/images/Dashboard/3dot.png" alt="menu" class="dots">
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                                <a class="dropdown-item" href="@Url.Action("AdminDownloadNote", "Admin", new { noteid = @item.NoteID })" role="button">Download Note</a>
+                                                <a class="dropdown-item" href="@Url.Action("NoteDetail", "Admin", new { noteid = @item.NoteID })" role="button">View More Details</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            }
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+
+            @if (Model.Count() != 0)
+            {
+                <div class="row justify-content-center">
+
+                    <nav aria-label="...">
+                        <ul class="pagination flex-wrap">
+
+                            <li class="page-item">
+                                @if (ViewBag.PageNumber == 1)
+                                {
+                                    <a class="page-link" href="@Url.Action("NotesUnderReview", new { member = @ViewBag.Member, sort = ViewBag.Sort, search = @ViewBag.Search, seller = ViewBag.Seller, page = @ViewBag.PageNumber })"><i class="fa fa-angle-left"></i></a>
+                                }
+                                else
+                                {
+                                    <a class="page-link" href="@Url.Action("NotesUnderReview", new { member = @ViewBag.Member, sort = ViewBag.Sort, search = @ViewBag.Search, seller = ViewBag.Seller, page = @ViewBag.PageNumber - 1 })"><i class="fa fa-angle-left"></i></a>
+                                }
+                            </li>
+
+                            @{
+                                double? TotalPages = ViewBag.TotalPages;
+
+                                if (ViewBag.PageNumber != 1 && ViewBag.PageNumber - 2 > 1)
+                                {
+                                    int page = Convert.ToInt32(@ViewBag.PageNumber) - 3;
+                                    <li class="page-item">@Html.ActionLink("1", "NotesUnderReview", new { member = @ViewBag.Member, sort = @ViewBag.Sort, search = @ViewBag.Search, seller = ViewBag.Seller, page = 1 }, new { @class = "page-link" })</li>
+                                    if (page != 1)
+                                    {
+                                        <li class="page-item more-pages-dots">@Html.ActionLink("...", "NotesUnderReview", new { member = @ViewBag.Member, sort = @ViewBag.Sort, search = @ViewBag.Search, seller = ViewBag.Seller, page = page }, new { @class = "page-link more-pages-dots" })</li>
+                                    }
+                                }
+
+                                for (int i = 2; i > 0; i--)
+                                {
+                                    if (ViewBag.PageNumber - i > 0)
+                                    {
+                                        int page = Convert.ToInt32(@ViewBag.PageNumber) - i;
+                                        <li class="page-item">@Html.ActionLink(page.ToString(), "NotesUnderReview", new { member = @ViewBag.Member, sort = @ViewBag.Sort, search = @ViewBag.Search, seller = ViewBag.Seller, page = page }, new { @class = "page-link" })</li>
+                                    }
+                                }
+
+                                <li class="page-item active">
+                                    <a class="page-link">@ViewBag.PageNumber<span class="sr-only">(current)</span></a>
+                                </li>
+
+                                for (int i = 1; i < 3; i++)
+                                {
+                                    if (ViewBag.PageNumber + i <= TotalPages)
+                                    {
+                                        int page = Convert.ToInt32(@ViewBag.PageNumber) + i;
+                                        <li class="page-item">@Html.ActionLink(page.ToString(), "NotesUnderReview", new { member = @ViewBag.Member, sort = @ViewBag.Sort, search = @ViewBag.Search, seller = ViewBag.Seller, page = page }, new { @class = "page-link" })</li>
+                                    }
+                                }
+
+                                if (ViewBag.PageNumber != TotalPages && ViewBag.PageNumber + 2 < TotalPages)
+                                {
+                                    int page = Convert.ToInt32(@ViewBag.PageNumber) + 3;
+                                    if (page != TotalPages)
+                                    {
+                                        <li class="page-item">@Html.ActionLink("...", "NotesUnderReview", new { member = @ViewBag.Member, sort = @ViewBag.Sort, search = @ViewBag.Search, seller = ViewBag.Seller, page = page }, new { @class = "page-link more-pages-dots" })</li>
+                                    }
+                                    <li class="page-item">@Html.ActionLink(TotalPages.ToString(), "NotesUnderReview", new { member = @ViewBag.Member, sort = @ViewBag.Sort, search = @ViewBag.Search, seller = ViewBag.Seller, page = TotalPages }, new { @class = "page-link" })</li>
+                                }
+
+                            }
+
+                            <li class="page-item">
+                                @if (ViewBag.PageNumber == ViewBag.TotalPages)
+                                {
+                                    <a class="page-link" href="@Url.Action("NotesUnderReview", new { member = @ViewBag.Member, sort = ViewBag.Sort, search = @ViewBag.Search, seller = ViewBag.Seller, page = @ViewBag.PageNumber })"><i class="fa fa-angle-right"></i></a>
+                                }
+                                else
+                                {
+                                    <a class="page-link" href="@Url.Action("NotesUnderReview", new { member = @ViewBag.Member, sort = ViewBag.Sort, search = @ViewBag.Search, seller = ViewBag.Seller, page = @ViewBag.PageNumber + 1 })"><i class="fa fa-angle-right"></i></a>
+                                }
+                            </li>
+
+                        </ul>
+                    </nav>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+<!-- Section Notes Under Review END -->

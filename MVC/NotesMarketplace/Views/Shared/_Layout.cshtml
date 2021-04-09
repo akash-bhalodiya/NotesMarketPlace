@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="~/images/favicon/favicon.ico" type="image/x-icon">
 
     <!-- Google Fonts -->
-    <link href=" https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700& display=swap" rel="stylesheet">
+    <link href=" https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="~/Content/front/bootstrap/bootstrap.min.css">
@@ -35,6 +35,10 @@
 
     <!-- Navigation Bar -->
     <header>
+
+        @{
+            var _dbcontext = new NotesMarketplace.Models.NotesMarketplaceEntities();
+        }
 
         <nav class="navbar navbar-expand-lg white-navbar navbar-fixed-height fixed-top">
 
@@ -66,9 +70,20 @@
 
                             @if (User.Identity.IsAuthenticated)
                             {
+                                var user = _dbcontext.Users.Where(x => x.Email == User.Identity.Name).FirstOrDefault();
+                                var profile = _dbcontext.UserProfiles.Where(x => x.UserID == user.ID).FirstOrDefault();
+
                                 <li class="nav-item profile-dropdown">
                                     <a class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <img src="@Url.Action("GetPhoto", "User")" class="rounded-circle">
+                                        @if (profile == null || profile.ProfilePicture == null)
+                                        {
+                                            var defaultProfile = _dbcontext.SystemConfigurations.Where(x => x.Name.ToLower() == "defaultprofile").FirstOrDefault();
+                                            <img src="@Url.Content(defaultProfile.Value)" class="rounded-circle">
+                                        }
+                                        else
+                                        {
+                                            <img src="@Url.Content(profile.ProfilePicture)" class="rounded-circle">
+                                        }
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a class="dropdown-item" href="@Url.Action("UserProfile","User")">My Profile</a>
@@ -131,12 +146,18 @@
                     <p>Copyright &copy; TatvaSoft All Rights Reserved By</p>
                 </div>
 
+                @{
+                    var facebook = _dbcontext.SystemConfigurations.Where(x => x.Name.ToLower() == "facebookurl").Select(x => x.Value).FirstOrDefault();
+                    var twitter = _dbcontext.SystemConfigurations.Where(x => x.Name.ToLower() == "twitterurl").Select(x => x.Value).FirstOrDefault();
+                    var linkedin = _dbcontext.SystemConfigurations.Where(x => x.Name.ToLower() == "linkedinurl").Select(x => x.Value).FirstOrDefault();
+                }
+
                 <!-- Social Icon -->
                 <div class="col-md-6 col-sm-4 foot-icon col-sm-4 text-right">
                     <ul class="social-list">
-                        <li><a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="https://twitter.com/?lang=en"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="https://in.linkedin.com/"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="@facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="@twitter" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="@linkedin" target="_blank"><i class="fa fa-linkedin"></i></a></li>
                     </ul>
                 </div>
 
@@ -155,6 +176,16 @@
 
     <!-- Bootstrap JS -->
     <script src="~/Scripts/front/bootstrap/bootstrap.min.js"></script>
+
+    @if (ViewBag.Requested != null)
+    {
+        <script type="text/javascript">
+            window.$("#thankspopup").modal("show");
+        </script>
+    }
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
     <!-- Custom JS -->
     <script src="~/Scripts/front/script.js"></script>
