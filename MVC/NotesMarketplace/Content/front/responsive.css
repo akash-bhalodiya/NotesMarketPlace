@@ -102,15 +102,6 @@
         height: 440px;
     }
 
-    /*-------------My Downloads-------------*/
-    #my-downloads,
-    #my-sold-notes,
-    #my-rejected-notes,
-    #buyer-request{
-        position: relative;
-        min-height: 71%;
-    }
-
 }
 
 /* ========================================================================================================== */
@@ -325,15 +316,6 @@
     .table-general table td.table-sr-no {
         font-size: 16px;
         line-height: 18px;
-    }
-
-    /*-------------My Downloads-------------*/
-    #my-downloads,
-    #my-sold-notes,
-    #my-rejected-notes,
-    #buyer-request {
-        position: relative;
-        min-height: 71%;
     }
 
 }
@@ -578,15 +560,6 @@
     .table-general table td.table-sr-no {
         font-size: 16px;
         line-height: 18px;
-    }
-
-    /*-------------My Downloads-------------*/
-    #my-downloads,
-    #my-sold-notes,
-    #my-rejected-notes,
-    #buyer-request {
-        position: relative;
-        min-height: 71%;
     }
 
 }
@@ -1258,15 +1231,6 @@
         position: relative;
         top: -26px;
         right: 10px;
-    }
-
-    /*-------------My Downloads-------------*/
-    #my-downloads,
-    #my-sold-notes,
-    #my-rejected-notes,
-    #buyer-request {
-        position: relative;
-        min-height: 71%;
     }
 
 }

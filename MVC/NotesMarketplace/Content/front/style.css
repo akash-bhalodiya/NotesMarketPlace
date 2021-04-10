@@ -561,6 +561,15 @@
     left: 20px;
 }
 
+p.uploaded-data a{
+    color: #6255a5;
+}
+
+p.uploaded-data a:hover {
+    color: #6255a5;
+    text-decoration: none;
+}
+
 /*===========================================================================================================*/
 /*                              FAQ                                                                          */
 /*===========================================================================================================*/
@@ -710,12 +719,7 @@
 /*===========================================================================================================*/
 /*                              My Downloades                                                                */
 /*===========================================================================================================*/
-#my-downloads{
-    position: relative;
-    min-height: 75%;
-}
-
-a: focus {
+a:focus {
     outline: 0px;
 }
 
@@ -826,10 +830,6 @@ a: focus {
 /*===========================================================================================================*/
 /*                              My Sold Notes                                                                */
 /*===========================================================================================================*/
-#my-sold-notes {
-    position: relative;
-    min-height: 75%;
-}
 
 /*----------- Drop Down Left --------------*/
 #my-sold-notes .dropleft div.dropdown-menu.show {
@@ -845,10 +845,6 @@ a: focus {
 /*===========================================================================================================*/
 /*                              My Rejected Notes                                                            */
 /*===========================================================================================================*/
-#my-rejected-notes {
-    position: relative;
-    min-height: 75%;
-}
 /*----------- Drop Down Left --------------*/
 #my-rejected-notes .dropleft div.dropdown-menu.show {
     -webkit-transform: translate3d(-150px, -11px, 0px) !important;
@@ -863,10 +859,6 @@ a: focus {
 /*===========================================================================================================*/
 /*                              Buyer Reques                                                                 */
 /*===========================================================================================================*/
-#buyer-request {
-    position: relative;
-    min-height: 75%;
-}
 
 /*----------- Drop Down Left --------------*/
 #buyer-request .dropleft div.dropdown-menu.show {
@@ -1085,7 +1077,8 @@ button#dropdownMenu.btn:hover {
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    min-height: 100%;
+    min-height: 100vh;
+    margin-bottom: -80px;
     width: 100%;
     background: url(../../../images/pre-login/banner-with-overlay.jpg) no-repeat;
     background-size: cover;

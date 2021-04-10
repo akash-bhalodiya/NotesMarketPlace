@@ -17,7 +17,7 @@ namespace NotesMarketplace.Controllers
         private readonly NotesMarketplaceEntities _dbcontext = new NotesMarketplaceEntities();
 
         [HttpGet]
-        [Authorize(Roles = "SuperAdmin,Admin")]
+        [Authorize(Roles = "Admin")]
         [Route("Admin/Profile")]
         public ActionResult MyProfile()
         {
