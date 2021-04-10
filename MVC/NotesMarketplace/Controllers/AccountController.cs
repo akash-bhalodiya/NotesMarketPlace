@@ -45,6 +45,7 @@ namespace NotesMarketplace.Controllers
                 }
                 else 
                 {
+                    var memberid = _dbcontext.UsersRoles.Where(x => x.Name.ToLower() == "member").Select(x => x.ID).FirstOrDefault();
                     //create user and save into database
                     User user = new User
                     {
@@ -53,7 +54,7 @@ namespace NotesMarketplace.Controllers
                         Email = signupviewmodel.Email.Trim(),
                         Password = signupviewmodel.Password.Trim(),
                         CreatedDate = DateTime.Now,
-                        RoleID = 2,
+                        RoleID = memberid,
                         IsActive = true
                     };
 
@@ -64,8 +65,12 @@ namespace NotesMarketplace.Controllers
                     // send date as string format for validate user
                     string date = user.CreatedDate.Value.ToString("ddMMyyyyHHmmss");
 
+                    var request = HttpContext.Request;
+
+                    string baseurl = "https://localhost:" + request.Url.Port;
+
                     //send email for verification to user
-                    BuildEmailVerifyTemplate(user,date);
+                    BuildEmailVerifyTemplate(baseurl,user,date);
 
                     //show success message
                     ViewBag.Success = true;
@@ -83,13 +88,13 @@ namespace NotesMarketplace.Controllers
         }
 
         //get string from email template EmailVerification.cshtml
-        public void BuildEmailVerifyTemplate(User user, string date)
+        public void BuildEmailVerifyTemplate(string baseurl, User user, string date)
         {
             // get text from email verification template
             string body = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/EmailTemplate/") + "EmailVerification" + ".cshtml");
                         
             // create url by user id and user registered date in string format
-            var url = "https://localhost:44381/" + "Account/VerifyEmail?key=" + user.ID + "&value=" + date;
+            var url = baseurl + "/Account/VerifyEmail?key=" + user.ID + "&value=" + date;
             
             // replace url and first name
             body = body.Replace("ViewBag.ConfirmationLink", url);
